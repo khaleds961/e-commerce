@@ -6,10 +6,9 @@ export default function HomeLayout({
     children: React.ReactNode;
 }) {
     return (
-        <div>
+        <>
             <Header />
-            <h1>Home Layout</h1>
             {children}
-        </div>
+        </>
     );
 }

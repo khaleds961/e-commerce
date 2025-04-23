@@ -17,7 +17,7 @@ module.exports = {
           "primary": "#BE1C26",
         },
         fontFamily: {
-          montserrat: ["Montserrat", "sans-serif"],
+          roboto: ["Roboto", "sans-serif"],
         },
       },
     },

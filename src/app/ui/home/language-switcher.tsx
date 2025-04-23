@@ -1,24 +1,24 @@
-"use client";
 
-import { useTranslation } from "react-i18next";
-import i18next from "@/i18n"; // Import your i18n instance with its original name
-
+import Link from 'next/link';
+import { useRouter, usePathname } from '@/i18n/navigation';
+import { useLocale } from 'next-intl';
 
 export default function LanguageSwitcher() {
-  const { t } = useTranslation();
-  
-  const toggleLanguage = () => {
-    const currentLang = i18next.language;
-    const newLang = currentLang === "en" ? "ar" : "en";
-    i18next.changeLanguage(newLang);
-  };
+    const locale = useLocale(); // Get current locale
+    const router = useRouter();
+    const pathname = usePathname();
+    // Define the opposite language
+    const targetLocale = locale === 'en' ? 'ar' : 'en';
 
-  return (
-    <button
-      className="text-white"
-      onClick={toggleLanguage}
-    >
-      {t("lang")}
-    </button>
-  );
+    const switchLanguage = () => {
+        router.push(pathname, { locale: targetLocale });
+    };
+
+    return (
+        <button
+            onClick={switchLanguage}
+            className="text-white px-3 py-1 cursor-pointer text-lg hover:text-gray-300">
+            {locale === 'en' ? 'العربية' : 'English'}
+        </button>
+    );
 }
