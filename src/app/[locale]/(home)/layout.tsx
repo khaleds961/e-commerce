@@ -1,4 +1,4 @@
-import Header from "@/app/ui/home/header";
+import Header from "@/app/ui/HomePage/Header";
 
 export default function HomeLayout({
     children,

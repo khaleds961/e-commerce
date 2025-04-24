@@ -3,9 +3,9 @@ import {notFound} from 'next/navigation';
 import {routing} from '@/i18n/routing';
 import {getLangDir} from 'rtl-detect';
 import '@/app/globals.css'
-import {Roboto} from 'next/font/google';
+import {Poppins} from 'next/font/google';
 
-const roboto = Roboto({
+const poppins = Poppins({
   weight: ['400', '500','700'],
   subsets: ['latin'],
 });
@@ -26,7 +26,7 @@ export default async function LocaleLayout({
   const direction = getLangDir(locale);
 
   return (
-    <html lang={locale} dir={direction} className={roboto.className}>
+    <html lang={locale} dir={direction} className={poppins.className}>
       <body>
         <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>

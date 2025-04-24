@@ -16,9 +16,6 @@ module.exports = {
         colors: {
           "primary": "#BE1C26",
         },
-        fontFamily: {
-          roboto: ["Roboto", "sans-serif"],
-        },
       },
     },
     plugins: [],
