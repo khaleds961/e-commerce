@@ -1,6 +1,6 @@
-export const formatProductName = (name: string) => {
-    if(name.length > 20) {
-        return name.slice(0, 20) + "...";
+export const formatProductName = (name: string, length: number = 20) => {
+    if(name.length > length) {
+        return name.slice(0, length) + "...";
     }
     return name;
 }

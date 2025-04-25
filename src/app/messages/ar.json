@@ -1,7 +1,10 @@
 {
     "HomePage": {
       "lang": "English",
-      "searchbarPlaceholder": "ماذا تبحث عنه؟",
-      "login": "تسجيل الدخول"
+      "searchbarPlaceholder": "ما الذي تبحث عنه؟",
+      "login": "تسجيل الدخول",
+      "categoriesTitle": "تسوق من أفضل فئاتنا",
+      "todayDeals": "أفضل عروض اليوم",
+      "viewAll": "عرض الكل"
     }
   }

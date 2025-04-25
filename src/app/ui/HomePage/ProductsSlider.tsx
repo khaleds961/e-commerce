@@ -18,12 +18,25 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
                     prevEl: '.swiper-button-prev-custom',
                 }}
                 slidesPerView={6}
+                // breakpoints={{
+                //     320: { slidesPerView: 1.5 },
+                //     480: { slidesPerView: 2.5 },    
+                //     640: { slidesPerView: 3.5 },
+                //     1024: { slidesPerView: 4.5 },
+                //     1280: { slidesPerView: 6 },
+                //     1536: { slidesPerView: 6.5 },
+                // }}
                 breakpoints={{
-                    320: { slidesPerView: 2 },
-                    640: { slidesPerView: 3 },
-                    768: { slidesPerView: 4 },
-                    1024: { slidesPerView: 5 },
-                }}
+                    0: { slidesPerView: 2.5 },
+                    320: { slidesPerView: 2.5 },
+                    480: { slidesPerView: 2.5 },
+                    640: { slidesPerView: 3.5 },
+                    768: { slidesPerView: 4.5 },
+                    1024: { slidesPerView: 6.5 },
+                    1280: { slidesPerView: 6.5 },
+                  }}
+                spaceBetween={10}
+                className='w-full'
             >
                 {products.map((product) => (
                     <SwiperSlide key={product.id}>
