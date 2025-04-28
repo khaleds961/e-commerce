@@ -1,9 +1,11 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 
 export default function MegaPromotion() {
+    const t = useTranslations('HomePage');
     return (
-        <div className="bg-gray-100 mt-10">
-            <h1 className="text-2xl md:text-3xl font-bold py-4">Mega Promotion</h1>
+        <div className="mt-10">
+            <h1 className="text-xl md:text-xl font-bold py-4 bg-primary">{t('megaPromotion')}</h1>
             <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
                 {/* First column with two stacked images */}
                 <div className="flex flex-col gap-2">

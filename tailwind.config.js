@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+
 module.exports = {
     content: [
       "./app/**/*.{js,ts,jsx,tsx,mdx}",
@@ -10,11 +11,8 @@ module.exports = {
     ],
     theme: {
       extend: {
-        screens: {
-          'product-page-wrapper': '1440px',
-        },
         colors: {
-          "primary": "#BE1C26",
+          'primary': '#036895',
         },
       },
     },

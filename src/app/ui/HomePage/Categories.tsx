@@ -9,7 +9,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
     <>
       {categories && categories.length > 0 && (
         <>
-          <h1 className="text-2xl font-bold">{t('categoriesTitle')}</h1>
+          <h1 className="text-xl md:text-2xl font-bold">{t('categoriesTitle')}</h1>
           <div className="grid grid-cols-3 md:grid-cols-5 lg:grid-cols-6 xl:grid-cols-8 gap-4 w-full mt-5">
             {categories.map((category) => (
               <div className="cursor-pointer flex flex-col items-center justify-center hover:scale-105 transition-all duration-300" key={category.id}>

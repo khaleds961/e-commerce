@@ -24,7 +24,7 @@ export default function ProductCard({product}: {product: Product}) {
                     className="rounded-t-md object-contain w-full h-full" 
                 />
             </div>
-            <h3 className="px-2 text-sm font-[300] mt-2" title={product.title}>{formatProductName(product.title,20)}</h3>
+            <h3 className="px-2 text-sm font-[300] mt-2 h-[50px]" title={product.title}>{formatProductName(product.title,25)}</h3>
             <div className="p-2 flex items-center gap-2">
                 {Array.from({ length: 5 }).map((_, index) => (
                     <CiStar key={index} className="text-yellow-500" />
@@ -34,11 +34,11 @@ export default function ProductCard({product}: {product: Product}) {
                 <p className="p-1 bg-[#F0FFFF] text-[#102B6B] rounded-md font-[300] line-through">$100</p>
                 <span className="p-1 bg-[#F0FFFF] text-[#102B6B] rounded-md mx-2">10%</span>
             </div>
-            <div className="p-2 font-bold text-2xl">
+            <div className="p-2 font-bold text-xl md:text-2xl">
                 <p>${product.price}</p>
             </div>
             <button className={`cursor-pointer absolute bottom-2 ${isRTL ? 'left-2' : 'right-2'} bg-[#2667ff] text-white rounded-md p-2`}>
-                <LuShoppingCart className="text-2xl" />
+                <LuShoppingCart className="text-xl xl:text-2xl" />
             </button>
         </div>
     )

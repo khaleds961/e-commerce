@@ -1,34 +1,29 @@
-import {NextIntlClientProvider, hasLocale} from 'next-intl';
-import {notFound} from 'next/navigation';
-import {routing} from '@/i18n/routing';
-import {getLangDir} from 'rtl-detect';
+import { NextIntlClientProvider, hasLocale } from 'next-intl';
+import { notFound } from 'next/navigation';
+import { routing } from '@/i18n/routing';
+import { getLangDir } from 'rtl-detect';
 import '@/app/globals.css'
-import {Poppins} from 'next/font/google';
+import { SitePropertiesProvider } from '@/app/providers/SitePropertiesProvider';
+import Wrapper from '@/app/components/Wrapper';
+export default async function LocaleLayout({children,params}: {children: React.ReactNode;params: Promise<{ locale: string }>;}) {
 
-const poppins = Poppins({
-  weight: ['400', '500','700'],
-  subsets: ['latin'],
-});
+  const { locale } = await params;
 
 
-export default async function LocaleLayout({
-  children,
-  params
-}: {
-  children: React.ReactNode;
-  params: Promise<{locale: string}>;
-}) {
-  // Ensure that the incoming `locale` is valid
-  const {locale} = await params;
+
   if (!hasLocale(routing.locales, locale)) {
     notFound();
   }
   const direction = getLangDir(locale);
 
   return (
-    <html lang={locale} dir={direction} className={poppins.className}>
+    <html lang={locale} dir={direction}>
       <body>
-        <NextIntlClientProvider>{children}</NextIntlClientProvider>
+        <SitePropertiesProvider>
+          <Wrapper>
+            <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          </Wrapper>
+        </SitePropertiesProvider>
       </body>
     </html>
   );
