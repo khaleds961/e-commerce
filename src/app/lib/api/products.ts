@@ -10,9 +10,9 @@ export const GET_PRODUCTS = async (): Promise<Product[]> => {
     }
 }
 
-export const GET_PRODUCT_BY_ID = async(id: number) => {
+export const GET_PRODUCT_BY_SLUG = async(slug: string) => {
     try {
-        const response = await _axios.get(`/products/${id}`);
+        const response = await _axios.get(`/products/slug/${slug}`);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch product:", error);

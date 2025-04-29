@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation"
-import { GET_PRODUCT_BY_ID } from "@/app/lib/api/products"
+import {  GET_PRODUCT_BY_SLUG } from "@/app/lib/api/products"
 import ProductDetails from "@/app/ui/Products/ProductDetails"
 
-export default async function ProductPage({params}: {params: {id: number}}) {
-    const product = await GET_PRODUCT_BY_ID(params.id);
+export default async function ProductPage({params}: {params: {slug: string}}) {
+    const product = await GET_PRODUCT_BY_SLUG(params.slug);
     if (!product) {
         notFound();
     }

@@ -12,7 +12,13 @@
       "readMore": "Read More"
     },
     "Product":{
-      "addToCart": "Add to Cart"
+      "addToCart": "Add to Cart",
+      "chooseSize": "Choose Size",
+      "chooseColor": "Choose Color",
+      "orderDetails": "Order Details",
+      "quantity": "Quantity",
+      "price": "Price",
+      "total": "Total"
     }
   }
   

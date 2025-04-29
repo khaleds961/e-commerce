@@ -12,6 +12,12 @@
       "readMore": "اقرأ المزيد"
     },
     "Product":{
-      "addToCart": "أضف إلى السلة"
+      "addToCart": "أضف إلى السلة",
+      "chooseSize": "اختر الحجم",
+      "chooseColor": "اختر اللون",
+      "orderDetails": "تفاصيل الطلب",
+      "quantity": "الكمية",
+      "price": "السعر",
+      "total": "المجموع"
     }
   }

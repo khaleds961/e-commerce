@@ -14,6 +14,7 @@ type Product = {
     description: string;
     category: Category;
     images: string[];
+    slug: string;
     creationAt: string;
     updatedAt: string;
 }
