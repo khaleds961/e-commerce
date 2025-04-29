@@ -10,5 +10,8 @@
       "justForYou": "لك فقط",
       "megaPromotion": "عروض عظيمة",
       "readMore": "اقرأ المزيد"
+    },
+    "Product":{
+      "addToCart": "أضف إلى السلة"
     }
   }

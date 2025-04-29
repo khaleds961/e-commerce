@@ -10,6 +10,9 @@
       "justForYou": "Just For You",
       "megaPromotion": "Mega Promotion",
       "readMore": "Read More"
+    },
+    "Product":{
+      "addToCart": "Add to Cart"
     }
   }
   

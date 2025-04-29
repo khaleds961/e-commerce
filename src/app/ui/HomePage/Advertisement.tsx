@@ -13,7 +13,7 @@ export default function Advertisement() {
                 </div>
                 <div className="rounded-md p-4 relative hidden md:block">
                     <Image src="/images/man-shop.png" alt="Advertisement" width={250} height={250}
-                    className="absolute right-[20%] top-[-15%] lg:top-[-25%]"/>
+                        className="absolute right-[20%] top-[-15%] lg:top-[-25%]" />
                 </div>
             </div>
         </div>

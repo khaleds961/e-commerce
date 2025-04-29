@@ -2,11 +2,12 @@ import { FcHome } from "react-icons/fc";
 import { TbCategory2 } from "react-icons/tb";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
-
+import ScrollAwareComponent from "@/app/components/ScrollAware";
 
 export default function MobileNavbar() {
     return (
-        <div className="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 md:hidden">
+        <ScrollAwareComponent className="fixed bottom-0 left-0 w-full z-50">
+        <div className="w-full h-16 bg-white border-t border-gray-200 md:hidden">
             <div className="grid h-full max-w-lg grid-cols-4 mx-auto font-medium">
                 <button type="button" className="inline-flex flex-col items-center justify-center px-5">
                     <FcHome size={25} className="mb-1" />
@@ -26,6 +27,7 @@ export default function MobileNavbar() {
                 </button>
             </div>
         </div>
+        </ScrollAwareComponent>
 
     )
 }

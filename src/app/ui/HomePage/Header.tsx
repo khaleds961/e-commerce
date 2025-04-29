@@ -1,12 +1,14 @@
 import { useTranslations } from 'next-intl';
 import Searchbar from "@/app/ui/HomePage/Searchbar";
+import ScrollAware from '@/app/components/ScrollAware';
 
 export default function Header() {
     const t = useTranslations('HomePage');
     return (
-        <header className={`sticky top-0 z-50 w-full transition-all duration-300 ease-in-out transform shadow-lg scale-105'
-        }`}>
+        <ScrollAware className="fixed top-0 left-0 w-full z-50" position="top">
+        <header className='w-full bg-white shadow-md'>
             <Searchbar />
         </header>
+        </ScrollAware>
     );
 }
