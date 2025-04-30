@@ -3,7 +3,9 @@ import {  GET_PRODUCT_BY_SLUG } from "@/app/lib/api/products"
 import ProductDetails from "@/app/ui/Products/ProductDetails"
 
 export default async function ProductPage({params}: {params: {slug: string}}) {
-    const product = await GET_PRODUCT_BY_SLUG(params.slug);
+
+    const {slug} = await params;
+    const product = await GET_PRODUCT_BY_SLUG(slug);
     if (!product) {
         notFound();
     }

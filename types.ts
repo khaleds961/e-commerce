@@ -19,4 +19,13 @@ type Product = {
     updatedAt: string;
 }
 
+type CartItem = {
+    id: number;
+    title: string;
+    price: number;
+    image: string;
+    quantity: number;
+    size: any;
+    color: string;
+}
 

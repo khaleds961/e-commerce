@@ -5,11 +5,12 @@ import { getLangDir } from 'rtl-detect';
 import '@/app/globals.css'
 import { SitePropertiesProvider } from '@/app/providers/SitePropertiesProvider';
 import Wrapper from '@/app/components/Wrapper';
-export default async function LocaleLayout({children,params}: {children: React.ReactNode;params: Promise<{ locale: string }>;}) {
+import { AddToCartProvider } from '../providers/AddToCartProvider';
+import { Toaster } from 'react-hot-toast';
+
+export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }>; }) {
 
   const { locale } = await params;
-
-
 
   if (!hasLocale(routing.locales, locale)) {
     notFound();
@@ -19,10 +20,13 @@ export default async function LocaleLayout({children,params}: {children: React.R
   return (
     <html lang={locale} dir={direction}>
       <body>
+        <Toaster position="bottom-right" />
         <SitePropertiesProvider>
-          <Wrapper>
-            <NextIntlClientProvider>{children}</NextIntlClientProvider>
-          </Wrapper>
+          <AddToCartProvider>
+            <Wrapper>
+              <NextIntlClientProvider>{children}</NextIntlClientProvider>
+            </Wrapper>
+          </AddToCartProvider>
         </SitePropertiesProvider>
       </body>
     </html>

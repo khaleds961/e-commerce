@@ -18,6 +18,8 @@
       "orderDetails": "تفاصيل الطلب",
       "quantity": "الكمية",
       "price": "السعر",
-      "total": "المجموع"
+      "total": "المجموع",
+      "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح",
+      "pleaseSelectSizeAndColor": "يرجى اختيار الحجم واللون"
     }
   }

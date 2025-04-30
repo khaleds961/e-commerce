@@ -1,3 +1,4 @@
+import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { CiStar } from "react-icons/ci";
@@ -5,10 +6,27 @@ import { LuShoppingCart } from "react-icons/lu";
 import { formatProductName } from "@/app/utils/formatProductName";
 import { useLocale } from 'next-intl';
 import Link from "next/link";
+import { useState } from "react";
+import { useAddToCart } from "@/app/store/addToCart";
+import { handleAddToCart } from "@/app/utils/addToCart";
 
 export default function ProductCard({product}: {product: Product}) {
     const locale = useLocale();
     const isRTL = locale === 'ar';
+    const t = useTranslations('Product');
+    const [isLoading, setIsLoading] = useState(false);
+    const cart = useAddToCart((state) => state.items);
+    const setCart = (items: CartItem[]) => useAddToCart.setState({ items });
+
+    const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        handleAddToCart(product, 1, '14', 'red', cart, setCart, t);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }
     return (
         <Link href={`/${locale}/products/${product.slug}`}>
         <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
@@ -37,8 +55,15 @@ export default function ProductCard({product}: {product: Product}) {
             <div className="p-2 font-bold text-xl md:text-2xl">
                 <p>${product.price}</p>
             </div>
-            <button className={`cursor-pointer absolute bottom-2 ${isRTL ? 'left-2' : 'right-2'} bg-[#2667ff] text-white rounded-md p-2`}>
-                <LuShoppingCart className="text-xl xl:text-2xl" />
+            <button className={`cursor-pointer absolute bottom-2 ${isRTL ? 'left-2' : 'right-2'} bg-[#2667ff] text-white rounded-md p-2`}
+            onClick={onAddToCart}
+            disabled={isLoading}
+            >
+                {isLoading ? (
+                    <div className="spinner"></div>
+                ) : (
+                    <LuShoppingCart className="text-xl xl:text-2xl" />
+                )}
             </button>
         </div>
         </Link>

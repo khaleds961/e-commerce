@@ -18,7 +18,9 @@
       "orderDetails": "Order Details",
       "quantity": "Quantity",
       "price": "Price",
-      "total": "Total"
+      "total": "Total",
+      "addedSuccessfully": "Added Successfully",
+      "pleaseSelectSizeAndColor": "Please select size and color"
     }
   }
   

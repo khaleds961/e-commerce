@@ -11,6 +11,8 @@ import 'swiper/css/zoom';
 import { useTranslations } from 'next-intl';
 import { useSiteProperties } from '@/app/store/siteProperties';
 import ProductProperties from './ProductProperties';
+import { useAddToCart } from '@/app/store/addToCart';
+import { handleAddToCart } from '@/app/utils/addToCart';
 
 export default function ProductDetails({ product }: { product: Product }) {
     const [quantity, setQuantity] = useState(1);
@@ -19,11 +21,28 @@ export default function ProductDetails({ product }: { product: Product }) {
     const { backgroundColor, textColor } = useSiteProperties();
     const sizes = [11, 15, 26];
     const colors = ['red', 'blue', 'green'];
+    const [selectedSize, setSelectedSize] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+
+    const cart = useAddToCart((state) => state.items);
+    const setCart = (items: CartItem[]) => useAddToCart.setState({ items });
+
+    const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        setIsLoading(true);
+        handleAddToCart(product, quantity, selectedSize, selectedColor, cart, setCart, t);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    };
 
     return (
-        <div className="flex grid grid-cols-1 md:grid-cols-5 gap-8">
+        <div className="flex grid grid-cols-1 md:grid-cols-8 gap-8">
+
+
             {/* Image Gallery */}
-            <div className="space-y-2 md:col-span-2">
+            <div className="space-y-2 md:col-span-3">
                 <Swiper
                     navigation={false}
                     thumbs={{ swiper: thumbsSwiper }}
@@ -70,7 +89,7 @@ export default function ProductDetails({ product }: { product: Product }) {
             </div>
 
             {/* Product Info */}
-            <div className="space-y-6 md:mt-4 md:col-span-2">
+            <div className="space-y-6 md:mt-4 md:col-span-3">
                 <h1 className="text-3xl font-bold">{product.title}</h1>
                 <div className="flex items-center gap-2">
                     <div className="flex">
@@ -82,8 +101,8 @@ export default function ProductDetails({ product }: { product: Product }) {
                 </div>
 
                 {/* Product Properties */}
-                <ProductProperties titleKey='chooseSize' properties={sizes} key={1} />
-                <ProductProperties titleKey='chooseColor' properties={colors} key={2} />
+                <ProductProperties titleKey='chooseSize' properties={sizes} onSelect={(size) => setSelectedSize(size)} />
+                <ProductProperties titleKey='chooseColor' properties={colors} onSelect={(color) => setSelectedColor(color)} />
 
                 {/* Product Price */}
                 <p className="text-2xl font-bold">${product.price}</p>
@@ -93,7 +112,7 @@ export default function ProductDetails({ product }: { product: Product }) {
             </div>
 
             {/* Product Promotion */}
-            <div className="md:mt-4">
+            <div className="md:mt-4 md:col-span-2">
                 <div className='bg-linear-to-r from-[#FEC125] to-[#faebbb] rounded-md p-2 flex justify-between items-center gap-1'>
                     <div className='p-1'>
                         <p className='text-xl font-bold'>25% off</p>
@@ -109,7 +128,7 @@ export default function ProductDetails({ product }: { product: Product }) {
                     <h2 className='text-lg font-bold border-b border-gray-300 pb-2'>{t('orderDetails')}</h2>
                     <div className='mt-3'>
                         {/* Quantity */}
-                        <div className='mb-7'>
+                        <div className='mb-7 flex sm:flex md:block xl:flex justify-between items-center '>
                             <h2 className='text-md font-bold mb-2'>{t('quantity')}</h2>
                             <div className="flex items-center justify-between border border-gray-300 rounded bg-gray-100">
                                 <button
@@ -148,12 +167,20 @@ export default function ProductDetails({ product }: { product: Product }) {
 
                         {/* add to cart */}
                         <div className='mt-6'>
-                            <button className='cursor-pointer rounded-md p-2 text-center w-full' style={{ backgroundColor: backgroundColor, color: textColor }}>
-                                <p className='text-md'>{t('addToCart')}</p>
+                            <button className='cursor-pointer rounded-md p-2 text-center w-full'
+                                style={{ backgroundColor: backgroundColor, color: textColor }}
+                                onClick={onAddToCart}
+                                disabled={isLoading}
+                            >
+                                {isLoading ? (
+                                    <div className="loader mx-auto"></div>
+                                ) : (
+                                    <p className='text-md'>{t('addToCart')}</p>
+                                )}
                             </button>
                         </div>
-                        
-                        
+
+
 
                     </div>
                 </div>
