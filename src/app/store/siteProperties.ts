@@ -3,6 +3,7 @@ import { create } from 'zustand';
 interface SiteProperties {
   fontFamily: string;
   backgroundColor: string;
+  searchbackground: string;
   textColor: string;
   logo: string;
   setProperties: (properties: Partial<SiteProperties>) => void;
@@ -11,9 +12,10 @@ interface SiteProperties {
 export const useSiteProperties = create<SiteProperties>((set) => ({
   // Initial values
   fontFamily: 'Poppins',
-  backgroundColor: '#359FC1',
+  backgroundColor: '#299e60',
+  searchbackground: '#F3FAF2',
   textColor: '#fff',
-  logo: '/logo/logo.jpg',
+  logo: '/logo/logo.png',
   
   // Action to update properties
   setProperties: (properties) => set((state) => ({ ...state, ...properties })),
