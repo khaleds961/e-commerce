@@ -21,6 +21,15 @@
       "total": "Total",
       "addedSuccessfully": "Added Successfully",
       "pleaseSelectSizeAndColor": "Please select size and color"
+    },
+    "SideDrawer": {
+      "addedToBasket": "Added to Basket",
+      "checkout": "Checkout",
+      "continueShopping": "Continue Shopping",
+      "items": "Items",
+      "size": "Size",
+      "color": "Color",
+      "total": "Total"
     }
   }
   

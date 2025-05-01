@@ -21,5 +21,14 @@
       "total": "المجموع",
       "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح",
       "pleaseSelectSizeAndColor": "يرجى اختيار الحجم واللون"
+    },
+    "SideDrawer": {
+      "addedToBasket": "تم إضافة المنتج إلى السلة",
+      "checkout": "صفحة الدفع",
+      "continueShopping": "متابعة التسوق",
+      "items": "اغراض",
+      "size": "الحجم",
+      "color": "اللون",
+      "total": "المجموع"
     }
   }

@@ -21,7 +21,7 @@ export default function ProductCard({product}: {product: Product}) {
     const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         setIsLoading(true);
-        handleAddToCart(product, 1, '14', 'red', cart, setCart, t);
+        handleAddToCart(product, 1, '14', 'red', t);
 
         setTimeout(() => {
             setIsLoading(false);

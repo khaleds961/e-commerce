@@ -4,13 +4,11 @@ import { useAddToCart } from '@/app/store/addToCart';
 export const handleAddToCart = (
     product: Product,
     quantity: number,
-    selectedSize: string,
-    selectedColor: string,
-    cart: CartItem[],
-    setCart: (items: CartItem[]) => void,
+    size: string,
+    color: string,
     t: (key: string) => string
 ) => {
-    if (!selectedSize || !selectedColor) {
+    if (!size || !color) {
         toast.error(t('pleaseSelectSizeAndColor'));
         return;
     }
@@ -19,35 +17,19 @@ export const handleAddToCart = (
         id: product.id,
         title: product.title,
         price: product.price,
-        quantity: quantity,
         image: product.images[0],
-        size: selectedSize,
-        color: selectedColor,
+        quantity,
+        size,
+        color,
     };
 
-    // Find if the same product with same size and color already exists
-    const existingItem = cart.find(item =>
-        item.id === cartItem.id &&
-        item.size === cartItem.size &&
-        item.color === cartItem.color
-    );
+    // Use the store's addItem function directly
+    useAddToCart.getState().addItem(cartItem);
+    
+    // Optional: Log the updated cart for debugging
+    const updatedCartState = useAddToCart.getState().items;
+    console.log('Current Cart:', updatedCartState);
 
-    if (existingItem) {
-        // Update quantity if already exists
-        const updatedCart = cart.map(item =>
-            item.id === cartItem.id &&
-            item.size === cartItem.size &&
-            item.color === cartItem.color
-                ? { ...item, quantity: item.quantity + cartItem.quantity }
-                : item
-        );
-        setCart(updatedCart); // Update the cart state
-    } else {
-        // Add the new item to the cart
-        useAddToCart.getState().addItem(cartItem);
-    }
-
-    const updatedCartState = useAddToCart.getState().items; // Get the updated cart state
-    console.log('Current Cart:', updatedCartState); // Log the updated cart
     toast.success(t('addedSuccessfully'));
+    return updatedCartState;
 };
