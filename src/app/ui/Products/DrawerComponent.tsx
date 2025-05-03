@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 
-export default function DrawerComponent({ isOpen }: { isOpen: boolean }) {
+export default function DrawerComponent({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (value: boolean) => void }) {
 
     const locale = useLocale();
     const isRTL = locale === 'ar';
@@ -36,8 +36,8 @@ export default function DrawerComponent({ isOpen }: { isOpen: boolean }) {
             <div className='flex flex-col gap-2'>
                 <p className='text-lg font-bold'>{t('total')}: ${totalPrice}</p>
                 <div className='flex items-center gap-2'>
-                    <button className='cursor-pointer bg-blue-500 text-white p-2 rounded-md'>{t('checkout')}</button>
-                    <button className='cursor-pointer bg-white text-blue-700 p-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300'>{t('continueShopping')}</button>
+                    <button className='cursor-pointer bg-blue-500 text-white p-2 rounded-md' >{t('checkout')}</button>
+                    <button className='cursor-pointer bg-white text-blue-700 p-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300' onClick={()=>setIsOpen(false)}>{t('continueShopping')}</button>
                 </div>
             </div>
 

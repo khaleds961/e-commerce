@@ -72,7 +72,7 @@ export default function SideDrawer({ onAddProduct, setOnAddProduct }: SideDrawer
             />
 
             {/* Drawer component */}
-            <DrawerComponent isOpen={isOpen} />
+            <DrawerComponent isOpen={isOpen} setIsOpen={setIsOpen} />
         </>
     );
 }

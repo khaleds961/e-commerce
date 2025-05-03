@@ -25,12 +25,10 @@ export default function OrderDetails({ product, selectedSize, selectedColor }: O
         const cartItem = handleAddToCart(product, quantity, selectedSize, selectedColor, t);
         if (cartItem && cartItem.length > 0) {
             setIsSideDrawerOpen(true);
-            setTimeout(() => {
-                setIsLoading(false);
-            }, 1000);
+            setIsLoading(false);
+        }else{
+            setIsLoading(false);
         }
-        setIsLoading(false);
-
     };
     
     return (

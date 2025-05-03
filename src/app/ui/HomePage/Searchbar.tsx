@@ -8,19 +8,27 @@ import LanguageSwitcher from "./LanguageSwitcher"
 import { useSiteProperties } from "@/app/store/siteProperties"
 import Link from "next/link"
 import { useLocale } from 'next-intl';
+import { useAddToCart } from "@/app/store/addToCart"
+import { useEffect, useState } from "react"
 
 
 export default function Searchbar() {
     const t = useTranslations('HomePage');
     const { logo, backgroundColor, textColor } = useSiteProperties();
     const locale = useLocale();
-    
+    const { items } = useAddToCart();
+    const [quantity, setQuantity] = useState<number>(0);
+
+    useEffect(() => {
+        setQuantity(items.length > 0 ? items.reduce((acc, item) => acc + item.quantity, 0) : 0);
+    }, [items]);
+
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
             <div className="flex items-center justify-between gap-3 py-2 px-2 md:px-[40px]">
                 {/* logo */}
                 <div>
-                    <Link href={`/${locale}`}>
+                    <Link href={`/`}>
                         <Image
                             src={logo}
                             alt="logo"
@@ -49,8 +57,13 @@ export default function Searchbar() {
                         <FaRegHeart size={20} />
                     </button>
                     {/* cart */}
-                    <button className="hidden md:block cursor-pointer hover:text-gray-300">
-                        <FaShoppingCart size={20} />
+                    <button className="hidden md:block cursor-pointer hover:text-gray-300 relative">
+                        <Link href="/cart">
+                            <FaShoppingCart size={20} />
+                            {quantity > 0 && (
+                                <span className="absolute top-[-7px] right-[-10px] bg-blue-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">{quantity}</span>
+                            )}
+                        </Link>
                     </button>
                 </div>
 

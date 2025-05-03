@@ -18,6 +18,7 @@ export const handleAddToCart = (
         title: product.title,
         price: product.price,
         image: product.images[0],
+        sku: product.sku || 'gdx29189',
         quantity,
         size,
         color,

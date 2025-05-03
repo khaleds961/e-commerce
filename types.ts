@@ -15,6 +15,7 @@ type Product = {
     category: Category;
     images: string[];
     slug: string;
+    sku: string;
     creationAt: string;
     updatedAt: string;
 }
@@ -25,6 +26,7 @@ type CartItem = {
     price: number;
     image: string;
     quantity: number;
+    sku: string;
     size: any;
     color: string;
 }
