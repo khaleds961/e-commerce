@@ -3,6 +3,11 @@ import { formatProductName } from "@/app/utils/formatProductName";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 
+type Category = {
+  id: string;
+  name: string;
+};
+
 export default function Categories({ categories }: { categories: Category[] }) {
   const t = useTranslations('HomePage')
   return (

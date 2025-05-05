@@ -17,8 +17,6 @@ interface TopmenuProps {
     };
 }
 
-
-    
     
     export default function Topmenu({ siteProperties }: TopmenuProps) {
         const t = useTranslations('HomePage');

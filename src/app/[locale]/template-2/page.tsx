@@ -1,4 +1,4 @@
-import Products from "@/app/components/Products";
+import Products from "@/app/template-2-components/Products";
 import Categories from "@/app/ui/template-2/Categories";
 import MegaPromotion from "@/app/ui/template-2/MegaPromotion";
 import Topmenu from "@/app/ui/template-2/Topmenu";
@@ -8,6 +8,9 @@ import { GET_PRODUCTS } from "@/app/lib/api/products";
 import MainMenu from "@/app/ui/template-2/Mainmenu";
 import Searchbar from "@/app/ui/template-2/Searchbar";
 import Mainslider from "@/app/ui/template-2/MainSlider";
+import FeaturedCategories from "@/app/ui/template-2/FeaturedCategories";
+import FlashSalesToday from "@/app/ui/template-2/FlashSalesToday";
+
 
 
 
@@ -59,7 +62,9 @@ export default async function Home() {
           />
         </div>
         <Categories categories={categories} />
-        <Products titleKey="todayDeals" products={limitedProducts} />
+        <FeaturedCategories />
+        <FlashSalesToday />
+        <Products titleKey="N/A" products={limitedProducts} />
         <MegaPromotion />
         <Advertisement />
         <Products titleKey="popularProducts" products={limitedProducts} />
