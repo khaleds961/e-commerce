@@ -15,12 +15,12 @@ import { useAddToCart } from '@/app/store/addToCart';
 import { handleAddToCart } from '@/app/utils/addToCart';
 import SideDrawer from './SideDrawer';
 import OrderDetails from './SideDrawer/OrderDetails';
+import CustomImage from '@/app/components/CustomImage';
 
 export default function ProductDetails({ product }: { product: Product }) {
     const [quantity, setQuantity] = useState(1);
     const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
     const t = useTranslations('Product');
-    const { backgroundColor, textColor } = useSiteProperties();
     const sizes = [11, 15, 26];
     const colors = ['red', 'blue', 'green'];
     const [selectedSize, setSelectedSize] = useState('');
@@ -61,12 +61,17 @@ export default function ProductDetails({ product }: { product: Product }) {
                     {product.images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="swiper-zoom-container relative h-full w-full border border-gray-300 rounded-lg">
-                                <Image
+                                {/* <Image
                                     src={image}
                                     alt={`${product.title} - Image ${index + 1}`}
                                     fill
                                     className="object-contain rounded-md p-2"
-                                />
+                                /> */}
+                                <CustomImage src={image}
+                                    alt={`${product.title} - Image ${index + 1}`}
+                                    width={200}
+                                    height={200}
+                                    className="object-contain w-full h-full rounded-md p-2" />
                             </div>
                         </SwiperSlide>
                     ))}
@@ -81,15 +86,20 @@ export default function ProductDetails({ product }: { product: Product }) {
                     className="h-[120px]"
                     watchSlidesProgress={true}
                 >
-                    {product.images.map((image, index) => (
+                    {product.images.length > 0 && product.images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="relative h-full w-full cursor-pointer">
-                                <Image
-                                    src={image}
+                                    {/* <Image
+                                        src={image}
+                                        alt={`${product.title} - Thumbnail ${index + 1}`}
+                                        fill
+                                        className="object-cover rounded"
+                                    />  */}
+                                <CustomImage src={image}
                                     alt={`${product.title} - Thumbnail ${index + 1}`}
-                                    fill
-                                    className="object-cover rounded"
-                                />
+                                    width={200}
+                                    height={200}
+                                    className="object-cover rounded" />
                             </div>
                         </SwiperSlide>
                     ))}

@@ -19,3 +19,14 @@ export const GET_PRODUCT_BY_SLUG = async(slug: string) => {
         throw error;
     }
 }
+
+export const SEARCH_PRODUCTS = async(search: string) => {
+    try {
+        const response = await _axios.get(`/products/?title=${search}`);
+        return response;
+    } catch (error) {
+        console.error("Failed to search products:", error);
+        throw error;
+    }
+}
+

@@ -37,7 +37,9 @@
       "remove": "Remove",
       "subtotal": "Subtotal",
       "orderSummary": "Order Summary",
-      "total": "Total"
+      "total": "Total",
+      "emptyCart": "Your cart is empty",
+      "emptyCartDescription": "Add items to your cart to get started !"
     }
   }
   

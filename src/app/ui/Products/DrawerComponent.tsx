@@ -3,6 +3,8 @@ import { useLocale } from 'next-intl';
 import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
+import CustomImage from '@/app/components/CustomImage';
+import Link from 'next/link';
 
 export default function DrawerComponent({ isOpen, setIsOpen }: { isOpen: boolean, setIsOpen: (value: boolean) => void }) {
 
@@ -24,7 +26,7 @@ export default function DrawerComponent({ isOpen, setIsOpen }: { isOpen: boolean
         >
             {lastItem && (
                 <div key={lastItem.id} className='flex items-center justify-between mb-2 w-full gap-4'>
-                    <Image src={lastItem.image} alt={lastItem.title} width={100} height={100} className='rounded-md' />
+                    <CustomImage src={lastItem.image} alt={lastItem.title} width={100} height={100} className='rounded-md' />
                     <div className='flex flex-col gap-2'>
                         <h5 className='text-md font-bold'>{lastItem.title}</h5>
                         <p className='text-sm text-green-600'>{t('addedToBasket')}</p>
@@ -36,7 +38,9 @@ export default function DrawerComponent({ isOpen, setIsOpen }: { isOpen: boolean
             <div className='flex flex-col gap-2'>
                 <p className='text-lg font-bold'>{t('total')}: ${totalPrice}</p>
                 <div className='flex items-center gap-2'>
+                  <Link href="/cart">
                     <button className='cursor-pointer bg-blue-500 text-white p-2 rounded-md' >{t('checkout')}</button>
+                  </Link>
                     <button className='cursor-pointer bg-white text-blue-700 p-2 rounded-md border border-blue-500 hover:bg-blue-500 hover:text-white transition-all duration-300' onClick={()=>setIsOpen(false)}>{t('continueShopping')}</button>
                 </div>
             </div>
@@ -45,7 +49,8 @@ export default function DrawerComponent({ isOpen, setIsOpen }: { isOpen: boolean
             <div className='mt-7 border-t border-gray-200 pt-4'>
                 {items.length > 0 && items.map((item) => (
                     <div key={item.id} className='flex mb-2 w-full gap-4'>
-                        <Image src={item.image} alt={item.title} width={100} height={100} className='rounded-md' />
+                        <CustomImage src={item.image} alt={item.title} width={100} height={100} className='rounded-md' />
+
                         <div>
                             <h5 className='text-md'>{item.title}</h5>
                             <p className='text-sm font-bold'>

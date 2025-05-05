@@ -29,5 +29,6 @@ type CartItem = {
     sku: string;
     size: any;
     color: string;
+    adjusted: boolean;
 }
 

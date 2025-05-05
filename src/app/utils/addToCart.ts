@@ -22,6 +22,7 @@ export const handleAddToCart = (
         quantity,
         size,
         color,
+        adjusted: false,
     };
 
     // Use the store's addItem function directly
