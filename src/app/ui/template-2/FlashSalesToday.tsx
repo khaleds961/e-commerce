@@ -156,7 +156,7 @@ export default function FlashSalesToday() {
                     >
                         {extendedItems.map((item, index) => (
                             <div key={`${item.id}-${index}`} className="w-1/2 flex-shrink-0 px-2">
-                                <div className="relative w-full h-[500px] sm:h-[255px] rounded-xl overflow-hidden ">
+                                <div className="relative w-full h-[500px] sm:h-[255px] rounded-3xl overflow-hidden ">
                                     {/* Main image */}
                                     <Image
                                         src={item.image}

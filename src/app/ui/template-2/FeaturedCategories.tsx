@@ -40,7 +40,7 @@ export default function FeaturedCategories() {
                 {featuredItems.map((item) => (
                     <div
                         key={item.id}
-                        className="relative group rounded-lg overflow-hidden shadow-lg"
+                        className="relative group rounded-3xl overflow-hidden shadow-lg"
                     >
                         <Image
                             src={item.image}
