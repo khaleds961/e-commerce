@@ -10,6 +10,7 @@ import Searchbar from "@/app/ui/template-2/Searchbar";
 import Mainslider from "@/app/ui/template-2/MainSlider";
 import FeaturedCategories from "@/app/ui/template-2/FeaturedCategories";
 import FlashSalesToday from "@/app/ui/template-2/FlashSalesToday";
+import SpecialOffers from "@/app/ui/template-2/SpecialOffers";
 
 
 
@@ -65,7 +66,7 @@ export default async function Home() {
         <FeaturedCategories />
         <FlashSalesToday />
         <Products titleKey="N/A" products={limitedProducts} />
-        <MegaPromotion />
+        <SpecialOffers />
         <Advertisement />
         <Products titleKey="popularProducts" products={limitedProducts} />
         <Products titleKey="justForYou" products={limitedProducts} />
