@@ -28,6 +28,7 @@ export default function Searchbar() {
     const searchRef = useRef(null);
     const [isLoading, setIsLoading] = useState(false);
     const router = useRouter();
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchValue(e.target.value);
     };
@@ -59,6 +60,7 @@ export default function Searchbar() {
         const handleClickOutside = (event: MouseEvent) => {
             if (searchRef.current && !(searchRef.current as HTMLElement).contains(event.target as Node)) {
                 setSearchResults([]);
+                setSearchValue('');
             }
         };
 
@@ -93,8 +95,10 @@ export default function Searchbar() {
     };
 
     const handleProductClick = (e: React.MouseEvent, slug: string) => {
-        e.preventDefault();
-        e.stopPropagation();
+        // e.preventDefault();
+        // e.stopPropagation();
+        console.log('clicked');
+        
         router.push(`/products/${slug}`);
     };
 

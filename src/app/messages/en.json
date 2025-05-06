@@ -9,7 +9,19 @@
       "popularProducts": "Popular Products",
       "justForYou": "Just For You",
       "megaPromotion": "Mega Promotion",
-      "readMore": "Read More"
+      "readMore": "Read More",
+      "home": "Home",
+      "categories": "Categories",
+      "cart": "Cart",
+      "profile": "Profile",
+      "products": "Products",
+      "price_high_to_low": "Price: High to Low",
+      "price_low_to_high": "Price: Low to High",
+      "newest": "Newest",
+      "oldest": "Oldest",
+      "sort_by": "Sort by",
+      "display": "Display",
+      "select_sort_option": "Select Sort Option"
     },
     "Product":{
       "addToCart": "Add to Cart",

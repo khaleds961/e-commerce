@@ -1,44 +1,56 @@
 {
-    "HomePage": {
-      "lang": "English",
-      "searchbarPlaceholder": "ما الذي تبحث عنه؟",
-      "login": "تسجيل الدخول",
-      "categoriesTitle": "تسوق من أفضل فئاتنا",
-      "todayDeals": "أفضل عروض اليوم",
-      "viewAll": "عرض الكل",
-      "popularProducts": "أكثر المنتجات رواجا",
-      "justForYou": "لك فقط",
-      "megaPromotion": "عروض عظيمة",
-      "readMore": "اقرأ المزيد"
-    },
-    "Product":{
-      "addToCart": "أضف إلى السلة",
-      "chooseSize": "اختر الحجم",
-      "chooseColor": "اختر اللون",
-      "orderDetails": "تفاصيل الطلب",
-      "quantity": "الكمية",
-      "price": "السعر",
-      "total": "المجموع",
-      "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح",
-      "pleaseSelectSizeAndColor": "يرجى اختيار الحجم واللون"
-    },
-    "SideDrawer": {
-      "addedToBasket": "تم إضافة المنتج إلى السلة",
-      "checkout": "صفحة الدفع",
-      "continueShopping": "متابعة التسوق",
-      "items": "اغراض",
-      "size": "الحجم",
-      "color": "اللون",
-      "total": "المجموع"
-    },
-    "Cart": {
-      "cart": "عربة التسوق",
-      "items": "منتج",
-      "remove": "إزالة",
-      "subtotal": "المجموع الفرعي",
-      "orderSummary": "ملخص الطلب",
-      "total": "المجموع",
-      "emptyCart": "عربة التسوق فارغة",
-      "emptyCartDescription": "أضف العناصر إلى سلة التسوق الخاصة بك للبدء!"
-    }
+  "HomePage": {
+    "lang": "English",
+    "searchbarPlaceholder": "ما الذي تبحث عنه؟",
+    "login": "تسجيل الدخول",
+    "categoriesTitle": "تسوق من أفضل فئاتنا",
+    "todayDeals": "أفضل عروض اليوم",
+    "viewAll": "عرض الكل",
+    "popularProducts": "أكثر المنتجات رواجا",
+    "justForYou": "لك فقط",
+    "megaPromotion": "عروض عظيمة",
+    "readMore": "اقرأ المزيد",
+    "home": "الرئيسية",
+    "categories": "الأقسام",
+    "cart": "العربة",
+    "profile": "الحساب",
+    "products": "منتج",
+    "price_high_to_low": "السعر من الأعلى إلى الأقل",
+    "price_low_to_high": "السعر من الأقل إلى الأعلى",
+    "newest": "الأحدث",
+    "oldest": "الأقدم",
+    "sort_by": " ترتيب حسب",
+    "display": "عرض",
+    "select_sort_option": "اختر خيار الترتيب"
+  },
+  "Product": {
+    "addToCart": "أضف إلى السلة",
+    "chooseSize": "اختر الحجم",
+    "chooseColor": "اختر اللون",
+    "orderDetails": "تفاصيل الطلب",
+    "quantity": "الكمية",
+    "price": "السعر",
+    "total": "المجموع",
+    "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح",
+    "pleaseSelectSizeAndColor": "يرجى اختيار الحجم واللون"
+  },
+  "SideDrawer": {
+    "addedToBasket": "تم إضافة المنتج إلى السلة",
+    "checkout": "صفحة الدفع",
+    "continueShopping": "متابعة التسوق",
+    "items": "اغراض",
+    "size": "الحجم",
+    "color": "اللون",
+    "total": "المجموع"
+  },
+  "Cart": {
+    "cart": "عربة التسوق",
+    "items": "منتج",
+    "remove": "إزالة",
+    "subtotal": "المجموع الفرعي",
+    "orderSummary": "ملخص الطلب",
+    "total": "المجموع",
+    "emptyCart": "عربة التسوق فارغة",
+    "emptyCartDescription": "أضف العناصر إلى سلة التسوق الخاصة بك للبدء!"
   }
+}

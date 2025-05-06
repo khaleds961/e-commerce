@@ -1,5 +1,5 @@
+'use client'
 import { useTranslations } from "next-intl";
-import Image from "next/image";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { CiStar } from "react-icons/ci";
 import { LuShoppingCart } from "react-icons/lu";
@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { handleAddToCart } from "@/app/utils/addToCart";
 import CustomImage from "@/app/components/CustomImage";
+import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
 
 export default function ProductCard({ product }: { product: Product }) {
     const locale = useLocale();
@@ -26,7 +27,7 @@ export default function ProductCard({ product }: { product: Product }) {
         }, 1000);
     }
     return (
-        <Link href={`/products/${product.slug}`}>
+        <Link href={`/products/${product.slug}`} prefetch={false}>
             <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
                 <div className="absolute top-2 right-2">
                     <IoMdHeartEmpty size={30} className="cursor-pointer text-white bg-[#363842] rounded-full p-1" />
@@ -39,6 +40,9 @@ export default function ProductCard({ product }: { product: Product }) {
                         height={200}
                         className="rounded-t-md object-contain w-full h-full"
                     />
+                    <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
+                        <LoadingIndicator />
+                    </div>
                 </div>
                 <h3 className="px-2 text-sm font-[300] mt-2 h-[50px]" title={product.title}>{formatProductName(product.title, 25)}</h3>
                 <div className="p-2 flex items-center gap-2">

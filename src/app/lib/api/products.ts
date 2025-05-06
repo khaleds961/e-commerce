@@ -30,3 +30,12 @@ export const SEARCH_PRODUCTS = async(search: string) => {
     }
 }
 
+export const GET_PRODUCTS_BY_CATEGORY = async(categorySlug: string) => {
+    try {
+        const response = await _axios.get(`/products/?categorySlug=${categorySlug}`);
+        return response.data;
+    } catch (error) {
+        console.error("Failed to fetch products by category:", error);
+        throw error;
+    }
+}
