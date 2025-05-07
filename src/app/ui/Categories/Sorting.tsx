@@ -5,19 +5,30 @@ import { useState } from 'react';
 import SortBy from "./SortBy";
 import { CiBoxList } from "react-icons/ci";
 import { CiGrid41 } from "react-icons/ci";
+import ProductCard from "../HomePage/ProductCard";
+import ProductList from "./ProductList";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
 
-
-export default function Sorting({ totalProducts, category }: { totalProducts: number, category: Category }) {
+export default function Sorting({ totalProducts, category, products }: { totalProducts: number, category: Category, products: Product[] }) {
     const t = useTranslations('HomePage');
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isDisplayOpen, setIsDisplayOpen] = useState(false);
     const [selectedSortOption, setSelectedSortOption] = useState(t('select_sort_option'));
     const [selectedDisplayOption, setSelectedDisplayOption] = useState(t('display'));
-    const [isGrid, setIsGrid] = useState(false);
+    const [isGrid, setIsGrid] = useState(true);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const pathname = usePathname();
+    const sort = searchParams.get('sort');
+    const display = searchParams.get('display');
+    const [loading, setLoading] = useState(false);
+
+    console.log(sort);
 
     const sortOptions = [
-        { value: 'price_high_to_low', label: t('price_high_to_low'), icon: <FaSortAmountDown /> },
-        { value: 'price_low_to_high', label: t('price_low_to_high'), icon: <FaSortAmountUp /> },
+        { value: 'default', label: t('default'), icon: null },
+        { value: 'price_desc', label: t('price_high_to_low'), icon: <FaSortAmountDown /> },
+        { value: 'price_asc', label: t('price_low_to_high'), icon: <FaSortAmountUp /> },
         { value: 'newest', label: t('newest'), icon: <FaSortAmountDown /> },
         { value: 'oldest', label: t('oldest'), icon: <FaSortAmountUp /> },
     ];
@@ -29,58 +40,80 @@ export default function Sorting({ totalProducts, category }: { totalProducts: nu
     ];
 
     const handleSortOptionClick = (option: { value: string, label: any, icon: React.ReactNode | null }) => {
+        setLoading(true);
         setSelectedSortOption(option.label);
         setIsSortOpen(false);
-        // Handle sorting logic here
+        router.push(`${pathname}?sort=${option.value}&display=${display || '50'}`);
     };
 
     const handleDisplayOptionClick = (option: { value: string, label: any, icon: React.ReactNode | null }) => {
+        setLoading(true);
         setSelectedDisplayOption(option.label);
         setIsDisplayOpen(false);
-        // Handle display logic here
+        router.push(`${pathname}?sort=${sort || 'price_desc'}&display=${option.value}`);
     };
 
     return (
-        <div className="hidden md:block">
-            <div className="flex items-center gap-2 mb-4">
-                <h1 className="text-xl">{totalProducts} {t('products')}</h1>
-                <h1 className="text-xl font-bold">'{category.name}'</h1>
-            </div>
+        <>
+            <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+                <div className="hidden md:block">
+                    <div className="flex items-center gap-2 mb-4">
+                        <h1 className="text-xl">{totalProducts} {t('products')}</h1>
+                        <h1 className="text-xl font-bold">'{category.name}'</h1>
+                    </div>
 
-            <div className="flex items-center gap-4 mb-4">
-                {/* sortby */}
-                <SortBy
-                    isOpen={isSortOpen}
-                    setIsOpen={setIsSortOpen}
-                    selectedOption={selectedSortOption}
-                    options={sortOptions}
-                    handleOptionClick={handleSortOptionClick}
-                    title='sort_by'
-                />
+                    <div className="flex items-center gap-4 mb-4">
+                        {/* sortby */}
+                        <SortBy
+                            isOpen={isSortOpen}
+                            setIsOpen={setIsSortOpen}
+                            selectedOption={selectedSortOption}
+                            options={sortOptions}
+                            handleOptionClick={handleSortOptionClick}
+                            title='sort_by'
+                            sort={sort}
+                        />
 
-                {/* display */}
-                <SortBy
-                    isOpen={isDisplayOpen}
-                    setIsOpen={setIsDisplayOpen}
-                    selectedOption={selectedDisplayOption}
-                    options={displayOptions}
-                    handleOptionClick={handleDisplayOptionClick}
-                    title='display'
-                />
+                        {/* display */}
+                        <SortBy
+                            isOpen={isDisplayOpen}
+                            setIsOpen={setIsDisplayOpen}
+                            selectedOption={selectedDisplayOption}
+                            options={displayOptions}
+                            handleOptionClick={handleDisplayOptionClick}
+                            title='display'
+                            display={display}
+                        />
 
-                {/* grid-list */}
-                <div className="flex flex-col gap-1">
-                    <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? 'Grid' : 'List'}</label>
-                    <button
-                        type="button"
-                        className="cursor-pointer w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-gray-700 hover:bg-gray-50"
-                        onClick={() => setIsGrid(!isGrid)}
-                    >
-                        {isGrid ? <CiGrid41 size={20} /> : <CiBoxList size={20} />}
-                    </button>
+                        {/* grid-list */}
+                        <div className="flex flex-col gap-1">
+                            <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? 'Grid' : 'List'}</label>
+                            <button
+                                type="button"
+                                className="cursor-pointer w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-gray-700 hover:bg-gray-50"
+                                onClick={() => setIsGrid(!isGrid)}
+                            >
+                                {isGrid ? <CiGrid41 size={20} /> : <CiBoxList size={20} />}
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
-        </div>
+            {/* category-list */}
+            {loading ? <div className="flex justify-center items-center h-screen">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
+            </div> : products && products.length > 0 && isGrid ?
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
+                    {products.map((product: Product) => (
+                        <ProductCard product={product} key={product.id} />
+                    ))}
+                </div> : products && products.length > 0 && !isGrid ?
+                    products.map((product: Product) => (
+                        <ProductList product={product} key={product.id} />
+                    )) :
+                    t('no_products_found')}
+        </>
     );
 }

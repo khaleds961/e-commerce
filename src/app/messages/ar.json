@@ -15,13 +15,15 @@
     "cart": "العربة",
     "profile": "الحساب",
     "products": "منتج",
+    "no_products_found": "لا يوجد منتجات",
     "price_high_to_low": "السعر من الأعلى إلى الأقل",
     "price_low_to_high": "السعر من الأقل إلى الأعلى",
     "newest": "الأحدث",
     "oldest": "الأقدم",
     "sort_by": " ترتيب حسب",
     "display": "عرض",
-    "select_sort_option": "اختر خيار الترتيب"
+    "select_sort_option": "اختر خيار الترتيب",
+    "default": "الافتراضي"
   },
   "Product": {
     "addToCart": "أضف إلى السلة",
@@ -51,6 +53,7 @@
     "orderSummary": "ملخص الطلب",
     "total": "المجموع",
     "emptyCart": "عربة التسوق فارغة",
-    "emptyCartDescription": "أضف العناصر إلى سلة التسوق الخاصة بك للبدء!"
+    "emptyCartDescription": "أضف العناصر إلى سلة التسوق الخاصة بك للبدء!",
+    "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح"
   }
 }

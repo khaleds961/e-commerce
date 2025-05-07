@@ -30,9 +30,9 @@ export const SEARCH_PRODUCTS = async(search: string) => {
     }
 }
 
-export const GET_PRODUCTS_BY_CATEGORY = async(categorySlug: string) => {
+export const GET_PRODUCTS_BY_CATEGORY = async(categorySlug: string,sort: string,display: any) => {
     try {
-        const response = await _axios.get(`/products/?categorySlug=${categorySlug}`);
+        const response = await _axios.get(`/products/?categorySlug=${categorySlug}&sort=${sort}&display=${display}`);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch products by category:", error);

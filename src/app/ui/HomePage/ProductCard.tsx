@@ -6,16 +6,21 @@ import { LuShoppingCart } from "react-icons/lu";
 import { formatProductName } from "@/app/utils/formatProductName";
 import { useLocale } from 'next-intl';
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { handleAddToCart } from "@/app/utils/addToCart";
 import CustomImage from "@/app/components/CustomImage";
 import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
+import { useAddToCart } from "@/app/store/addToCart";
 
 export default function ProductCard({ product }: { product: Product }) {
     const locale = useLocale();
     const isRTL = locale === 'ar';
     const t = useTranslations('Product');
     const [isLoading, setIsLoading] = useState(false);
+    const [checkItemQ, setCheckItemQ] = useState(false);
+    const { items } = useAddToCart();
+    const checkItem = items.find((item) => item.id === product.id);
+    const quantity = checkItem ? checkItem.quantity : 0;
 
     const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -26,12 +31,22 @@ export default function ProductCard({ product }: { product: Product }) {
             setIsLoading(false);
         }, 1000);
     }
+
+    useEffect(() => {
+        if (quantity > 0) {
+            setCheckItemQ(true);
+        }
+    }, [quantity])
+
+    const onAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        console.log('onAddToWishlist');
+    }
+
     return (
-        <Link href={`/products/${product.slug}`} prefetch={false}>
-            <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
-                <div className="absolute top-2 right-2">
-                    <IoMdHeartEmpty size={30} className="cursor-pointer text-white bg-[#363842] rounded-full p-1" />
-                </div>
+
+        <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
+            <Link href={`/products/${product.slug}`} prefetch={false}>
                 <div className="m-0 p-0 flex items-center justify-center w-full h-auto">
                     <CustomImage
                         src={product.images[0]}
@@ -64,10 +79,22 @@ export default function ProductCard({ product }: { product: Product }) {
                     {isLoading ? (
                         <div className="spinner"></div>
                     ) : (
-                        <LuShoppingCart className="text-xl xl:text-2xl" />
+                        checkItemQ ? (
+                            <div className="relative">
+                                <LuShoppingCart className="text-xl xl:text-2xl" />
+                                <span className="absolute top-[-10px] right-[-15px] bg-red-500 text-white rounded-full text-xs w-4 h-4 flex items-center justify-center">
+                                    {quantity}
+                                </span>
+                            </div>
+                        ) : (
+                            <LuShoppingCart className="text-xl xl:text-2xl" />
+                        )
                     )}
                 </button>
-            </div>
-        </Link>
+            </Link>
+            <button className="absolute top-2 right-2 bg-[#363842] hover:bg-[#808080] rounded-full p-1" onClick={(e) => onAddToWishlist(e)}>
+                <IoMdHeartEmpty size={30} className="cursor-pointer text-white rounded-full p-1" />
+            </button>
+        </div >
     )
 }

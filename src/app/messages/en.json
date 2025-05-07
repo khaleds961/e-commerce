@@ -15,13 +15,15 @@
       "cart": "Cart",
       "profile": "Profile",
       "products": "Products",
+      "no_products_found": "No products found",
       "price_high_to_low": "Price: High to Low",
       "price_low_to_high": "Price: Low to High",
       "newest": "Newest",
       "oldest": "Oldest",
       "sort_by": "Sort by",
       "display": "Display",
-      "select_sort_option": "Select Sort Option"
+      "select_sort_option": "Select Sort Option",
+      "default": "Default"
     },
     "Product":{
       "addToCart": "Add to Cart",
@@ -51,7 +53,8 @@
       "orderSummary": "Order Summary",
       "total": "Total",
       "emptyCart": "Your cart is empty",
-      "emptyCartDescription": "Add items to your cart to get started !"
+      "emptyCartDescription": "Add items to your cart to get started !",
+      "addedSuccessfully": "Added Successfully"
     }
   }
   

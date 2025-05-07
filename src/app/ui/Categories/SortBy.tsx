@@ -8,10 +8,13 @@ interface SortByProps {
     options: { value: string, label: any, icon: any }[];
     handleOptionClick: any;
     title: string;
+    sort?: any;
+    display?: any;
 }
 
-export default function SortBy({ isOpen, setIsOpen, selectedOption, options, handleOptionClick, title }: SortByProps) {
+export default function SortBy({ isOpen, setIsOpen, selectedOption, options, handleOptionClick, title, sort, display }: SortByProps) {
     const t = useTranslations('HomePage');
+    const currentOption = options.find(option => option.value === (title === 'sort_by' ? sort : display)) || options[0];
 
     return (
         <div className="flex flex-col gap-1">
@@ -24,7 +27,7 @@ export default function SortBy({ isOpen, setIsOpen, selectedOption, options, han
                     shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 "
                         onClick={() => setIsOpen(!isOpen)}
                     >
-                        {selectedOption}
+                        {currentOption.label}
                         <svg
                             className={`ml-2 w-5 h-5 transform transition-transform ${isOpen ? 'rotate-180' : 'rotate-0'}`}
                             xmlns="http://www.w3.org/2000/svg"

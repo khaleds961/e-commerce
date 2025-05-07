@@ -1,6 +1,6 @@
 export default function Loading() {
     return (
-        <div className="mx-2 md:mx-10 mt-5">
+        <div className="mx-2 md:mx-10 mt-[100px]">
             {/* Categories Skeleton */}
             <div className="animate-pulse">
                 <div className="h-8 w-48 bg-gray-200 rounded mb-5"></div>
