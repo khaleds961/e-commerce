@@ -1,6 +1,5 @@
 import Products from "@/app/template-2-components/Products";
 import Categories from "@/app/ui/template-2/Categories";
-import MegaPromotion from "@/app/ui/template-2/MegaPromotion";
 import Topmenu from "@/app/ui/template-2/Topmenu";
 import Advertisement from "@/app/ui/template-2/Advertisement";
 import { GET_CATEGORIES } from "@/app/lib/api/categories";
@@ -11,8 +10,8 @@ import Mainslider from "@/app/ui/template-2/MainSlider";
 import FeaturedCategories from "@/app/ui/template-2/FeaturedCategories";
 import FlashSalesToday from "@/app/ui/template-2/FlashSalesToday";
 import SpecialOffers from "@/app/ui/template-2/SpecialOffers";
-
-
+import RecommendedForYou from "@/app/ui/template-2/RecommendedForYou";
+import MegaPromotionDaily from "@/app/ui/template-2/MegaPromotionDaily";
 
 
 export default async function Home() {
@@ -67,6 +66,9 @@ export default async function Home() {
         <FlashSalesToday />
         <Products titleKey="N/A" products={limitedProducts} />
         <SpecialOffers />
+        
+        <RecommendedForYou />
+        <MegaPromotionDaily />
         <Advertisement />
         <Products titleKey="popularProducts" products={limitedProducts} />
         <Products titleKey="justForYou" products={limitedProducts} />

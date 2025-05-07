@@ -1,12 +1,33 @@
 'use client';
 import Image from "next/image";
-import { LuShoppingCart } from "react-icons/lu";
 import { CiStar } from "react-icons/ci";
 import { PiStorefrontLight } from "react-icons/pi";
 import { formatProductName } from "@/app/utils/formatProductName";
 import { useLocale } from "next-intl";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
+
+// Define the Category and Product types to match MegaPromotionDaily
+type Category = {
+  id: number;  // Changed to number to match your original type
+  name: string;
+  slug: string;
+  image?: string;
+  creationAt?: string;
+  updatedAt?: string;
+};
+
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: Category;
+  images: string[];
+  slug: string;
+  creationAt: string;
+  updatedAt: string;
+};
 
 export default function ProductCard({ product }: { product: Product }) {
   const locale = useLocale();
@@ -23,7 +44,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/${locale}/products/${product.id}`} className="block">
-      <div className="cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
+      <div className=" cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
 
         {/* Add to Cart */}
         <button
@@ -33,7 +54,7 @@ export default function ProductCard({ product }: { product: Product }) {
         </button>
 
         {/* Image with local group */}
-        <div className="flex justify-center items-center w-full h-40 overflow-hidden">
+        <div className="flex justify-center items-center w-full h-40 overflow-hidden ">
           <Image
             src={product.images[0]}
             alt={product.title}
