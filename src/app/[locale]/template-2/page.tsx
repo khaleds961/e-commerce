@@ -12,6 +12,9 @@ import FlashSalesToday from "@/app/ui/template-2/FlashSalesToday";
 import SpecialOffers from "@/app/ui/template-2/SpecialOffers";
 import RecommendedForYou from "@/app/ui/template-2/RecommendedForYou";
 import MegaPromotionDaily from "@/app/ui/template-2/MegaPromotionDaily";
+import TopVendors from "@/app/ui/template-2/TopVendors";
+import DailyBestSells from "@/app/ui/template-2/DailyBestSells";
+
 
 
 export default async function Home() {
@@ -66,9 +69,10 @@ export default async function Home() {
         <FlashSalesToday />
         <Products titleKey="N/A" products={limitedProducts} />
         <SpecialOffers />
-        
         <RecommendedForYou />
         <MegaPromotionDaily />
+        <TopVendors />
+        <DailyBestSells />
         <Advertisement />
         <Products titleKey="popularProducts" products={limitedProducts} />
         <Products titleKey="justForYou" products={limitedProducts} />

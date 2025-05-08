@@ -17,6 +17,7 @@ type Product = {
     slug: string;
     creationAt: string;
     updatedAt: string;
+    
 }
 
 type CartItem = {
