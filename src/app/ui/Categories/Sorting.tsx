@@ -1,15 +1,18 @@
 'use client'
 import { useTranslations } from "next-intl";
 import { FaSortAmountDown, FaSortAmountUp, FaThList } from 'react-icons/fa'; // Import icons
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import SortBy from "./SortBy";
 import { CiBoxList } from "react-icons/ci";
 import { CiGrid41 } from "react-icons/ci";
 import ProductCard from "../HomePage/ProductCard";
 import ProductList from "./ProductList";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import ProductsSkeleton from "./ProductsSkeleton";
+import { useLoading } from "@/app/context/LoadingContext";
 
 export default function Sorting({ totalProducts, category, products }: { totalProducts: number, category: Category, products: Product[] }) {
+    
     const t = useTranslations('HomePage');
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isDisplayOpen, setIsDisplayOpen] = useState(false);
@@ -21,9 +24,9 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
     const pathname = usePathname();
     const sort = searchParams.get('sort');
     const display = searchParams.get('display');
-    const [loading, setLoading] = useState(false);
-
-    console.log(sort);
+    const price_min = searchParams.get('price_min');
+    const price_max = searchParams.get('price_max');
+    const { isLoading, setIsLoading } = useLoading();
 
     const sortOptions = [
         { value: 'default', label: t('default'), icon: null },
@@ -39,19 +42,55 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
         { value: '150', label: 150, icon: null },
     ];
 
+    const buildQueryString = (params: Record<string, string | number | null>) => {
+        const validParams = Object.entries(params)
+            .filter(([_, value]) => value !== null && value !== undefined)
+            .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
+            .join('&');
+
+        return validParams ? `?${validParams}` : '';
+    };
+
     const handleSortOptionClick = (option: { value: string, label: any, icon: React.ReactNode | null }) => {
-        setLoading(true);
+        setIsLoading(true);
         setSelectedSortOption(option.label);
         setIsSortOpen(false);
-        router.push(`${pathname}?sort=${option.value}&display=${display || '50'}`);
+
+        const queryParams: QueryParams = {
+            sort: option.value,
+            display: display || '50',
+            price_min,
+            price_max
+        };
+        const queryString = buildQueryString(queryParams);
+        router.push(`${pathname}${queryString}`);
     };
 
     const handleDisplayOptionClick = (option: { value: string, label: any, icon: React.ReactNode | null }) => {
-        setLoading(true);
+        setIsLoading(true);
         setSelectedDisplayOption(option.label);
         setIsDisplayOpen(false);
-        router.push(`${pathname}?sort=${sort || 'price_desc'}&display=${option.value}`);
+
+        const queryParams: QueryParams = {
+            sort: sort || 'price_desc',
+            display: option.value,
+            price_min,
+            price_max
+        };
+    
+        const queryString = buildQueryString(queryParams);
+        router.push(`${pathname}${queryString}`);
     };
+
+    useEffect(() => {
+        setIsLoading(true);
+    }, [price_min]);
+
+
+    useEffect(() => {
+        setIsLoading(false);
+    }, [products]);
+
 
     return (
         <>
@@ -102,9 +141,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
             </div>
 
             {/* category-list */}
-            {loading ? <div className="flex justify-center items-center h-screen">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900"></div>
-            </div> : products && products.length > 0 && isGrid ?
+            {isLoading ? <ProductsSkeleton /> : products && products.length > 0 && isGrid ?
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 px-4">
                     {products.map((product: Product) => (
                         <ProductCard product={product} key={product.id} />

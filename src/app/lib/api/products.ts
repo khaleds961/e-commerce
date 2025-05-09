@@ -10,7 +10,7 @@ export const GET_PRODUCTS = async (): Promise<Product[]> => {
     }
 }
 
-export const GET_PRODUCT_BY_SLUG = async(slug: string) => {
+export const GET_PRODUCT_BY_SLUG = async (slug: string) => {
     try {
         const response = await _axios.get(`/products/slug/${slug}`);
         return response.data;
@@ -20,7 +20,7 @@ export const GET_PRODUCT_BY_SLUG = async(slug: string) => {
     }
 }
 
-export const SEARCH_PRODUCTS = async(search: string) => {
+export const SEARCH_PRODUCTS = async (search: string) => {
     try {
         const response = await _axios.get(`/products/?title=${search}`);
         return response;
@@ -30,9 +30,21 @@ export const SEARCH_PRODUCTS = async(search: string) => {
     }
 }
 
-export const GET_PRODUCTS_BY_CATEGORY = async(categorySlug: string,sort: string,display: any) => {
+export const GET_PRODUCTS_BY_CATEGORY = async (categorySlug: string, sort?: string, limit?: any, price_min?: any, price_max?: any) => {
     try {
-        const response = await _axios.get(`/products/?categorySlug=${categorySlug}&sort=${sort}&display=${display}`);
+        const params: Record<string, string> = {
+            categorySlug
+        };
+        if (sort) params.sort = sort;
+        if (limit) params.limit = limit;
+        if (price_min) params.price_min = price_min;
+        if (price_max) params.price_max = price_max;
+
+        const queryString = Object.entries(params)
+            .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+            .join('&');
+
+        const response = await _axios.get(`/products/?${queryString}`);
         return response.data;
     } catch (error) {
         console.error("Failed to fetch products by category:", error);

@@ -58,7 +58,7 @@ export default function ProductList({ product }: { product: Product }) {
                         <article className="p-4 flex flex-col overflow-hidden">
                             <span className="text-sm">{product.sku}</span>
                             <h3 className="text-md font-bold mb-2">{formatProductName(product.title, 20)}</h3>
-                            <p className="text-sm">{formatProductName(product.description + lorem, 500)}</p>
+                            <p className="text-sm mb-1">{formatProductName(product.description + lorem, 500)}</p>
                         </article>
 
                     </div>

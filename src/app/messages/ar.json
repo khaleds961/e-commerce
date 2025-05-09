@@ -23,7 +23,10 @@
     "sort_by": " ترتيب حسب",
     "display": "عرض",
     "select_sort_option": "اختر خيار الترتيب",
-    "default": "الافتراضي"
+    "default": "الافتراضي",
+    "clear": "مسح",
+    "price_range": "المدى السعري",
+    "category_filters": "فلتر الأقسام"
   },
   "Product": {
     "addToCart": "أضف إلى السلة",

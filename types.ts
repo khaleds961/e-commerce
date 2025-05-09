@@ -32,3 +32,7 @@ type CartItem = {
     adjusted: boolean;
 }
 
+type QueryParams = {
+    [key: string]: string | number | null;
+};
+

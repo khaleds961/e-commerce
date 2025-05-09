@@ -23,7 +23,10 @@
       "sort_by": "Sort by",
       "display": "Display",
       "select_sort_option": "Select Sort Option",
-      "default": "Default"
+      "default": "Default",
+      "clear": "Clear",
+      "price_range": "Price Range",
+      "category_filters": "Category Filters"
     },
     "Product":{
       "addToCart": "Add to Cart",
