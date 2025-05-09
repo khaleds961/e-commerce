@@ -7,9 +7,9 @@ import { useLocale } from "next-intl";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 
-// Define the Category and Product types to match MegaPromotionDaily
+// Define types
 type Category = {
-  id: number;  // Changed to number to match your original type
+  id: number;
   name: string;
   slug: string;
   image?: string;
@@ -29,7 +29,7 @@ type Product = {
   updatedAt: string;
 };
 
-export default function ProductCard({ product }: { product: Product }) {
+export default function ProductCard2({ product }: { product: Product }) {
   const locale = useLocale();
   const isRTL = locale === 'ar';
 
@@ -44,17 +44,10 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/${locale}/products/${product.id}`} className="block">
-      <div className=" cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
+      <div className="cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
 
-        {/* Add to Cart */}
-        <button
-          className={`cursor-pointer absolute top-2 ${isRTL ? 'left-2' : 'right-2'} z-11 rounded-4xl bg-[#1f52cc] hover:bg-[#359FC1] text-white  p-2 w-[100px] flex items-center justify-center gap-2`}
-        >
-          Add <IoCartOutline className="text-xl" />
-        </button>
-
-        {/* Image with local group */}
-        <div className="flex justify-center items-center w-full h-40 overflow-hidden ">
+        {/* Image */}
+        <div className="flex justify-center items-center w-full h-40 overflow-hidden">
           <Image
             src={product.images[0]}
             alt={product.title}
@@ -91,16 +84,26 @@ export default function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-auto">
+        <div className="mt-2">
           <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
             <div
               className="bg-green-500 h-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs mt-1 text-gray-600">
+        </div>
+
+        {/* Bottom Row with Sold info and Add to Cart */}
+        <div className="mt-auto flex items-center justify-between pt-3">
+          <p className="text-xs text-gray-600">
             Sold: {sold}/{total}
           </p>
+
+          <button
+            className="rounded-4xl bg-[#1f52cc] hover:bg-[#359FC1] text-white px-4 py-2 flex items-center justify-center gap-2 text-sm"
+          >
+            Add <IoCartOutline className="text-lg" />
+          </button>
         </div>
       </div>
     </Link>

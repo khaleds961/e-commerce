@@ -28,7 +28,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
   return (
     <>
       {categories && categories.length > 0 && (
-        <div className="relative group px-10">
+        <div className="relative group">
           {/* Left Arrow */}
           <button
             onClick={() => scroll('left')}

@@ -105,7 +105,7 @@ const RecommendedForYou = () => {
     const products = getFilteredProducts();
 
     return (
-        <div className="p-4 pr-15 pl-15 pt-15">
+        <div className=" pt-15">
             <h2 className="text-3xl font-bold mb-4">Recommended for you</h2>
 
             <div className="flex flex-wrap justify-end gap-2 mb-6">

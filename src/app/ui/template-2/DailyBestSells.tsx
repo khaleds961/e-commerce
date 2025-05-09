@@ -1,4 +1,5 @@
 'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ProductCardList from './ProductCardList';
 
@@ -25,7 +26,18 @@ type Product = {
     countdown?: number;
 };
 
-// Mock products JSON
+type TopImageForBanner = {
+    id: number;
+    image: string;
+};
+
+const topimageforbanner: TopImageForBanner[] = [
+    {
+        id: 1,
+        image: '/images/banner-img3.png',
+    },
+];
+
 const mockProducts: Product[] = [
     {
         id: 1,
@@ -97,12 +109,39 @@ const mockProducts: Product[] = [
     },
 ];
 
+// Countdown hook
+function useCountdown(targetDate: Date) {
+    const [timeLeft, setTimeLeft] = useState(getTimeLeft());
+
+    function getTimeLeft() {
+        const now = new Date().getTime();
+        const distance = targetDate.getTime() - now;
+
+        const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((distance / (1000 * 60)) % 60);
+        const seconds = Math.floor((distance / 1000) % 60);
+
+        return {
+            hours: hours < 10 ? `0${hours}` : hours,
+            minutes: minutes < 10 ? `0${minutes}` : minutes,
+            seconds: seconds < 10 ? `0${seconds}` : seconds,
+        };
+    }
+
+    useEffect(() => {
+        const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
+        return () => clearInterval(timer);
+    }, []);
+
+    return timeLeft;
+}
+
 export default function DailyBestSells() {
+    const countdown = useCountdown(new Date(new Date().getTime() + 12 * 60 * 60 * 1000)); // 12 hours
+
     return (
-        <section className="w-full px-4 py-6">
-            <h2 className="text-2xl font-bold text-[#102B6B] mb-6">
-                🔥 Daily Best Sells
-            </h2>
+        <section className="w-full py-6">
+            <h2 className="text-2xl font-bold text-[#102B6B] mb-6">Daily Best Sells</h2>
 
             <div className="flex gap-6">
                 {/* Left: Product Grid */}
@@ -114,15 +153,42 @@ export default function DailyBestSells() {
                     ))}
                 </div>
 
-                {/* Right: Promo Image */}
-                <div className="flex-shrink-0">
+                {/* Right: Promo Banner with Overlay */}
+                <div className="flex-shrink-0 relative w-[650px] h-[550px] rounded-2xl overflow-hidden">
+                    {/* Background image */}
                     <Image
                         src="/images/special-snacks.png"
                         alt="Flash Sale Banner"
-                        width={550}
-                        height={550}
-                        className="rounded-2xl object-cover"
+                        fill
+                        className="object-cover"
                     />
+
+                    {/* Overlay content */}
+                    <div className="absolute top-4  flex flex-col items-center text-center left-2/9 transform -translate-x-2/20 z-10">
+                        {/* Top image */}
+                        <Image
+                            src={topimageforbanner[0].image}
+                            alt="Top Banner Overlay"
+                            width={470}
+                            height={240}
+                            className="object-contain"
+                        />
+
+                        {/* Title */}
+                        <h3 className="text-black text-2xl font-bold mt-4">Flash Sale Today</h3>
+
+                        {/* Countdown */}
+                        <div className="flex gap-2 mt-2 text-white font-semibold text-lg">
+                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.hours} Hours</span>
+                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.minutes} Min</span>
+                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.seconds} Sec</span>
+                        </div>
+
+                        {/* Button */}
+                        <button className="mt-4 bg-[#1f52cc] hover:bg-[#359FC1] text-white px-6 py-2 rounded-3xl font-semibold">
+                            Shop Now
+                        </button>
+                    </div>
                 </div>
             </div>
         </section>

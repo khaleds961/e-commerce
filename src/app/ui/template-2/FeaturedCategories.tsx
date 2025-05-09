@@ -36,11 +36,11 @@ export default function FeaturedCategories() {
     return (
         <section className="my-12">
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mx-12">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 {featuredItems.map((item) => (
                     <div
                         key={item.id}
-                        className="relative group rounded-3xl overflow-hidden shadow-lg"
+                        className="relative group rounded-4xl overflow-hidden shadow-lg"
                     >
                         <Image
                             src={item.image}

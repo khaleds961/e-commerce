@@ -133,7 +133,7 @@ export default function FlashSalesToday() {
     };
 
     return (
-        <div className="w-full relative px-10">
+        <div className="w-full relative ">
             <h2 className="text-2xl font-bold mb-6">Flash Sales Today</h2>
 
             <div className="relative w-full rounded-xl overflow-hidden cursor-grab">

@@ -159,7 +159,7 @@ const MegaPromotionDaily = () => {
   }, []);
 
   return (
-    <div className="pr-15 pl-15 pt-15">
+    <div className=" pt-15">
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-3xl font-bold">Hot Deals Today</h2>
         <div className="flex items-center gap-4">

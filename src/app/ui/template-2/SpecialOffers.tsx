@@ -21,7 +21,7 @@ const offers = [
 
 const SpecialOfferComponent = () => {
     return (
-        <div className="flex flex-col md:flex-row gap-2 px-15 pt-20">
+        <div className="flex flex-col md:flex-row gap-2 pt-20">
             {offers.map((offer) => (
                 <div
                     key={offer.id}
@@ -62,7 +62,7 @@ const SpecialOfferComponent = () => {
                                 <p className="text-white mb-4">{offer.description}</p>
                             </div>
 
-                            <button className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition">
+                            <button className="bg-blue-600 text-white px-6 py-2 rounded-4xl hover:bg-blue-700 transition ">
                                 Shop Now
                             </button>
                         </div>

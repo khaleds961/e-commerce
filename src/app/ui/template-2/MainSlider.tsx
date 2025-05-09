@@ -30,7 +30,7 @@ export default function Mainslider({ slides }: { slides: Slide[] }) {
     if (!slides || slides.length === 0) return null;
 
     return (
-        <div className="relative w-full max-w-[1650px] h-[560px] overflow-hidden rounded-xl shadow mb-8 mt-24 mx-auto animate-wiggle">
+        <div className="relative w-full max-w-[1900px] h-[560px] overflow-hidden rounded-4xl shadow mb-8 mt-24 mx-auto animate-wiggle">
             
             <div
                 className="flex transition-transform duration-1700 ease-in-out h-full"

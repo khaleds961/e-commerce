@@ -36,7 +36,7 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
           prevEl: `.swiper-button-prev-custom-${uniqueId}`,
         }}
         slidesPerView={6}
-        spaceBetween={20} // ✅ Adds gap between cards
+        spaceBetween={20} 
         breakpoints={{
           0: { slidesPerView: 2.5 },
           320: { slidesPerView: 2.5 },

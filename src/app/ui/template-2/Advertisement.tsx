@@ -9,7 +9,7 @@ export default function Advertisement() {
                 <div className="rounded-md p-4 md:p-10 flex flex-col justify-center">
                     <p className="text-md md:text-xl font-bold mb-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
                     <p className="text-xs md:text-sm text-gray-500 mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, quos.</p>
-                    <button className="cursor-pointer w-fit bg-blue-500 text-white px-4 py-2 rounded-md">{t("readMore")}</button>
+                    <button className="cursor-pointer w-fit bg-blue-500 text-white px-4 py-2 rounded-4xl">{t("readMore")}</button>
                 </div>
                 <div className="rounded-md p-4 relative hidden md:block">
                     <Image src="/images/man-shop.png" alt="Advertisement" width={250} height={250}
