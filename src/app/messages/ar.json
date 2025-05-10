@@ -26,7 +26,12 @@
     "default": "الافتراضي",
     "clear": "مسح",
     "price_range": "المدى السعري",
-    "category_filters": "فلتر الأقسام"
+    "category_filters": "فلتر الأقسام",
+    "grid": "شبكة",
+    "list": "قائمة",
+    "page": "الصفحة",
+    "previous": "السابق",
+    "next": "التالي"
   },
   "Product": {
     "addToCart": "أضف إلى السلة",

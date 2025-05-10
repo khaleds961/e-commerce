@@ -26,7 +26,12 @@
       "default": "Default",
       "clear": "Clear",
       "price_range": "Price Range",
-      "category_filters": "Category Filters"
+      "category_filters": "Category Filters",
+      "grid": "Grid",
+      "list": "List",
+      "page": "Page",
+      "previous": "Previous",
+      "next": "Next"
     },
     "Product":{
       "addToCart": "Add to Cart",

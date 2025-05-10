@@ -14,7 +14,7 @@ import SearchBarResults from "./SearchBarResults"
 import { useDebounce } from 'use-debounce';
 import { ImSpinner2 } from "react-icons/im";
 import { useRouter } from "next/navigation";
-
+import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
 
 export default function Searchbar() {
     const t = useTranslations('HomePage');
@@ -48,7 +48,7 @@ export default function Searchbar() {
             }
 
         } else {
-            setSearchResults([]);   
+            setSearchResults([]);
         }
     };
 
@@ -73,12 +73,12 @@ export default function Searchbar() {
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'ArrowDown') {
             e.preventDefault();
-            setSelectedIndex(prevIndex => 
+            setSelectedIndex(prevIndex =>
                 prevIndex < searchResults.length - 1 ? prevIndex + 1 : prevIndex
             );
         } else if (e.key === 'ArrowUp') {
             e.preventDefault();
-            setSelectedIndex(prevIndex => 
+            setSelectedIndex(prevIndex =>
                 prevIndex > 0 ? prevIndex - 1 : prevIndex
             );
         } else if (e.key === 'Enter' && selectedIndex >= 0) {
@@ -98,7 +98,6 @@ export default function Searchbar() {
         // e.preventDefault();
         // e.stopPropagation();
         console.log('clicked');
-        
         router.push(`/products/${slug}`);
     };
 
@@ -140,7 +139,7 @@ export default function Searchbar() {
                     )}
                     {searchResults.length > 0 && (
                         <SearchBarResults searchResults={searchResults} selectedIndex={selectedIndex} handleKeyDown={handleKeyDown}
-                        onClick={handleProductClick} />
+                            onClick={handleProductClick} />
                     )}
                 </div>
 
@@ -163,6 +162,7 @@ export default function Searchbar() {
                                 <span className="absolute top-[-7px] right-[-10px] bg-blue-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">{quantity}</span>
                             )}
                         </Link>
+                        
                     </button>
                 </div>
 

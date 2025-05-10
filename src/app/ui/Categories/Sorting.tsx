@@ -10,6 +10,8 @@ import ProductList from "./ProductList";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import ProductsSkeleton from "./ProductsSkeleton";
 import { useLoading } from "@/app/context/LoadingContext";
+import buildQueryString from "@/app/utils/buildQueryString";
+import useScreenSize from "@/app/hooks/useScreenSize";
 
 export default function Sorting({ totalProducts, category, products }: { totalProducts: number, category: Category, products: Product[] }) {
     
@@ -42,15 +44,6 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
         { value: '150', label: 150, icon: null },
     ];
 
-    const buildQueryString = (params: Record<string, string | number | null>) => {
-        const validParams = Object.entries(params)
-            .filter(([_, value]) => value !== null && value !== undefined)
-            .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
-            .join('&');
-
-        return validParams ? `?${validParams}` : '';
-    };
-
     const handleSortOptionClick = (option: { value: string, label: any, icon: React.ReactNode | null }) => {
         setIsLoading(true);
         setSelectedSortOption(option.label);
@@ -60,7 +53,8 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
             sort: option.value,
             display: display || '50',
             price_min,
-            price_max
+            price_max,
+            page: searchParams.get('page')
         };
         const queryString = buildQueryString(queryParams);
         router.push(`${pathname}${queryString}`);
@@ -91,6 +85,13 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
         setIsLoading(false);
     }, [products]);
 
+    
+    const screenSize = useScreenSize();
+    useEffect(() => {
+        if (screenSize.width < 768) {
+            setIsGrid(true);
+        }
+    }, [screenSize]);
 
     return (
         <>
@@ -126,7 +127,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
 
                         {/* grid-list */}
                         <div className="flex flex-col gap-1">
-                            <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? 'Grid' : 'List'}</label>
+                            <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? t('grid') : t('list')}</label>
                             <button
                                 type="button"
                                 className="cursor-pointer w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-gray-700 hover:bg-gray-50"

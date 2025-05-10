@@ -1,8 +1,6 @@
 'use client'
 import CustomImage from "@/app/components/CustomImage";
-import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 interface SearchBarResultsProps {
     searchResults: Array<Product>;
     selectedIndex: number;
@@ -10,11 +8,10 @@ interface SearchBarResultsProps {
     onClick: (e: React.MouseEvent, slug: string) => void;
 }
 export default function SearchBarResults({ searchResults, selectedIndex, handleKeyDown, onClick }: SearchBarResultsProps) {
-    const router = useRouter();
 
     return (
         <div
-            className="absolute top-10 left-0 w-full bg-gray-400 shadow-lg rounded-md mx-2 z-50"
+            className="absolute top-10 left-0 w-full bg-gray-400 shadow-lg rounded-md mx-2 z-50 bg-red-500"
             onKeyDown={handleKeyDown}
             tabIndex={0}
         >

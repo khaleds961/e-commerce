@@ -30,7 +30,7 @@ export const SEARCH_PRODUCTS = async (search: string) => {
     }
 }
 
-export const GET_PRODUCTS_BY_CATEGORY = async (categorySlug: string, sort?: string, limit?: any, price_min?: any, price_max?: any) => {
+export const GET_PRODUCTS_BY_CATEGORY = async (categorySlug: string, sort?: string, limit?: any, price_min?: any, price_max?: any, offset?: any) => {
     try {
         const params: Record<string, string> = {
             categorySlug
@@ -39,11 +39,12 @@ export const GET_PRODUCTS_BY_CATEGORY = async (categorySlug: string, sort?: stri
         if (limit) params.limit = limit;
         if (price_min) params.price_min = price_min;
         if (price_max) params.price_max = price_max;
-
+        if (offset) params.offset = offset;
         const queryString = Object.entries(params)
             .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
             .join('&');
-
+        console.log({queryString});
+        
         const response = await _axios.get(`/products/?${queryString}`);
         return response.data;
     } catch (error) {

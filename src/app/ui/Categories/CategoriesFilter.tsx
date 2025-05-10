@@ -3,6 +3,7 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {useState } from "react";
 import { useLoading } from "@/app/context/LoadingContext";
 import { useTranslations } from "next-intl";
+import buildQueryString from "@/app/utils/buildQueryString";
 
 export default function CategoriesFilter({ products }: { products: Product[] }) {
     const t = useTranslations('HomePage');
@@ -22,7 +23,8 @@ export default function CategoriesFilter({ products }: { products: Product[] }) 
         sort: searchParams.get('sort'),
         display: searchParams.get('display'),
         price_min: searchParams.get('price_min'),
-        price_max: searchParams.get('price_max')
+        price_max: searchParams.get('price_max'),
+        page: searchParams.get('page'),
     };
 
     const [price, setPrice] = useState(
@@ -31,15 +33,6 @@ export default function CategoriesFilter({ products }: { products: Product[] }) 
 
     const { setIsLoading } = useLoading();
 
-    const buildQueryString = (params: Record<string, string | number | null>) => {
-        const validParams = Object.entries(params)
-            .filter(([_, value]) => value !== null && value !== undefined)
-            .map(([key, value]) => `${key}=${encodeURIComponent(String(value))}`)
-            .join('&');
-
-        return validParams ? `?${validParams}` : '';
-    };
-
     const handlePriceChange = (newPrice: number) => {
         setIsLoading(true);
         setPrice(newPrice);
@@ -47,9 +40,10 @@ export default function CategoriesFilter({ products }: { products: Product[] }) 
         const queryParams:QueryParams = {
             ...currentParams,
             price_min: newPrice,
-            price_max: PRICE_RANGE.max
+            price_max: PRICE_RANGE.max,
+            page: currentParams.page
         };
-
+        
         // Remove null/undefined values
         Object.keys(queryParams).forEach(key => {
             if (queryParams[key] === null || queryParams[key] === undefined) {
@@ -69,12 +63,12 @@ export default function CategoriesFilter({ products }: { products: Product[] }) 
 
     return (
         <div className="bg-white rounded-lg p-4">
-            <h2 className="text-lg font-bold mb-4">{t('category_filters')}</h2>
+            <h2 className="text-md font-semibold mb-4">{t('category_filters')}</h2>
 
-            <h2 className="text-lg font-semibold mb-2">{t('price_range')}</h2>
+            <h2 className="text-md mb-1">{t('price_range')}</h2>
             {isClear && (
                 <div className="flex justify-end">
-                    <span className="text-sm text-gray-500 cursor-pointer border border-gray-300 hover:bg-gray-50 rounded-md p-1 mb-2" onClick={() => handlePriceChange(PRICE_RANGE.min)}>{t('clear')}</span>
+                    <span className="text-sm text-gray-500 cursor-pointer border border-gray-300 hover:bg-gray-50 hover:border-blue-500 rounded-md p-1 mb-2" onClick={() => handlePriceChange(PRICE_RANGE.min)}>{t('clear')}</span>
                 </div>
             )}
             <div className="space-y-2">
