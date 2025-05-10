@@ -15,6 +15,7 @@ import TopVendors from "@/app/ui/template-2/TopVendors";
 import DailyBestSells from "@/app/ui/template-2/DailyBestSells";
 import DeliveryBanner from "@/app/ui/template-2/DeliveryBanner";
 import CategoryFeaturedProducts from "@/app/ui/template-2/CategoryFeaturedProducts";
+import FourPartCarousels from "@/app/ui/template-2/FourPartCarousels";
 
 
 
@@ -76,7 +77,7 @@ export default async function Home() {
         <DailyBestSells />
         <DeliveryBanner />
         <CategoryFeaturedProducts />
-        
+        <FourPartCarousels />
       </div>
     </div>
   );

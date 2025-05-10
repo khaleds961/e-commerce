@@ -5,7 +5,7 @@ export default async function Products({ titleKey, products }: { titleKey: strin
     const t = useTranslations('HomePage');
 
     return (
-        <div className="mt-10 w-full mx-auto items-center justify-center ">
+        <div className="mt-10 w-full mx-auto items-center justify-center">
             <div>
             <ProductsSlider products={products} />
             </div>

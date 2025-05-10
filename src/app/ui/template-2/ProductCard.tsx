@@ -7,9 +7,8 @@ import { useLocale } from "next-intl";
 import Link from "next/link";
 import { IoCartOutline } from "react-icons/io5";
 
-// Define the Category and Product types to match MegaPromotionDaily
 type Category = {
-  id: number;  // Changed to number to match your original type
+  id: number;
   name: string;
   slug: string;
   image?: string;
@@ -42,21 +41,32 @@ export default function ProductCard({ product }: { product: Product }) {
   const total = 35;
   const progress = (sold / total) * 100;
 
+  // ✅ Sanitize the image URL to avoid invalid `src` errors
+  let imageSrc = '/placeholder.jpg';
+  if (product.images?.[0]) {
+    const src = product.images[0].trim();
+    if (src.startsWith('http') || src.startsWith('/')) {
+      imageSrc = src;
+    } else if (src.startsWith('www.')) {
+      imageSrc = `https://${src}`;
+    }
+  }
+
   return (
     <Link href={`/${locale}/products/${product.id}`} className="block">
       <div className=" cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
 
         {/* Add to Cart */}
         <button
-          className={`cursor-pointer absolute top-2 ${isRTL ? 'left-2' : 'right-2'} z-11 rounded-4xl bg-[#1f52cc] hover:bg-[#359FC1] text-white  p-2 w-[100px] flex items-center justify-center gap-2`}
+          className={`cursor-pointer absolute top-2 ${isRTL ? 'left-2' : 'right-2'} z-11 rounded-4xl bg-[#1f52cc] hover:bg-[#359FC1] text-white p-2 w-[100px] flex items-center justify-center gap-2`}
         >
           Add <IoCartOutline className="text-xl" />
         </button>
 
-        {/* Image with local group */}
-        <div className="flex justify-center items-center w-full h-40 overflow-hidden ">
+        {/* Image */}
+        <div className="flex justify-center items-center w-full h-40 overflow-hidden">
           <Image
-            src={product.images[0]}
+            src={imageSrc}
             alt={product.title}
             width={150}
             height={150}

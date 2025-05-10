@@ -36,7 +36,7 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
           prevEl: `.swiper-button-prev-custom-${uniqueId}`,
         }}
         slidesPerView={6}
-        spaceBetween={20} 
+        spaceBetween={170} 
         breakpoints={{
           0: { slidesPerView: 2.5 },
           320: { slidesPerView: 2.5 },
