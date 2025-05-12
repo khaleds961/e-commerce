@@ -7,6 +7,7 @@ import { SitePropertiesProvider } from '@/app/providers/SitePropertiesProvider';
 import Wrapper from '@/app/components/Wrapper';
 import { AddToCartProvider } from '../providers/AddToCartProvider';
 import { Toaster } from 'react-hot-toast';
+import ScreenLoader from '../components/ScreenLoader';
 
 export default async function LocaleLayout({ children, params }: { children: React.ReactNode; params: Promise<{ locale: string }>; }) {
 
@@ -20,6 +21,7 @@ export default async function LocaleLayout({ children, params }: { children: Rea
   return (
     <html lang={locale} dir={direction}>
       <body>
+        {/* <ScreenLoader /> */}
         <Toaster position="bottom-right" />
         <SitePropertiesProvider>
           <AddToCartProvider>

@@ -14,13 +14,15 @@ import SearchBarResults from "./SearchBarResults"
 import { useDebounce } from 'use-debounce';
 import { ImSpinner2 } from "react-icons/im";
 import { useRouter } from "next/navigation";
-import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
+import { useAddToWishList } from "@/app/store/addToWishList"
 
 export default function Searchbar() {
     const t = useTranslations('HomePage');
     const { logo, backgroundColor, textColor } = useSiteProperties();
     const { items } = useAddToCart();
+    const { items: wishlistItems } = useAddToWishList();
     const [quantity, setQuantity] = useState<number>(0);
+    const [wishlistQuantity, setWishlistQuantity] = useState<number>(0);
     const [searchResults, setSearchResults] = useState<Array<Product>>([]);
     const [searchValue, setSearchValue] = useState('');
     const [debouncedSearchValue] = useDebounce(searchValue, 500);
@@ -103,8 +105,10 @@ export default function Searchbar() {
 
     useEffect(() => {
         setQuantity(items.length > 0 ? items.reduce((acc, item) => acc + item.quantity, 0) : 0);
-    }, [items]);
+        setWishlistQuantity(wishlistItems.length > 0 ? wishlistItems.reduce((acc, item) => acc + item.quantity, 0) : 0);
+    }, [items, wishlistItems]);
 
+    console.log({wishlistQuantity});
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
             <div className="flex items-center justify-between gap-3 py-2 px-2 md:px-[40px]">
@@ -151,8 +155,13 @@ export default function Searchbar() {
                         <h4 className="flex items-center gap-2">{t("login")} <FaRegUser size={20} /></h4>
                     </button>
                     {/* wishlist */}
-                    <button className="hidden md:block cursor-pointer hover:text-gray-300">
-                        <FaRegHeart size={20} />
+                    <button className="hidden md:block cursor-pointer hover:text-gray-300 relative mx-3">
+                        <Link href="/wishlist">
+                            <FaRegHeart size={20} />
+                            {wishlistQuantity > 0 && (
+                                <span className="absolute top-[-7px] right-[-10px] bg-blue-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">{wishlistQuantity}</span>
+                            )}
+                        </Link>
                     </button>
                     {/* cart */}
                     <button className="hidden md:block cursor-pointer hover:text-gray-300 relative">

@@ -23,7 +23,7 @@ export default async function Categories({ params, searchParams }: { params: { s
             <LoadingProvider>
                 <div className="grid grid-cols-1 md:grid-cols-4 md:gap-4">
 
-                    <div className="bg-white rounded-lg shadow-md p-4 col-span-1">
+                    <div className="hidden md:block bg-white rounded-lg shadow-md p-4 col-span-1">
                         <CategoriesFilter products={products} />
                     </div>
 

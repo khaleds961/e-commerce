@@ -8,19 +8,25 @@ import { useLocale } from 'next-intl';
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { handleAddToCart } from "@/app/utils/addToCart";
+import { handleAddToWishlist } from "@/app/utils/addToWishlist";
 import CustomImage from "@/app/components/CustomImage";
 import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
 import { useAddToCart } from "@/app/store/addToCart";
+import { useAddToWishList } from "@/app/store/addToWishList";
 
 export default function ProductCard({ product }: { product: Product }) {
     const locale = useLocale();
     const isRTL = locale === 'ar';
     const t = useTranslations('Product');
     const [isLoading, setIsLoading] = useState(false);
+
     const [checkItemQ, setCheckItemQ] = useState(false);
     const { items } = useAddToCart();
     const checkItem = items.find((item) => item.id === product.id);
     const quantity = checkItem ? checkItem.quantity : 0;
+
+    const { items: wishlistItems } = useAddToWishList();
+    const checkWishlistItem = wishlistItems.find((item: CartItem) => item.id === product.id);
 
     const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -40,12 +46,17 @@ export default function ProductCard({ product }: { product: Product }) {
 
     const onAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('onAddToWishlist');
+        // setIsLoading(true);
+        handleAddToWishlist(product, 1, '14', 'red', t);
+
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
     }
 
     return (
 
-        <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
+        <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col cursor-pointer hover:scale-105 transition-all duration-300">
             <Link href={`/products/${product.slug}`} prefetch={false}>
                 <div className="m-0 p-0 flex items-center justify-center w-full h-auto">
                     <CustomImage
@@ -92,9 +103,11 @@ export default function ProductCard({ product }: { product: Product }) {
                     )}
                 </button>
             </Link>
-            <button className="absolute top-2 right-2 bg-[#363842] hover:bg-[#808080] rounded-full p-1" onClick={(e) => onAddToWishlist(e)}>
-                <IoMdHeartEmpty size={30} className="cursor-pointer text-white rounded-full p-1" />
-            </button>
+            {!checkWishlistItem && (
+                <button className="absolute top-2 right-2 bg-[#363842] hover:bg-[#808080] rounded-full p-1" onClick={(e) => onAddToWishlist(e)}>
+                    <IoMdHeartEmpty size={30} className="cursor-pointer text-white rounded-full p-1" />
+                </button>
+            )}
         </div >
     )
 }

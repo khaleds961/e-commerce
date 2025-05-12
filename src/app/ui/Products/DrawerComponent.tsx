@@ -1,7 +1,6 @@
 import { useAddToCart } from '@/app/store/addToCart';
 import { useLocale } from 'next-intl';
-import Image from 'next/image';
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import CustomImage from '@/app/components/CustomImage';
 import Link from 'next/link';

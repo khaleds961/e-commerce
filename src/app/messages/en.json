@@ -31,7 +31,9 @@
       "list": "List",
       "page": "Page",
       "previous": "Previous",
-      "next": "Next"
+      "next": "Next",
+      "filter": "Filter",
+      "sort": "Sort"
     },
     "Product":{
       "addToCart": "Add to Cart",

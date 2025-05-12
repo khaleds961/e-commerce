@@ -12,19 +12,22 @@ import ProductsSkeleton from "./ProductsSkeleton";
 import { useLoading } from "@/app/context/LoadingContext";
 import buildQueryString from "@/app/utils/buildQueryString";
 import useScreenSize from "@/app/hooks/useScreenSize";
-
+import CategorySideDrawer from "./CategorySideDrawer";
+import { FaFilter } from "react-icons/fa6";
+import CategoriesFilter from "./CategoriesFilter";
 export default function Sorting({ totalProducts, category, products }: { totalProducts: number, category: Category, products: Product[] }) {
-    
+
     const t = useTranslations('HomePage');
     const [isSortOpen, setIsSortOpen] = useState(false);
     const [isDisplayOpen, setIsDisplayOpen] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedSortOption, setSelectedSortOption] = useState(t('select_sort_option'));
     const [selectedDisplayOption, setSelectedDisplayOption] = useState(t('display'));
     const [isGrid, setIsGrid] = useState(true);
     const router = useRouter();
     const searchParams = useSearchParams();
     const pathname = usePathname();
-    const sort = searchParams.get('sort');
+    const sort = searchParams.get('sort') || 'default';
     const display = searchParams.get('display');
     const price_min = searchParams.get('price_min');
     const price_max = searchParams.get('price_max');
@@ -48,6 +51,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
         setIsLoading(true);
         setSelectedSortOption(option.label);
         setIsSortOpen(false);
+        setIsFilterOpen(false);
 
         const queryParams: QueryParams = {
             sort: option.value,
@@ -71,7 +75,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
             price_min,
             price_max
         };
-    
+
         const queryString = buildQueryString(queryParams);
         router.push(`${pathname}${queryString}`);
     };
@@ -85,7 +89,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
         setIsLoading(false);
     }, [products]);
 
-    
+
     const screenSize = useScreenSize();
     useEffect(() => {
         if (screenSize.width < 768) {
@@ -96,13 +100,29 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
     return (
         <>
             <div className="bg-white rounded-lg shadow-md p-4 mb-4">
-                <div className="hidden md:block">
-                    <div className="flex items-center gap-2 mb-4">
+
+                <div className="block">
+                    <div className="flex items-center gap-2 mb-2">
                         <h1 className="text-xl">{totalProducts} {t('products')}</h1>
                         <h1 className="text-xl font-bold">'{category.name}'</h1>
                     </div>
 
-                    <div className="flex items-center gap-4 mb-4">
+                    <div className="flex md:hidden items-center gap-2">
+                        <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full"
+                            onClick={() => setIsFilterOpen(true)}>
+                            {t('filter')}
+                            <FaFilter />
+                        </button>
+
+                        <div className="w-[2px] h-8 bg-gray-300"></div>
+
+                        <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full" onClick={() => setIsSortOpen(true)}>
+                            {t('sort')}
+                            <FaSortAmountDown />
+                        </button>
+                    </div>
+
+                    <div className="hidden md:flex items-center gap-4 mb-4">
                         {/* sortby */}
                         <SortBy
                             isOpen={isSortOpen}
@@ -137,6 +157,31 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
                             </button>
                         </div>
                     </div>
+
+                    {/* filter drawer in mobile */}
+                    <CategorySideDrawer isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}>
+                        <CategoriesFilter products={products} />
+                    </CategorySideDrawer>
+
+                    {/* sort drawer in mobile */}
+                    <CategorySideDrawer isOpen={isSortOpen} setIsOpen={setIsSortOpen}>
+                        <fieldset>
+                            {sortOptions.map((option: { value: string, label: any, icon: React.ReactNode | null }) => (
+                                <div key={option.value} className="flex items-center mb-4 w-fit"
+                                    onClick={() => handleSortOptionClick(option)}>
+                                    <input type="checkbox"
+                                        id={option.value}
+                                        name={option.value}
+                                        className="w-4 h-4"
+                                        checked={sort === option.value}
+                                        onChange={() => handleSortOptionClick(option)}  // Add onChange handler
+                                        readOnly
+                                    />
+                                    <label htmlFor={option.value} className="text-md text-gray-500 mx-3">{option.label}</label>
+                                </div>
+                            ))}
+                        </fieldset>
+                    </CategorySideDrawer>
 
                 </div>
             </div>

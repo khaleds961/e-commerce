@@ -62,10 +62,11 @@ export default function CategoriesFilter({ products }: { products: Product[] }) 
     };
 
     return (
+        
         <div className="bg-white rounded-lg p-4">
             <h2 className="text-md font-semibold mb-4">{t('category_filters')}</h2>
 
-            <h2 className="text-md mb-1">{t('price_range')}</h2>
+            <h2 className="text-md">{t('price_range')}</h2>
             {isClear && (
                 <div className="flex justify-end">
                     <span className="text-sm text-gray-500 cursor-pointer border border-gray-300 hover:bg-gray-50 hover:border-blue-500 rounded-md p-1 mb-2" onClick={() => handlePriceChange(PRICE_RANGE.min)}>{t('clear')}</span>

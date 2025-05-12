@@ -56,11 +56,11 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
                 ))}
             </Swiper>
             {/* Custom navigation buttons */}
-            <button className={`swiper-button-prev-custom-${uniqueId} absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full p-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity`}>
+            <button className={`cursor-pointer swiper-button-prev-custom-${uniqueId} absolute left-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full p-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity`}>
                 <FaChevronLeft className="w-5 h-5" />
             </button>
 
-            <button className={`swiper-button-next-custom-${uniqueId} absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full p-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity`}>
+            <button className={`cursor-pointer swiper-button-next-custom-${uniqueId} absolute right-0 top-1/2 -translate-y-1/2 bg-white/80 hover:bg-white shadow-md rounded-full p-2 z-10 opacity-0 group-hover:opacity-100 transition-opacity`}>
                 <FaChevronRight className="w-5 h-5" />
             </button>
         </div>

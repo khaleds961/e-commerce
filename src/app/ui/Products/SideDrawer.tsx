@@ -1,8 +1,4 @@
-import { useAddToCart } from '@/app/store/addToCart';
-import { useLocale } from 'next-intl';
-import Image from 'next/image';
 import { useState, useEffect, useRef } from 'react';
-import { useTranslations } from 'next-intl';
 import DrawerComponent from './DrawerComponent';
 
 interface SideDrawerProps {
@@ -12,13 +8,7 @@ interface SideDrawerProps {
 
 export default function SideDrawer({ onAddProduct, setOnAddProduct }: SideDrawerProps) {
     const [isOpen, setIsOpen] = useState(false);
-    const locale = useLocale();
-    const isRTL = locale === 'ar';
     const drawerRef = useRef<HTMLDivElement>(null);
-    const { items } = useAddToCart();
-    const totalPrice = items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-    const lastItem = items.length > 0 ? items[items.length - 1] : null;
-    const t = useTranslations('SideDrawer');
 
     const toggleDrawer = () => {
         setIsOpen(!isOpen);

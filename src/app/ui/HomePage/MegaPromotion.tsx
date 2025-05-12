@@ -6,7 +6,7 @@ export default function MegaPromotion() {
     return (
         <div className="mt-10">
             <h1 className="text-xl md:text-xl font-bold py-4 bg-primary">{t('megaPromotion')}</h1>
-            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
+            <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 mt-3">
                 {/* First column with two stacked images */}
                 <div className="flex flex-col gap-2">
                     <div className="rounded-md overflow-hidden w-full flex-1 cursor-pointer">
