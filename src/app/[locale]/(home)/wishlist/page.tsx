@@ -7,10 +7,10 @@ import OrderSummary from "@/app/ui/Cart/OrderSummary";
 import EmptyCart from "@/app/ui/Cart/EmptyCart";
 import CartLoading from "@/app/ui/Cart/CartLoading";
 import { useAddToWishList } from "@/app/store/addToWishList";
-
+import EmptyWishlist from "@/app/ui/Wishlist/EmptyWishlist";
 export default function Wishlist() {
 
-    const t = useTranslations('Cart');
+    const t = useTranslations('Wishlist');
     const { items: wishlistItems } = useAddToWishList();
     const [quantity, setQuantity] = useState<number>(0);
     const [isLoading, setIsLoading] = useState(true);
@@ -29,27 +29,22 @@ export default function Wishlist() {
             ) : wishlistItems.length > 0 ? (
                 <>
                     <div className="flex items-center mb-2">
-                        <h1 className="text-2xl font-bold">{t('cart')} </h1>
-                        <span className="text-md text-gray-500 mx-2">({t('items')} {quantity})</span>
+                        <h1 className="text-2xl font-bold">{t('wishlist')} </h1>
+                        <span className="text-md text-gray-500 mx-2">({quantity} {t('items')})</span>
                     </div>
 
                     <div className="md:grid grid-cols-6 gap-4">
                         {/* products */}
                         <div className="col-span-4">
                             {wishlistItems.map((item, index) => (
-                                <ProductCartList item={item} key={index} />
+                                <ProductCartList item={item} key={index} wishlist={true} />
                             ))}
                         </div>
-
-                        {/* order summary */}
-                        {/* <div className="col-span-2">
-                            <OrderSummary />
-                        </div> */}
                     </div>
 
                 </>
             ) : (
-                <EmptyCart />
+                <EmptyWishlist />
             )
             }
         </div >

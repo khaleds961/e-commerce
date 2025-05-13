@@ -22,6 +22,7 @@ type Product = {
 
 type CartItem = {
     id: number;
+    slug: string;
     title: string;
     price: number;
     image: string;

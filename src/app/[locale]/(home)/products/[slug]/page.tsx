@@ -6,7 +6,7 @@ export default async function ProductPage({params}: {params: {slug: string}}) {
 
     const {slug} = await params;
     const product = await GET_PRODUCT_BY_SLUG(slug);
-    console.log(product);
+
     if (!product) {
         notFound();
     }

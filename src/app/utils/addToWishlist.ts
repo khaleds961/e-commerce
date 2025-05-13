@@ -23,6 +23,7 @@ export const handleAddToWishlist = (
         size,
         color,
         adjusted: false,
+        slug: product.slug,
     };
 
     // Use the store's addItem function directly

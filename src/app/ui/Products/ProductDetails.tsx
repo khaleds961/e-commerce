@@ -61,12 +61,6 @@ export default function ProductDetails({ product }: { product: Product }) {
                     {product.images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="swiper-zoom-container relative h-full w-full border border-gray-300 rounded-lg">
-                                {/* <Image
-                                    src={image}
-                                    alt={`${product.title} - Image ${index + 1}`}
-                                    fill
-                                    className="object-contain rounded-md p-2"
-                                /> */}
                                 <CustomImage src={image}
                                     alt={`${product.title} - Image ${index + 1}`}
                                     width={200}
@@ -89,12 +83,6 @@ export default function ProductDetails({ product }: { product: Product }) {
                     {product.images.length > 0 && product.images.map((image, index) => (
                         <SwiperSlide key={index}>
                             <div className="relative h-full w-full cursor-pointer">
-                                    {/* <Image
-                                        src={image}
-                                        alt={`${product.title} - Thumbnail ${index + 1}`}
-                                        fill
-                                        className="object-cover rounded"
-                                    />  */}
                                 <CustomImage src={image}
                                     alt={`${product.title} - Thumbnail ${index + 1}`}
                                     width={200}

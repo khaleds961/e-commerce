@@ -8,6 +8,8 @@ export const handleAddToCart = (
     color: string,
     t: (key: string) => string
 ) => {
+
+    
     if (!size || !color) {
         toast.error(t('pleaseSelectSizeAndColor'));
         return;
@@ -23,6 +25,7 @@ export const handleAddToCart = (
         size,
         color,
         adjusted: false,
+        slug: product.slug,
     };
 
     // Use the store's addItem function directly
@@ -30,7 +33,6 @@ export const handleAddToCart = (
     
     // Optional: Log the updated cart for debugging
     const updatedCartState = useAddToCart.getState().items;
-    console.log('Current Cart:', updatedCartState);
 
     toast.success(t('addedSuccessfully'));
     return updatedCartState;

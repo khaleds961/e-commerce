@@ -10,6 +10,8 @@ import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator";
 import Link from "next/link";
 import { useAddToCart } from "@/app/store/addToCart";
 import { formatProductName } from "@/app/utils/formatProductName";
+import { handleAddToWishlist } from "@/app/utils/addToWishlist";
+import { useAddToWishList } from "@/app/store/addToWishList";
 
 export default function ProductList({ product }: { product: Product }) {
     const t = useTranslations('Cart');
@@ -19,6 +21,9 @@ export default function ProductList({ product }: { product: Product }) {
     const checkItem = items.find((item) => item.id === product.id);
     const quantity = checkItem ? checkItem.quantity : 0;
     const lorem = 'Lorem ipsum dolor sit amet consectetur ';
+
+    const { items: wishlistItems } = useAddToWishList();
+    const checkWishlistItem = wishlistItems.find((item: CartItem) => item.id === product.id);
 
     const onAddToCart = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -38,7 +43,7 @@ export default function ProductList({ product }: { product: Product }) {
 
     const onAddToWishlist = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.preventDefault();
-        console.log('onAddToWishlist');
+        handleAddToWishlist(product, 1, '14', 'red', t);
     }
 
     return (
@@ -51,9 +56,11 @@ export default function ProductList({ product }: { product: Product }) {
                             <div className="absolute top-0 left-0 w-full h-full flex items-center justify-center">
                                 <LoadingIndicator />
                             </div>
-                            <button className="absolute top-2 right-2" onClick={(e) => onAddToWishlist(e)}>
-                                <IoMdHeartEmpty size={30} className="cursor-pointer text-white bg-[#363842] rounded-full p-1 hover:bg-[#808080]" />
-                            </button>
+                            {!checkWishlistItem && (
+                                <button className="absolute top-2 right-2" onClick={(e) => onAddToWishlist(e)}>
+                                    <IoMdHeartEmpty size={30} className="cursor-pointer text-white bg-[#363842] rounded-full p-1 hover:bg-[#808080]" />
+                                </button>
+                            )}
                         </div>
                         <article className="p-4 flex flex-col overflow-hidden">
                             <span className="text-sm">{product.sku}</span>

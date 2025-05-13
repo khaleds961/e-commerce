@@ -65,6 +65,12 @@
       "emptyCart": "Your cart is empty",
       "emptyCartDescription": "Add items to your cart to get started !",
       "addedSuccessfully": "Added Successfully"
+    },
+    "Wishlist": {
+      "wishlist": "Wishlist",
+      "items": "Items",
+      "no_products": "No products",
+      "emptyWishlist": "Your wishlist is empty"
     }
   }
   

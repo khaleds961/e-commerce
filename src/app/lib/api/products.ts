@@ -43,7 +43,6 @@ export const GET_PRODUCTS_BY_CATEGORY = async (categorySlug: string, sort?: stri
         const queryString = Object.entries(params)
             .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
             .join('&');
-        console.log({queryString});
         
         const response = await _axios.get(`/products/?${queryString}`);
         return response.data;

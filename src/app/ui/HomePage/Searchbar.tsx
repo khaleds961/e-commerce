@@ -15,6 +15,7 @@ import { useDebounce } from 'use-debounce';
 import { ImSpinner2 } from "react-icons/im";
 import { useRouter } from "next/navigation";
 import { useAddToWishList } from "@/app/store/addToWishList"
+import LoadingIndicator from "@/app/[locale]/(home)/loading-indicator"
 
 export default function Searchbar() {
     const t = useTranslations('HomePage');
@@ -97,8 +98,6 @@ export default function Searchbar() {
     };
 
     const handleProductClick = (e: React.MouseEvent, slug: string) => {
-        // e.preventDefault();
-        // e.stopPropagation();
         console.log('clicked');
         router.push(`/products/${slug}`);
     };
@@ -108,13 +107,12 @@ export default function Searchbar() {
         setWishlistQuantity(wishlistItems.length > 0 ? wishlistItems.reduce((acc, item) => acc + item.quantity, 0) : 0);
     }, [items, wishlistItems]);
 
-    console.log({wishlistQuantity});
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
             <div className="flex items-center justify-between gap-3 py-2 px-2 md:px-[40px]">
                 {/* logo */}
                 <div>
-                    <Link href={`/`}>
+                    <Link href='/'>
                         <Image
                             src={logo}
                             alt="logo"
@@ -171,7 +169,7 @@ export default function Searchbar() {
                                 <span className="absolute top-[-7px] right-[-10px] bg-blue-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs">{quantity}</span>
                             )}
                         </Link>
-                        
+
                     </button>
                 </div>
 

@@ -99,92 +99,92 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
 
     return (
         <>
-            <div className="bg-white rounded-lg shadow-md p-4 mb-4">
+                <div className="bg-white rounded-lg shadow-md p-4 mb-4">
 
-                <div className="block">
-                    <div className="flex items-center gap-2 mb-2">
-                        <h1 className="text-xl">{totalProducts} {t('products')}</h1>
-                        <h1 className="text-xl font-bold">'{category.name}'</h1>
-                    </div>
+                    <div className="block">
+                        <div className="flex items-center gap-2 mb-2">
+                            <h1 className="text-xl">{totalProducts} {t('products')}</h1>
+                            <h1 className="text-xl font-bold">'{category.name}'</h1>
+                        </div>
 
-                    <div className="flex md:hidden items-center gap-2">
-                        <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full"
-                            onClick={() => setIsFilterOpen(true)}>
-                            {t('filter')}
-                            <FaFilter />
-                        </button>
+                        <div className="flex md:hidden items-center gap-2">
+                            <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full"
+                                onClick={() => setIsFilterOpen(true)}>
+                                {t('filter')}
+                                <FaFilter />
+                            </button>
 
-                        <div className="w-[2px] h-8 bg-gray-300"></div>
+                            <div className="w-[2px] h-8 bg-gray-300"></div>
 
-                        <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full" onClick={() => setIsSortOpen(true)}>
-                            {t('sort')}
-                            <FaSortAmountDown />
-                        </button>
-                    </div>
-
-                    <div className="hidden md:flex items-center gap-4 mb-4">
-                        {/* sortby */}
-                        <SortBy
-                            isOpen={isSortOpen}
-                            setIsOpen={setIsSortOpen}
-                            selectedOption={selectedSortOption}
-                            options={sortOptions}
-                            handleOptionClick={handleSortOptionClick}
-                            title='sort_by'
-                            sort={sort}
-                        />
-
-                        {/* display */}
-                        <SortBy
-                            isOpen={isDisplayOpen}
-                            setIsOpen={setIsDisplayOpen}
-                            selectedOption={selectedDisplayOption}
-                            options={displayOptions}
-                            handleOptionClick={handleDisplayOptionClick}
-                            title='display'
-                            display={display}
-                        />
-
-                        {/* grid-list */}
-                        <div className="flex flex-col gap-1">
-                            <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? t('grid') : t('list')}</label>
-                            <button
-                                type="button"
-                                className="cursor-pointer w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-gray-700 hover:bg-gray-50"
-                                onClick={() => setIsGrid(!isGrid)}
-                            >
-                                {isGrid ? <CiGrid41 size={20} /> : <CiBoxList size={20} />}
+                            <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full" onClick={() => setIsSortOpen(true)}>
+                                {t('sort')}
+                                <FaSortAmountDown />
                             </button>
                         </div>
+
+                        <div className="hidden md:flex items-center gap-4 mb-4">
+                            {/* sortby */}
+                            <SortBy
+                                isOpen={isSortOpen}
+                                setIsOpen={setIsSortOpen}
+                                selectedOption={selectedSortOption}
+                                options={sortOptions}
+                                handleOptionClick={handleSortOptionClick}
+                                title='sort_by'
+                                sort={sort}
+                            />
+
+                            {/* display */}
+                            <SortBy
+                                isOpen={isDisplayOpen}
+                                setIsOpen={setIsDisplayOpen}
+                                selectedOption={selectedDisplayOption}
+                                options={displayOptions}
+                                handleOptionClick={handleDisplayOptionClick}
+                                title='display'
+                                display={display}
+                            />
+
+                            {/* grid-list */}
+                            <div className="flex flex-col gap-1">
+                                <label htmlFor="sorting" className="text-md text-gray-500">{isGrid ? t('grid') : t('list')}</label>
+                                <button
+                                    type="button"
+                                    className="cursor-pointer w-full rounded-md border border-gray-300 shadow-sm p-2 bg-white text-gray-700 hover:bg-gray-50"
+                                    onClick={() => setIsGrid(!isGrid)}
+                                >
+                                    {isGrid ? <CiGrid41 size={20} /> : <CiBoxList size={20} />}
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* filter drawer in mobile */}
+                        <CategorySideDrawer isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}>
+                            <CategoriesFilter products={products} />
+                        </CategorySideDrawer>
+
+                        {/* sort drawer in mobile */}
+                        <CategorySideDrawer isOpen={isSortOpen} setIsOpen={setIsSortOpen}>
+                            <fieldset>
+                                {sortOptions.map((option: { value: string, label: any, icon: React.ReactNode | null }) => (
+                                    <div key={option.value} className="flex items-center mb-4 w-fit"
+                                        onClick={() => handleSortOptionClick(option)}>
+                                        <input type="checkbox"
+                                            id={option.value}
+                                            name={option.value}
+                                            className="w-4 h-4"
+                                            checked={sort === option.value}
+                                            onChange={() => handleSortOptionClick(option)}  // Add onChange handler
+                                            readOnly
+                                        />
+                                        <label htmlFor={option.value} className="text-md text-gray-500 mx-3">{option.label}</label>
+                                    </div>
+                                ))}
+                            </fieldset>
+                        </CategorySideDrawer>
+
                     </div>
-
-                    {/* filter drawer in mobile */}
-                    <CategorySideDrawer isOpen={isFilterOpen} setIsOpen={setIsFilterOpen}>
-                        <CategoriesFilter products={products} />
-                    </CategorySideDrawer>
-
-                    {/* sort drawer in mobile */}
-                    <CategorySideDrawer isOpen={isSortOpen} setIsOpen={setIsSortOpen}>
-                        <fieldset>
-                            {sortOptions.map((option: { value: string, label: any, icon: React.ReactNode | null }) => (
-                                <div key={option.value} className="flex items-center mb-4 w-fit"
-                                    onClick={() => handleSortOptionClick(option)}>
-                                    <input type="checkbox"
-                                        id={option.value}
-                                        name={option.value}
-                                        className="w-4 h-4"
-                                        checked={sort === option.value}
-                                        onChange={() => handleSortOptionClick(option)}  // Add onChange handler
-                                        readOnly
-                                    />
-                                    <label htmlFor={option.value} className="text-md text-gray-500 mx-3">{option.label}</label>
-                                </div>
-                            ))}
-                        </fieldset>
-                    </CategorySideDrawer>
-
                 </div>
-            </div>
 
             {/* category-list */}
             {isLoading ? <ProductsSkeleton /> : products && products.length > 0 && isGrid ?
@@ -196,7 +196,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
                     products.map((product: Product) => (
                         <ProductList product={product} key={product.id} />
                     )) :
-                    t('no_products_found')}
+                    <div className="text-2xl text-gray-500">{t('no_products_found')}</div>}
         </>
     );
 }

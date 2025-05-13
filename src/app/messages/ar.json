@@ -65,5 +65,11 @@
     "emptyCart": "عربة التسوق فارغة",
     "emptyCartDescription": "أضف العناصر إلى سلة التسوق الخاصة بك للبدء!",
     "addedSuccessfully": "تم إضافة المنتج إلى السلة بنجاح"
+  },
+  "Wishlist": {
+    "wishlist": "المفضلة",
+    "items": "منتج",
+    "no_products": "لا يوجد منتجات",
+    "emptyWishlist": "قائمة المفضلة فارغة"
   }
 }

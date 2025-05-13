@@ -11,7 +11,7 @@ export default function SearchBarResults({ searchResults, selectedIndex, handleK
 
     return (
         <div
-            className="absolute top-10 left-0 w-full bg-gray-400 shadow-lg rounded-md mx-2 z-50 bg-red-500"
+            className="absolute top-10 left-0 w-full bg-gray-400 shadow-lg rounded-md mx-2 z-50"
             onKeyDown={handleKeyDown}
             tabIndex={0}
         >
@@ -22,7 +22,7 @@ export default function SearchBarResults({ searchResults, selectedIndex, handleK
                         key={product.id}
                         className={`cursor-pointer flex items-center p-2 gap-2 hover:bg-gray-500 ${index === selectedIndex ? 'bg-gray-500' : ''
                             }`}
-                        onClick={(e) => onClick(e, product.slug)}
+                        // onClick={(e) => onClick(e, product.slug)}
                     >
                         <div className="w-10 h-10 relative">
                             <CustomImage
