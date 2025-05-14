@@ -18,7 +18,6 @@ export default async function Categories({ params, searchParams }: { params: { s
     const products = await GET_PRODUCTS_BY_CATEGORY(slug, sort, display, price_min, price_max, page);
     const totalProducts = products.length;
 
-
     return (
         <main className="mx-auto px-4 py-8 mt-[50px]">
             <LoadingProvider>

@@ -19,6 +19,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
 
     const t = useTranslations('HomePage');
     const [isSortOpen, setIsSortOpen] = useState(false);
+    const [isSortMobileOpen, setIsSortMobileOpen] = useState(false);
     const [isDisplayOpen, setIsDisplayOpen] = useState(false);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedSortOption, setSelectedSortOption] = useState(t('select_sort_option'));
@@ -116,7 +117,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
 
                             <div className="w-[2px] h-8 bg-gray-300"></div>
 
-                            <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full" onClick={() => setIsSortOpen(true)}>
+                            <button className="cursor-pointer flex items-center gap-2 border border-gray-300 px-3 py-1 w-full" onClick={() => setIsSortMobileOpen(true)}>
                                 {t('sort')}
                                 <FaSortAmountDown />
                             </button>
@@ -164,7 +165,7 @@ export default function Sorting({ totalProducts, category, products }: { totalPr
                         </CategorySideDrawer>
 
                         {/* sort drawer in mobile */}
-                        <CategorySideDrawer isOpen={isSortOpen} setIsOpen={setIsSortOpen}>
+                        <CategorySideDrawer isOpen={isSortMobileOpen} setIsOpen={setIsSortMobileOpen}>
                             <fieldset>
                                 {sortOptions.map((option: { value: string, label: any, icon: React.ReactNode | null }) => (
                                     <div key={option.value} className="flex items-center mb-4 w-fit"
