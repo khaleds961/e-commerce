@@ -4,7 +4,7 @@ export default function Subscribe() {
   return (
     <div className="relative h-auto min-h-[400px] md:h-[440px] overflow-hidden bg-[#121535] rounded-[8px] md:rounded-[16px] w-full">
       {/* Background Image */}
-      <div className="absolute inset-0 z-0 opacity-30">
+      <div className="absolute inset-0 z-0 opacity-10">
         <Image
           src="/images/newsletter-bg.png"
           alt="Background"
