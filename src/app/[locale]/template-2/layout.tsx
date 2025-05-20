@@ -1,6 +1,6 @@
 import Header from "@/app/ui/template-2/Header";
 import MobileNavbar from "@/app/components/MobileNavbar";
-import Footer from "@/app/ui/HomePage/Footer";
+
 
 export default function HomeLayout({
     children,
@@ -12,7 +12,7 @@ export default function HomeLayout({
             <Header />
             {children}
             <MobileNavbar />
-            <Footer />
+         
         </>
     );
 }

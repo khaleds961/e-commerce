@@ -16,6 +16,11 @@ import DailyBestSells from "@/app/ui/template-2/DailyBestSells";
 import DeliveryBanner from "@/app/ui/template-2/DeliveryBanner";
 import CategoryFeaturedProducts from "@/app/ui/template-2/CategoryFeaturedProducts";
 import FourPartCarousels from "@/app/ui/template-2/FourPartCarousels";
+import ShopByBrand from "@/app/ui/template-2/ShopByBrand";
+import NewArrivals from "@/app/ui/template-2/NewArrivals";
+import InfoCards from "@/app/ui/template-2/InfoCards";
+import Subscribe from "@/app/ui/template-2/Subscribe";
+import Footer from "@/app/ui/template-2/Footer";
 
 
 
@@ -31,7 +36,7 @@ export default async function Home() {
     logo: '/images/logo.png',
     textColor: '#000000',
   };
-  const slides=[
+  const slides = [
     {
       id: 1,
       image: "/images/banner-bg.png",
@@ -78,7 +83,18 @@ export default async function Home() {
         <DeliveryBanner />
         <CategoryFeaturedProducts />
         <FourPartCarousels />
+        <ShopByBrand />
+        <NewArrivals />
+        <InfoCards />
+
+      </div>
+      <div className="w-full bg-[url('/images/body-bottom-bg.png')] bg-cover bg-center bg-no-repeat">
+        <div className="md:px-20 py-10">
+          <Subscribe />
+          <Footer />
+        </div>
       </div>
     </div>
+
   );
 }   
