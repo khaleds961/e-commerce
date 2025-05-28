@@ -13,9 +13,9 @@ const deliveryBannerData = {
 
 export default function DeliveryBanner() {
     return (
-        <div className="relative h-[270px] mt-10 rounded-2xl">
-            {/* Background container - rounded corners only affect the image */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden z-0">
+        <div className="relative h-[180px] sm:h-[220px] md:h-[270px] mt-6 md:mt-10 rounded-xl md:rounded-2xl">
+            {/* Background container */}
+            <div className="absolute inset-0 rounded-xl md:rounded-2xl overflow-hidden z-0">
                 <Image
                     src={deliveryBannerData.backgroundImage}
                     alt="Delivery Banner Background"
@@ -25,41 +25,41 @@ export default function DeliveryBanner() {
                 />
             </div>
 
-            {/* Semi-transparent overlay - no overflow-hidden here */}
-            <div className="absolute inset-0 bg-[#359FC1]/80 flex items-center justify-center px-4 z-10 rounded-2xl">
-                {/* Left decorative image - positioned outside clipped area */}
-                <div className="absolute -bottom-10 hidden md:block left-6 z-20">
+            {/* Semi-transparent overlay */}
+            <div className="absolute inset-0 bg-[#359FC1]/80 flex items-center justify-center px-4 z-10 rounded-xl md:rounded-2xl">
+                {/* Left decorative image - hidden on mobile */}
+                <div className="absolute -bottom-6 md:-bottom-10 left-2 md:left-6 z-20 hidden sm:block">
                     <Image
                         src={deliveryBannerData.leftImage}
                         alt="Delivery Man"
-                        width={250}
-                        height={250}
-                        className="object-contain w-[250px]"
+                        width={150}
+                        height={150}
+                        className="object-contain w-[120px] sm:w-[150px] md:w-[200px] lg:w-[250px]"
                     />
                 </div>
 
-                {/* Right decorative image */}
-                <div className="absolute hidden md:block right-8 z-20 bottom-0">
+                {/* Right decorative image - hidden on mobile */}
+                <div className="absolute right-2 md:right-8 z-20 bottom-0 hidden sm:block">
                     <Image
                         src={deliveryBannerData.rightImage}
                         alt="Special Snacks"
-                        width={400}
-                        height={180}
-                        className="object-contain"
+                        width={300}
+                        height={135}
+                        className="object-contain w-[180px] sm:w-[220px] md:w-[300px] lg:w-[400px]"
                     />
                 </div>
 
                 {/* Main content */}
-                <div className="text-white text-center max-w-2xl z-30">
-                    <h2 className="text-2xl md:text-4xl font-bold mb-2">
+                <div className="text-white text-center max-w-xs sm:max-w-sm md:max-w-2xl z-30 px-2 sm:px-0">
+                    <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold mb-1 sm:mb-2">
                         {deliveryBannerData.title}
                     </h2>
-                    <p className="text-lg md:text-xl mb-4">
+                    <p className="text-sm sm:text-base md:text-lg lg:text-xl mb-2 sm:mb-4">
                         {deliveryBannerData.subtitle}
                     </p>
                     <a href={deliveryBannerData.buttonLink}>
-                        <button className="bg-[#1f52cc] hover:bg-[#359FC1] text-white px-6 py-3 rounded-full font-semibold transition-colors duration-300">
-                            {deliveryBannerData.buttonText} 
+                        <button className="bg-[#1f52cc] hover:bg-[#359FC1] text-white px-4 py-2 sm:px-5 sm:py-2.5 md:px-6 md:py-3 text-sm sm:text-base rounded-full font-semibold transition-colors duration-300">
+                            {deliveryBannerData.buttonText}
                         </button>
                     </a>
                 </div>

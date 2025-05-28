@@ -14,6 +14,54 @@ import {
     FaSearch,
 } from 'react-icons/fa';
 
+// 🔗 JSON links object
+const footerLinks = [
+    {
+        title: 'Information',
+        items: [
+            'Become a Vendor',
+            'Affiliate Program',
+            'Privacy Policy',
+            'Our Suppliers',
+            'Extended Plan',
+            'Community',
+        ],
+    },
+    {
+        title: 'Customer Support',
+        items: [
+            'Help Center',
+            'Contact Us',
+            'Report Abuse',
+            'Submit and Dispute',
+            'Policies & Rules',
+            'Online Shopping',
+        ],
+    },
+    {
+        title: 'My Account',
+        items: [
+            'My Account',
+            'Order History',
+            'Shopping Cart',
+            'Compare',
+            'Help Ticket',
+            'Wishlist',
+        ],
+    },
+    {
+        title: 'Daily Groceries',
+        items: [
+            'Dairy & Eggs',
+            'Meat & Seafood',
+            'Breakfast Food',
+            'Household Supplies',
+            'Bread & Bakery',
+            'Pantry Staples',
+        ],
+    },
+];
+
 const Footer = () => {
     const { logo } = useSiteProperties();
     const locale = 'en';
@@ -30,7 +78,7 @@ const Footer = () => {
         <footer className="text-gray-800 w-full">
             <div className="mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
                 <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 sm:gap-10">
-                    {/* Marketing Column */}
+                    {/* Company Info */}
                     <div className="xs:col-span-2 sm:col-span-3 lg:col-span-1 flex flex-col items-center lg:items-start">
                         <Link href={`/${locale}`} className="mb-4 sm:mb-5">
                             <Image
@@ -58,7 +106,7 @@ const Footer = () => {
                                 <FaEnvelope className="mr-2 text-green-600" />
                                 <a
                                     href="mailto:support24@marketpro.com"
-                                    className="text-gray-600 hover:text-blue-600 font-medium hover:underline text-sm sm:text-base"
+                                    className="text-gray-600 hover:text-blue-600 font-medium hover: text-sm sm:text-base"
                                 >
                                     support24@marketpro.com
                                 </a>
@@ -66,85 +114,33 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Information Column */}
-                    <div className="text-center sm:text-left">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-900">Information</h3>
-                        <ul className="space-y-3">
-                            {['Become a Vendor', 'Affiliate Program', 'Privacy Policy', 'Our Suppliers', 'Extended Plan', 'Community'].map(item => (
-                                <li key={item}>
-                                    <Link
-                                        href="#"
-                                        className="text-gray-600 hover:text-blue-600 hover:underline transition-colors text-sm sm:text-base"
-                                    >
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                    {/* Dynamic Link Sections */}
+                    {footerLinks.map(({ title, items }) => (
+                        <div key={title} className="text-center sm:text-left">
+                            <h3 className="text-lg font-semibold mb-4 text-gray-900">{title}</h3>
+                            <ul className="space-y-3">
+                                {items.map(item => (
+                                    <li key={item}>
+                                        <Link
+                                            href="#"
+                                            className="text-gray-600 hover:text-blue-600 hover: transition-colors text-sm sm:text-base"
+                                        >
+                                            {item}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
 
-                    {/* Customer Support Column */}
-                    <div className="text-center sm:text-left">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-900">Customer Support</h3>
-                        <ul className="space-y-3">
-                            {['Help Center', 'Contact Us', 'Report Abuse', 'Submit and Dispute', 'Policies & Rules', 'Online Shopping'].map(item => (
-                                <li key={item}>
-                                    <Link
-                                        href="#"
-                                        className="text-gray-600 hover:text-blue-600 hover:underline transition-colors text-sm sm:text-base"
-                                    >
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* My Account Column */}
-                    <div className="text-center sm:text-left">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-900">My Account</h3>
-                        <ul className="space-y-3">
-                            {['My Account', 'Order History', 'Shopping Cart', 'Compare', 'Help Ticket', 'Wishlist'].map(item => (
-                                <li key={item}>
-                                    <Link
-                                        href="#"
-                                        className="text-gray-600 hover:text-blue-600 hover:underline transition-colors text-sm sm:text-base"
-                                    >
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Daily Groceries Column */}
-                    <div className="text-center sm:text-left">
-                        <h3 className="text-lg font-semibold mb-4 text-gray-900">Daily Groceries</h3>
-                        <ul className="space-y-3 mb-6">
-                            {['Dairy & Eggs', 'Meat & Seafood', 'Breakfast Food', 'Household Supplies', 'Bread & Bakery', 'Pantry Staples'].map(item => (
-                                <li key={item}>
-                                    <Link
-                                        href="#"
-                                        className="text-gray-600 hover:text-blue-600 hover:underline transition-colors text-sm sm:text-base"
-                                    >
-                                        {item}
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-
-                    {/* Shop on the Go Column */}
+                    {/* App Store & Social */}
                     <div className="text-center sm:text-left">
                         <h3 className="text-lg font-semibold mb-4 text-gray-900">Shop on The Go</h3>
                         <p className="mb-4 text-sm text-gray-500 max-w-xs ">
                             Marketpro App is available. Get it now
                         </p>
                         <div className="flex flex-col xs:flex-row gap-3 w-full max-w-[100px] sm:max-w-[100px] mx-auto sm:mx-0 mb-6">
-                            <Link
-                                href="#"
-                                className="flex-1 min-w-[120px] hover:opacity-90 transition-opacity"
-                            >
+                            <Link href="#" className="flex-1 min-w-[120px] hover:opacity-90 transition-opacity">
                                 <Image
                                     src="/images/store-img1.png"
                                     alt="Download on App Store"
@@ -154,10 +150,7 @@ const Footer = () => {
                                     priority
                                 />
                             </Link>
-                            <Link
-                                href="#"
-                                className="flex-1 min-w-[120px] hover:opacity-90 transition-opacity"
-                            >
+                            <Link href="#" className="flex-1 min-w-[120px] hover:opacity-90 transition-opacity">
                                 <Image
                                     src="/images/store-img2.png"
                                     alt="Get it on Google Play"
@@ -170,7 +163,12 @@ const Footer = () => {
                         </div>
                         <div className="flex space-x-3 justify-center sm:justify-start">
                             {socialIcons.map(({ icon, name }) => (
-                                <Link key={name} href="#" aria-label={name} className="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 hover:bg-green-200 transition-colors text-green-700">
+                                <Link
+                                    key={name}
+                                    href="#"
+                                    aria-label={name}
+                                    className="w-9 h-9 flex items-center justify-center rounded-full bg-green-100 hover:bg-green-200 transition-colors text-green-700"
+                                >
                                     {icon}
                                 </Link>
                             ))}

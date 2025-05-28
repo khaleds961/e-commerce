@@ -1,15 +1,28 @@
 'use client';
+
+import { useRef, useState, useEffect } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { useState, useEffect, useId } from 'react';
 import ProductCard from './ProductCard';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
+
+type Product = {
+  id: number;
+  title: string;
+  price: number;
+  description: string;
+  category: any;
+  images: string[];
+  slug: string;
+  creationAt: string;
+  updatedAt: string;
+};
 
 export default function ProductsSlider({ products }: { products: Product[] }) {
   const [isLoading, setIsLoading] = useState(true);
-  const uniqueId = useId();
+  const swiperRef = useRef<any>(null);
 
   useEffect(() => {
     if (products?.length > 0) {
@@ -19,41 +32,64 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
 
   if (isLoading) {
     return (
-      <div className="mt-5">
-        <div className="h-40 bg-gray-200 rounded-md mb-4"></div>
-        <div className="h-4 w-3/4 bg-gray-200 rounded mb-2"></div>
-        <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
+      <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 ">
+        {[...Array(6)].map((_, i) => (
+          <div key={i} className="animate-pulse">
+            <div className="h-40 bg-gray-200 rounded-md mb-3"></div>
+            <div className="h-4 bg-gray-200 rounded mb-2 w-3/4"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          </div>
+        ))}
       </div>
     );
   }
 
   return (
-    <div className="relative group">
+    <div className="relative w-full overflow-hidden">
       <Swiper
-        modules={[Navigation, Pagination, Autoplay]}
-        navigation={{
-          nextEl: `.swiper-button-next-custom-${uniqueId}`,
-          prevEl: `.swiper-button-prev-custom-${uniqueId}`,
+        modules={[Navigation]}
+        onSwiper={(swiper) => {
+          swiperRef.current = swiper;
         }}
-        slidesPerView={6}
-        spaceBetween={170} 
+        slidesPerView="auto"
+        slidesPerGroup={1}
+        spaceBetween={10} // Set to 10px
+        centeredSlides={false}
+        watchOverflow={true}
         breakpoints={{
-          0: { slidesPerView: 2.5 },
-          320: { slidesPerView: 2.5 },
-          480: { slidesPerView: 2.5 },
-          640: { slidesPerView: 3.5 },
-          768: { slidesPerView: 4.5 },
-          1024: { slidesPerView: 6.5 },
-          1280: { slidesPerView: 6.5 },
+          320: { slidesPerView: 1 },
+          500: { slidesPerView: 2 },
+          768: { slidesPerView: 3 },
+          1024: { slidesPerView: 4 },
+          1200: { slidesPerView: 5 },
+          1400: { slidesPerView: 6 },
         }}
-        className="w-full"
+        className="!overflow-hidden"
       >
-        {products.slice(0, 6).map((product) => (
-          <SwiperSlide key={product.id}>
+        {products.map((product) => (
+          <SwiperSlide key={product.id} className="!h-auto">
             <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>
+
+      {/* Custom navigation buttons - only show if there are more products than visible */}
+      {products.length > 6 && (
+        <>
+          <button
+            onClick={() => swiperRef.current?.slidePrev()}
+            className="absolute left-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white rounded-full shadow-md hover:opacity-90 transition-opacity"
+          >
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => swiperRef.current?.slideNext()}
+            className="absolute right-0 top-1/2 -translate-y-1/2 z-10 w-8 h-8 sm:w-10 sm:h-10 flex items-center justify-center bg-white rounded-full shadow-md hover:opacity-90 transition-opacity"
+          >
+            <ChevronRight className="w-5 h-5" />
+          </button>
+        </>
+      )}
     </div>
   );
 }

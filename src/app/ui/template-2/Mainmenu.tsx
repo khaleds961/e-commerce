@@ -1,43 +1,43 @@
 'use client';
 
-import { FaChevronDown } from "react-icons/fa";
+import Link from 'next/link';
+import { useParams } from 'next/navigation';
+import { FaChevronDown } from 'react-icons/fa';
+import { BiCategory } from 'react-icons/bi';
 import { useState, useEffect, JSX } from 'react';
-import { BiCategory } from "react-icons/bi";
 
-
-
-
-// Define the MainMenuProps type
 interface MainMenuProps {
     siteProperties: any;
 }
 
 export default function MainMenu({ siteProperties }: MainMenuProps): JSX.Element {
+    const { locale } = useParams();
+
     const categories = [
-        { name: "Electronics" },
-        { name: "Fashion" },
-        { name: "Home Appliances" },
-        { name: "Books" },
+        { name: 'Electronics' },
+        { name: 'Fashion' },
+        { name: 'Home Appliances' },
+        { name: 'Books' },
     ];
 
     const Shop = [
-        { name: "Shop" },
-        { name: "Shop Details" },
-        { name: "Shop Details Two" },
+        { name: 'Shop' },
+        { name: 'Shop Details' },
+        { name: 'Shop Details Two' },
     ];
 
     const Home = [
-        { name: "Home" },
-        { name: "Home" },
-        { name: "Home" },
+        { name: 'Home' },
+        { name: 'Home' },
+        { name: 'Home' },
     ];
 
     const Pages = [
-        { name: "Cart" },
-        { name: "Wishlist" },
-        { name: "Checkout" },
-        { name: "Become Seller" },
-        { name: "Account" },
+        { name: 'Cart' },
+        { name: 'Wishlist' },
+        { name: 'Checkout' },
+        { name: 'Become Seller' },
+        { name: 'Account' },
     ];
 
     const Vendors = [...Pages];
@@ -61,8 +61,8 @@ export default function MainMenu({ siteProperties }: MainMenuProps): JSX.Element
 
     return (
         <div
-            className={`scroll-mx-130 fixed z-50 w-full font-medium flex items-center justify-start gap-6 px-4 md:px-[130px] border-y transition-all duration-250 
-            ${isScrolled ? "top-0 bg-white/95 border-gray-200" : "top-[157px] bg-white border-gray-300"}`}
+            className={`hidden md:flex scroll-mx-130 fixed z-50 w-full font-medium items-center justify-start gap-6 px-4 md:px-[130px] border-y transition-all duration-250 
+      ${isScrolled ? 'top-0 bg-white/95 border-gray-200' : 'top-[157px] bg-white border-gray-300'}`}
         >
             {/* All Categories Dropdown with side borders */}
             <div className="border-x border-gray-300 h-full">
@@ -83,24 +83,43 @@ export default function MainMenu({ siteProperties }: MainMenuProps): JSX.Element
             <Dropdown title="Vendors" items={Vendors} show={showVendors} setShow={setShowVendors} />
             <Dropdown title="Blog" items={Blog} show={showBlog} setShow={setShowBlog} />
 
-            {/* Contact Button */}
-            <button className="flex items-center gap-1 text-[#999] hover:text-black">
+            {/* Contact Us Link */}
+            <Link
+                href={`/${locale}/template-2/contactus`}
+                className="flex items-center gap-1 text-[#999] hover:text-black"
+            >
                 Contact Us
-            </button>
+            </Link>
         </div>
     );
 }
 
 // Reusable Dropdown component
-function Dropdown({ title, icon = null as React.ReactNode, items, show, setShow, buttonClass = "" }: { title: string; icon?: React.ReactNode; items: { name: string }[]; show: boolean; setShow: React.Dispatch<React.SetStateAction<boolean>>; buttonClass?: string }) {
+function Dropdown({
+    title,
+    icon = null,
+    items,
+    show,
+    setShow,
+    buttonClass = '',
+}: {
+    title: string;
+    icon?: React.ReactNode;
+    items: { name: string }[];
+    show: boolean;
+    setShow: React.Dispatch<React.SetStateAction<boolean>>;
+    buttonClass?: string;
+}) {
     return (
         <div
             className="relative"
             onMouseEnter={() => setShow(true)}
             onMouseLeave={() => setShow(false)}
         >
-            <button className={`text-[#999] flex items-center gap-1 hover:text-black  px-4 h-15 ${buttonClass}`}>
-                {icon && icon} {title} <FaChevronDown className="text-xs" />
+            <button
+                className={`text-[#999] flex items-center gap-1 hover:text-black px-4 h-15 ${buttonClass}`}
+            >
+                {icon} {title} <FaChevronDown className="text-xs" />
             </button>
             {show && (
                 <ul className="absolute left-0 mt-2 w-48 bg-white rounded shadow z-20">

@@ -140,52 +140,55 @@ export default function DailyBestSells() {
     const countdown = useCountdown(new Date(new Date().getTime() + 12 * 60 * 60 * 1000)); // 12 hours
 
     return (
-        <section className="w-full py-6">
-            <h2 className="text-2xl font-bold text-[#102B6B] mb-6">Daily Best Sells</h2>
+        <section>
+            <h2 className="text-xl sm:text-2xl font-bold text-[#102B6B] mb-4 sm:mb-6">Daily Best Sells</h2>
 
-            <div className="flex gap-6">
-                {/* Left: Product Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-6">
+                {/* Left: Product Grid - full width on mobile, 2 columns on md+, appears first on mobile */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 order-2 lg:order-1">
                     {mockProducts.map((product) => (
-                        <div key={product.id}>
+                        <div key={product.id} className="w-full">
                             <ProductCardList product={product} />
                         </div>
                     ))}
                 </div>
 
-                {/* Right: Promo Banner with Overlay */}
-                <div className="flex-shrink-0 relative w-[650px] h-[550px] rounded-2xl overflow-hidden">
+                {/* Right: Promo Banner - full width on mobile, fixed width on lg+ */}
+                <div className="relative w-full lg:w-[400px] xl:w-[500px] 2xl:w-[650px] h-[300px] sm:h-[400px] md:h-[500px] lg:h-[550px] rounded-xl lg:rounded-2xl overflow-hidden order-1 lg:order-2">
                     {/* Background image */}
                     <Image
                         src="/images/special-snacks.png"
                         alt="Flash Sale Banner"
                         fill
                         className="object-cover"
+                        priority
                     />
 
-                    {/* Overlay content */}
-                    <div className="absolute top-4  flex flex-col items-center text-center left-2/9 transform -translate-x-2/20 z-10">
-                        {/* Top image */}
-                        <Image
-                            src={topimageforbanner[0].image}
-                            alt="Top Banner Overlay"
-                            width={470}
-                            height={240}
-                            className="object-contain"
-                        />
-
-                        {/* Title */}
-                        <h3 className="text-black text-2xl font-bold mt-4">Flash Sale Today</h3>
-
-                        {/* Countdown */}
-                        <div className="flex gap-2 mt-2 text-white font-semibold text-lg">
-                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.hours} Hours</span>
-                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.minutes} Min</span>
-                            <span className="bg-black/50 px-3 py-1 rounded">{countdown.seconds} Sec</span>
+                    {/* Overlay content - centered and responsive */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-center p-4 z-10">
+                        {/* Top image - responsive width */}
+                        <div className="w-full max-w-[280px] sm:max-w-[350px] md:max-w-[400px]">
+                            <Image
+                                src={topimageforbanner[0].image}
+                                alt="Top Banner Overlay"
+                                width={470}
+                                height={240}
+                                className="object-contain w-full h-auto"
+                            />
                         </div>
 
-                        {/* Button */}
-                        <button className="mt-4 bg-[#1f52cc] hover:bg-[#359FC1] text-white px-6 py-2 rounded-3xl font-semibold">
+                        {/* Title - responsive text */}
+                        <h3 className="text-black text-lg sm:text-xl md:text-2xl font-bold mt-2 sm:mt-4">Flash Sale Today</h3>
+
+                        {/* Countdown - responsive spacing and text */}
+                        <div className="flex gap-1 sm:gap-2 mt-1 sm:mt-2 text-white font-semibold text-sm sm:text-base md:text-lg">
+                            <span className="bg-black/50 px-2 sm:px-3 py-1 rounded">{countdown.hours} Hours</span>
+                            <span className="bg-black/50 px-2 sm:px-3 py-1 rounded">{countdown.minutes} Min</span>
+                            <span className="bg-black/50 px-2 sm:px-3 py-1 rounded">{countdown.seconds} Sec</span>
+                        </div>
+
+                        {/* Button - responsive size */}
+                        <button className="mt-2 sm:mt-4 bg-[#1f52cc] hover:bg-[#359FC1] text-white px-4 sm:px-6 py-1 sm:py-2 rounded-3xl font-semibold text-sm sm:text-base">
                             Shop Now
                         </button>
                     </div>

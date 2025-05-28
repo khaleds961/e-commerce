@@ -41,7 +41,6 @@ export default function ProductCard({ product }: { product: Product }) {
   const total = 35;
   const progress = (sold / total) * 100;
 
-  // ✅ Sanitize the image URL to avoid invalid `src` errors
   let imageSrc = '/placeholder.jpg';
   if (product.images?.[0]) {
     const src = product.images[0].trim();
@@ -54,14 +53,7 @@ export default function ProductCard({ product }: { product: Product }) {
 
   return (
     <Link href={`/${locale}/products/${product.id}`} className="block">
-      <div className=" cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
-
-        {/* Add to Cart */}
-        <button
-          className={`cursor-pointer absolute top-2 ${isRTL ? 'left-2' : 'right-2'} z-11 rounded-4xl bg-[#1f52cc] hover:bg-[#359FC1] text-white p-2 w-[100px] flex items-center justify-center gap-2`}
-        >
-          Add <IoCartOutline className="text-xl" />
-        </button>
+      <div className="relative min-w-[250px] max-w-[280px] h-[460px] mx-auto border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 flex flex-col hover:shadow-lg">
 
         {/* Image */}
         <div className="flex justify-center items-center w-full h-40 overflow-hidden">
@@ -100,8 +92,15 @@ export default function ProductCard({ product }: { product: Product }) {
           <span className="text-sm">MyStore</span>
         </div>
 
+        {/* Add to Cart Button */}
+        <div className="mt-4 flex justify-center">
+          <button className="w-24 absolute top-2 right-2 z-10 rounded-full bg-[#1f52cc] hover:bg-[#359FC1] text-white p-2 text-sm flex justify-center items-center gap-1 shadow-md">
+            Add <IoCartOutline className="text-lg" />
+          </button>
+        </div>
+
         {/* Progress Bar */}
-        <div className="mt-auto">
+        <div className="mt-4">
           <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
             <div
               className="bg-green-500 h-full transition-all duration-300"

@@ -34,32 +34,34 @@ const featuredItems = [
 
 export default function FeaturedCategories() {
     return (
-        <section className="my-12">
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <section className="my-8 sm:my-10 md:my-12 px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6">
                 {featuredItems.map((item) => (
                     <div
                         key={item.id}
-                        className="relative group rounded-4xl overflow-hidden shadow-lg"
+                        className="relative group rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden shadow-md sm:shadow-lg hover:shadow-xl transition-shadow duration-300"
                     >
-                        <Image
-                            src={item.image}
-                            alt={item.title}
-                            width={400}
-                            height={300}
-                            className="w-full h-[332px] object-cover"
-                        />
+                        {/* Image with responsive height */}
+                        <div className="relative w-full h-[180px] xs:h-[200px] sm:h-[240px] md:h-[280px] lg:h-[332px]">
+                            <Image
+                                src={item.image}
+                                alt={item.title}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                            />
+                        </div>
 
-                        {/* Text + Button Overlay at Left-Center */}
-                        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 space-y-10">
-                            <h6 className="text-black text-3xl drop-shadow-md w-50">
+                        {/* Text + Button Overlay - responsive positioning */}
+                        <div className="absolute left-3 sm:left-4 top-1/2 transform -translate-y-1/2 space-y-4 sm:space-y-6 md:space-y-8 lg:space-y-10">
+                            <h6 className="text-black text-lg sm:text-xl md:text-2xl lg:text-3xl font-medium sm:font-semibold drop-shadow-md max-w-[80%]">
                                 {item.text}
                             </h6>
                             <a
                                 href={item.link}
-                                className="bg-white text-black px-6 py-3 text-base font-semibold rounded-full shadow hover:bg-[#359FC1] hover:text-white transition-colors duration-300 inline-flex items-center gap-2"
+                                className="bg-white text-black px-3 sm:px-4 md:px-5 lg:px-6 py-1.5 sm:py-2 md:py-2.5 lg:py-3 text-xs sm:text-sm md:text-base font-semibold rounded-full shadow hover:bg-[#359FC1] hover:text-white transition-colors duration-300 inline-flex items-center gap-1 sm:gap-2"
                             >
-                                Shop Now <span className="text-xl">→</span>
+                                Shop Now <span className="text-sm sm:text-base md:text-lg lg:text-xl">→</span>
                             </a>
                         </div>
                     </div>
