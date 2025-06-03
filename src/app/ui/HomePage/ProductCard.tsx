@@ -28,7 +28,7 @@ export default function ProductCard({product}: {product: Product}) {
         }, 1000);
     }
     return (
-        <Link href={`/${locale}/products/${product.slug}`}>
+        <Link href={`/${locale}/template-2/products/${product.id}`}>
         <div className="bg-[#F7F8F7] rounded-md relative w-[100%] max-w-[200px] flex flex-col my-5 cursor-pointer hover:scale-105 transition-all duration-300">
             <div className="absolute top-2 right-2">                        
                 <IoMdHeartEmpty size={30} className="cursor-pointer text-white bg-[#363842] rounded-full p-1" />

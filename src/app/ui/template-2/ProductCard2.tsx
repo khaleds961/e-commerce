@@ -27,13 +27,16 @@ type Product = {
   slug: string;
   creationAt: string;
   updatedAt: string;
+  rating?: number;
+  reviews?: string;
+  quantity?: number;
 };
 
 export default function ProductCard2({ product }: { product: Product }) {
   const locale = useLocale();
   const isRTL = locale === 'ar';
 
-  const originalPrice = 100;
+  const originalPrice = product.price;
   const discount = 10;
   const finalPrice = product.price;
   const rating = 4.8;
@@ -43,7 +46,11 @@ export default function ProductCard2({ product }: { product: Product }) {
   const progress = (sold / total) * 100;
 
   return (
-    <Link href={`/${locale}/products/${product.id}`} className="block">
+    <Link
+                    key={product.slug}
+                    href={`/${locale}/template-2/products/${product.slug}`}
+                    className="flex items-center rounded-lg transition-all"
+                  >
       <div className="cursor-pointer relative border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 w-[267px] h-[464px] flex flex-col hover:shadow-lg">
 
         {/* Image */}

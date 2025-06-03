@@ -26,7 +26,7 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
             {/* Desktop Header */}
-            <div style={{ backgroundColor: textColor }} className="hidden md:flex justify-between items-center py-2 px-4 lg:px-[130px]">
+            <div style={{ backgroundColor: textColor }} className="hidden md:flex items-center py-2 px-4 lg:px-[130px]">
                 {/* Logo */}
                 <div className="flex-shrink-0">
                     <Link href={`/${locale}`}>
@@ -35,62 +35,52 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                             alt="logo"
                             width={200}
                             height={43}
-                            className="w-[120px] lg:w-[200px] h-auto object-contain"
+                            className="w-[75.6px] lg:w-[126px] h-auto object-contain"
                         />
                     </Link>
                 </div>
 
-                {/* Search Bar */}
-                <div className="w-full max-w-2xl xl:max-w-3xl mx-4 flex items-center">
-                    <div className="relative flex w-full">
-                        <button 
-                            className="gap-2 bg-[#F3FAF2] text-gray-900 text-sm h-12 px-4 lg:px-6 rounded-l-full border border-gray-300 border-r-0 flex items-center justify-center cursor-pointer hover:bg-gray-100 whitespace-nowrap"
-                            onClick={() => setShowCategories(!showCategories)}
-                        >
-                            All Categories
-                            <FaChevronDown className={`ml-1 transition-transform duration-300 ${showCategories ? 'rotate-180' : ''}`} />
-                        </button>
-                        
-                        <div className="relative flex-1 border border-gray-300 h-12 rounded-r-full">
-                            <input
-                                type="text"
-                                placeholder={`${t("searchbarPlaceholder")}`}
-                                className="bg-[#F3FAF2] text-gray-900 text-sm h-full w-full px-4 pr-10 rounded-r-full outline-none placeholder:text-sm"
-                            />
-                            <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#299e60] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
-                                <FaSearch size={14} />
+                {/* Search Bar - Centered */}
+                <div className="flex-1 flex justify-center">
+                    <div className="w-full max-w-2xl xl:max-w-3xl flex items-center">
+                        <div className="relative flex w-full">
+                            <button
+                                className="gap-2 bg-[#F3FAF2] text-gray-900 text-sm h-12 px-4 lg:px-6 rounded-l-full border border-gray-300 border-r-0 flex items-center justify-center cursor-pointer hover:bg-gray-100 whitespace-nowrap"
+                                onClick={() => setShowCategories(!showCategories)}
+                            >
+                                All Categories
+                                <FaChevronDown className={`ml-1 transition-transform duration-300 ${showCategories ? 'rotate-180' : ''}`} />
                             </button>
+
+                            <div className="relative flex-1 border border-gray-300 h-12 rounded-r-full">
+                                <input
+                                    type="text"
+                                    placeholder={`${t("searchbarPlaceholder")}`}
+                                    className="bg-[#F3FAF2] text-gray-900 text-sm h-full w-full px-4 pr-10 rounded-r-full outline-none placeholder:text-sm"
+                                />
+                                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#299e60] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
+                                    <FaSearch size={14} />
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* User Actions */}
-                <div className="flex items-center justify-end space-x-4">
-                    <LanguageSwitcher />
-                    <button className="flex whitespace-nowrap gap-2 border-x-2 border-white px-4 justify-center cursor-pointer hover:text-gray-300">
-                        <span className="hidden lg:inline">{t("login")}</span>
-                        <FaRegUser size={20} />
-                    </button>
-                    <button className="cursor-pointer hover:text-gray-300">
-                        <FaRegHeart size={20} />
-                    </button>
-                    <button className="cursor-pointer hover:text-gray-300">
-                        <FaShoppingCart size={20} />
-                    </button>
+                {/* Optional Right Section (e.g., user icons) */}
+                <div className="flex-shrink-0 hidden">
+                    {/* Add icons here if needed */}
                 </div>
             </div>
 
             {/* Mobile Header */}
             <div style={{ backgroundColor: textColor }} className="md:hidden flex justify-between items-center py-3 px-4">
-                {/* Mobile Menu Button */}
-                <button 
+                <button
                     className="text-white"
                     onClick={() => setShowMobileMenu(!showMobileMenu)}
                 >
                     <FaBars size={20} />
                 </button>
 
-                {/* Mobile Logo */}
                 <Link href={`/${locale}`} className="mx-auto">
                     <Image
                         src={logo}
@@ -101,7 +91,6 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                     />
                 </Link>
 
-                {/* Mobile Cart Icon */}
                 <div className="flex items-center space-x-3">
                     <button className="cursor-pointer hover:text-gray-300">
                         <FaShoppingCart size={20} />
@@ -109,7 +98,7 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                 </div>
             </div>
 
-            {/* Mobile Search (shown below header) */}
+            {/* Mobile Search */}
             <div className="md:hidden px-4 py-2">
                 <div className="relative flex w-full">
                     <input

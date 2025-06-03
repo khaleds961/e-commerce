@@ -26,88 +26,99 @@ type Product = {
   slug: string;
   creationAt: string;
   updatedAt: string;
+  originalPrice?: number;
+  rating?: number;
+  reviews?: string;
+  quantity?: number;
 };
 
 export default function ProductCard({ product }: { product: Product }) {
   const locale = useLocale();
   const isRTL = locale === 'ar';
 
-  const originalPrice = 100;
-  const discount = 10;
-  const finalPrice = product.price;
-  const rating = 4.8;
-  const ratersCount = 120;
-  const sold = 18;
-  const total = 35;
+  // Calculate progress based on quantity (if available)
+  const total = product.quantity || 35;
+  const sold = Math.floor(total * 0.7); // Simulate 70% sold
   const progress = (sold / total) * 100;
 
-  let imageSrc = '/placeholder.jpg';
-  if (product.images?.[0]) {
-    const src = product.images[0].trim();
-    if (src.startsWith('http') || src.startsWith('/')) {
-      imageSrc = src;
-    } else if (src.startsWith('www.')) {
-      imageSrc = `https://${src}`;
-    }
-  }
-
   return (
-    <Link href={`/${locale}/products/${product.id}`} className="block">
-      <div className="relative min-w-[250px] max-w-[280px] h-[460px] mx-auto border border-gray-300 rounded-2xl p-2 bg-white hover:border-blue-500 transition-all duration-300 flex flex-col hover:shadow-lg">
-
+    <Link href={`/${locale}/template-2/products/${product.slug}`}>
+      <div className="
+        relative 
+        w-[200px] h-[370px] p-2
+        border border-gray-300 rounded-2xl bg-white flex flex-col 
+        hover:border-blue-500 hover:shadow-lg transition-all duration-300 mx-auto
+        sm:w-[280px] sm:h-[460px] sm:p-4
+      ">
         {/* Image */}
-        <div className="flex justify-center items-center w-full h-40 overflow-hidden">
+        <div className="flex justify-center items-center w-full h-[120px] overflow-hidden sm:h-40">
           <Image
-            src={imageSrc}
+            src={product.images[0] || '/placeholder.jpg'}
             alt={product.title}
-            width={150}
-            height={150}
+            width={120}
+            height={120}
             className="object-contain max-h-full transition-transform duration-300 hover:scale-110"
           />
         </div>
 
         {/* Price */}
-        <div className="mt-4 flex items-center gap-2">
-          {discount > 0 && (
-            <span className="text-sm text-gray-400 line-through">${originalPrice}</span>
+        <div className="mt-3 flex items-center gap-1 text-sm sm:gap-2 sm:text-base">
+          {product.originalPrice && product.originalPrice > product.price && (
+            <span className="text-xs text-gray-400 line-through sm:text-sm">
+              ${product.originalPrice.toFixed(2)}
+            </span>
           )}
-          <span className="text-lg font-semibold text-[#102B6B]">${finalPrice}</span>/Qty
+          <span className="font-semibold text-[#102B6B]">
+            ${product.price.toFixed(2)}
+          </span>
+          /Qty
         </div>
 
         {/* Rating */}
-        <div className="flex items-center text-sm text-yellow-500 mt-2 gap-1">
-          <CiStar className="text-lg" />
-          <span className="text-sm text-black">{rating}</span>
-          <span className="text-sm text-gray-500">({ratersCount})</span>
-        </div>
+        {product.rating && (
+          <div className="flex items-center text-yellow-500 mt-1 gap-1 text-xs sm:text-sm">
+            <CiStar className="text-base" />
+            <span className="text-black">{product.rating}</span>
+            <span className="text-gray-500">({product.reviews})</span>
+          </div>
+        )}
 
         {/* Product Name */}
-        <h3 className="text-xl mt-3 font-medium line-clamp-2 text-ellipsis overflow-hidden" title={product.title}>
+        <h3
+          className="text-lg mt-2 font-medium line-clamp-2 overflow-hidden text-ellipsis"
+          title={product.title}
+        >
           {formatProductName(product.title, 40)}
         </h3>
 
         {/* Store Name */}
-        <div className="flex items-center gap-1 text-xs mt-2 text-gray-600">
-          <PiStorefrontLight />
-          <span className="text-sm">MyStore</span>
+        <div className="flex items-center gap-1 text-xs mt-1 text-gray-600 sm:text-sm">
+          <PiStorefrontLight className="text-sm" />
+          <span>MyStore</span>
         </div>
 
         {/* Add to Cart Button */}
         <div className="mt-4 flex justify-center">
-          <button className="w-24 absolute top-2 right-2 z-10 rounded-full bg-[#1f52cc] hover:bg-[#359FC1] text-white p-2 text-sm flex justify-center items-center gap-1 shadow-md">
+          <button 
+            className="w-24 absolute top-2 right-2 z-10 rounded-full bg-[#1f52cc] hover:bg-[#359FC1] text-white p-2 text-sm flex justify-center items-center gap-1 shadow-md"
+            onClick={(e) => {
+              e.preventDefault();
+              // Handle add to cart logic here
+            }}
+          >
             Add <IoCartOutline className="text-lg" />
           </button>
         </div>
 
         {/* Progress Bar */}
-        <div className="mt-4">
-          <div className="bg-gray-200 h-2 rounded-full overflow-hidden">
+        <div className="mt-3">
+          <div className="bg-gray-200 h-1.5 rounded-full overflow-hidden sm:h-2">
             <div
               className="bg-green-500 h-full transition-all duration-300"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <p className="text-xs mt-1 text-gray-600">
+          <p className="text-xs mt-1 text-gray-600 sm:text-sm">
             Sold: {sold}/{total}
           </p>
         </div>

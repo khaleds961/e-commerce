@@ -24,6 +24,7 @@ type Product = {
   slug: string;
   creationAt: string;
   updatedAt: string;
+  discount: number;
 };
 
 const rawProducts = [
@@ -35,9 +36,9 @@ const rawProducts = [
     images: ['/images/offer-img1.png'],
     description: 'High-quality rice at a discounted price.',
     slug: 'discounted-rice',
-    creationAt: new Date().toISOString(),
     category: 'Promo',
-    updatedAt: '',
+    creationAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
   },
   {
     id: 2,
@@ -115,8 +116,8 @@ const discountedProducts: Product[] = rawProducts.map((product) => ({
 
 const MegaPromotionDaily = () => {
   const [startIndex, setStartIndex] = useState(0);
-  const visibleCount = 1;
-  const cardWidth = 270 + 24;
+  const visibleCount = 4;
+  const cardWidth = 280 + 8;
 
   const handlePrev = () => {
     setStartIndex((prev) => Math.max(prev - 1, 0));
@@ -159,10 +160,10 @@ const MegaPromotionDaily = () => {
   }, []);
 
   return (
-    <div className=" pt-15">
+    <div className="pt-10">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-3xl font-bold">Hot Deals Today</h2>
-        <div className="flex items-center gap-4">
+        <h2 className="text-2xl md:text-3xl font-bold">Hot Deals Today</h2>
+        <div className="items-center gap-4 hidden md:flex">
           <button className="text-sm text-blue-600 hover:underline font-medium">
             View All Deals
           </button>
@@ -178,9 +179,9 @@ const MegaPromotionDaily = () => {
         </div>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-2 bg-white rounded-lg">
-        {/* Left Banner */}
-        <div className="w-full md:w-1/3 relative bg-[#f5f5f5] rounded-2xl overflow-hidden flex items-center justify-center">
+      <div className="flex flex-col md:flex-row gap-4 bg-white rounded-lg overflow-hidden">
+        {/* Banner */}
+        <div className="w-full md:w-1/3 relative bg-[#f5f5f5] rounded-2xl overflow-hidden flex items-center justify-center min-h-[350px]">
           <Image
             src="/images/offer-shape.png"
             alt="Main Banner"
@@ -192,15 +193,15 @@ const MegaPromotionDaily = () => {
             <Image
               src="/images/offer-img1.png"
               alt="Promo"
-              width={250}
-              height={250}
+              width={200}
+              height={200}
               className="object-contain"
             />
           </div>
-          <div className="z-30 text-center text-white relative pt-25">
-            <h2 className="text-2xl font-bold mb-2">Mega Promotion Today!</h2>
-            <p className="mb-4">Up to 50% off on selected items</p>
-            <div className="mb-4 font-semibold text-lg flex gap-2 justify-center">
+          <div className="z-30 text-center text-white relative pt-32 px-4">
+            <h2 className="text-xl md:text-2xl font-bold mb-2">Mega Promotion Today!</h2>
+            <p className="mb-4 text-sm">Up to 50% off on selected items</p>
+            <div className="mb-4 font-semibold text-sm flex gap-2 justify-center flex-wrap">
               <span className="bg-white text-black px-3 py-1 rounded-md">
                 {timeLeft.days} Days
               </span>
@@ -214,20 +215,26 @@ const MegaPromotionDaily = () => {
                 {timeLeft.seconds} Sec
               </span>
             </div>
-            <button className="px-5 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition">
+            <button className="px-5 py-2 bg-black text-white rounded-full hover:bg-gray-800 transition text-sm">
               Shop Now →
             </button>
           </div>
         </div>
 
-        {/* Product Carousel */}
-        <div className="w-full md:w-2/3 relative overflow-hidden">
+        {/* Carousel */}
+        <div className="w-full md:w-2/3 overflow-x-auto md:overflow-hidden">
           <div
-            className="flex gap-2 transition-transform duration-300 ease-in-out"
-            style={{ transform: `translateX(-${startIndex * cardWidth}px)` }}
+            className="flex md:transition-transform md:duration-300 md:ease-in-out gap-2 px-1 md:px-0"
+            style={{
+              transform: `translateX(-${startIndex * cardWidth}px)`,
+              width: 'max-content',
+            }}
           >
             {discountedProducts.map((product) => (
-              <div key={product.id} className="min-w-[250px] flex-shrink-0">
+              <div
+                key={product.id}
+                className="min-w-[260px] max-w-[280px] flex-shrink-0"
+              >
                 <ProductCard product={product} />
               </div>
             ))}

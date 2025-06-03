@@ -57,7 +57,7 @@ export default function ProductsSlider({ products }: { products: Product[] }) {
         centeredSlides={false}
         watchOverflow={true}
         breakpoints={{
-          320: { slidesPerView: 1 },
+          320: { slidesPerView: 2 },
           500: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
           1024: { slidesPerView: 4 },

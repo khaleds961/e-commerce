@@ -65,7 +65,7 @@ export default async function Home() {
       <Topmenu siteProperties={siteProperties} />
       <Searchbar siteProperties={siteProperties} />
       <MainMenu siteProperties={siteProperties} />
-      <div className="mx-2 md:mx-10 px-0 md:px-10 mt-5">
+      <div className="mx-2 md:mx-10 px-0 md:px-10 mt-5 md:mt-20">
         <div className="mb-5">
           <Mainslider
             slides={slides}

@@ -1,233 +1,117 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ProductCard2 from './ProductCard2';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-
-type Category = {
-    id: number;
-    name: string;
-    slug: string;
-};
-
-type Product = {
-    id: number;
-    title: string;
-    price: number;
-    description: string;
-    category: Category;
-    images: string[];
-    slug: string;
-    creationAt: string;
-    updatedAt: string;
-};
-
-const products: Product[] = [
-    {
-        id: 1,
-        title: 'Wireless Headphones',
-        price: 89.99,
-        description: 'High-quality wireless headphones with noise cancellation.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'wireless-headphones',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 2,
-        title: 'Smart Watch',
-        price: 129.99,
-        description: 'Stylish and functional smartwatch.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'smart-watch',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 3,
-        title: 'Gaming Mouse',
-        price: 59.99,
-        description: 'Ergonomic gaming mouse with customizable buttons.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'gaming-mouse',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 4,
-        title: 'Bluetooth Speaker',
-        price: 49.99,
-        description: 'Portable Bluetooth speaker with rich sound.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'bluetooth-speaker',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 5,
-        title: 'VR Headset',
-        price: 199.99,
-        description: 'Immersive virtual reality headset for gaming and more.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'vr-headset',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-
-    {
-        id: 6,
-        title: 'Wireless Headphones',
-        price: 89.99,
-        description: 'High-quality wireless headphones with noise cancellation.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'wireless-headphones',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 7,
-        title: 'Smart Watch',
-        price: 129.99,
-        description: 'Stylish and functional smartwatch.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'smart-watch',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 8,
-        title: 'Gaming Mouse',
-        price: 59.99,
-        description: 'Ergonomic gaming mouse with customizable buttons.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'gaming-mouse',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 9,
-        title: 'Bluetooth Speaker',
-        price: 49.99,
-        description: 'Portable Bluetooth speaker with rich sound.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'bluetooth-speaker',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 10,
-        title: 'VR Headset',
-        price: 199.99,
-        description: 'Immersive virtual reality headset for gaming and more.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'vr-headset',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-
-    {
-        id: 11,
-        title: 'Wireless Headphones',
-        price: 89.99,
-        description: 'High-quality wireless headphones with noise cancellation.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'wireless-headphones',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 12,
-        title: 'Smart Watch',
-        price: 129.99,
-        description: 'Stylish and functional smartwatch.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'smart-watch',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 13,
-        title: 'Gaming Mouse',
-        price: 59.99,
-        description: 'Ergonomic gaming mouse with customizable buttons.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'gaming-mouse',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 14,
-        title: 'Bluetooth Speaker',
-        price: 49.99,
-        description: 'Portable Bluetooth speaker with rich sound.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'bluetooth-speaker',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-    {
-        id: 15,
-        title: 'VR Headset',
-        price: 199.99,
-        description: 'Immersive virtual reality headset for gaming and more.',
-        category: { id: 1, name: 'Electronics', slug: 'electronics' },
-        images: ['/images/offer-img2.png'],
-        slug: 'vr-headset',
-        creationAt: '2024-01-01T00:00:00Z',
-        updatedAt: '2024-01-01T00:00:00Z',
-    },
-];
-
-
+import { productData, Product } from '@/data/product';
 
 const SLIDES_TO_SHOW = 6;
 const SLIDE_STEP = 1;
-const CARD_WIDTH = 267 + 16;
+const CARD_WIDTH = 275; // 267px card + 8px gap
 
 export default function CategoryFeaturedProducts() {
     const [currentStart, setCurrentStart] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const [startX, setStartX] = useState(0);
+    const [scrollLeft, setScrollLeft] = useState(0);
+    const carouselRef = useRef<HTMLDivElement>(null);
+
+    // Filter featured products (isfeatured === 1)
+    const featuredProducts = productData.filter(product => product.isfeatured === 1);
 
     const handlePrev = () => {
         setCurrentStart((prev) =>
             prev - SLIDE_STEP < 0
-                ? products.length - SLIDES_TO_SHOW
+                ? featuredProducts.length - SLIDES_TO_SHOW
                 : Math.max(prev - SLIDE_STEP, 0)
         );
     };
 
     const handleNext = () => {
         setCurrentStart((prev) =>
-            prev + SLIDES_TO_SHOW >= products.length
+            prev + SLIDES_TO_SHOW >= featuredProducts.length
                 ? 0
                 : prev + SLIDE_STEP
         );
     };
 
+    // Touch event handlers
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setIsDragging(true);
+        setStartX(e.touches[0].pageX);
+        if (carouselRef.current) {
+            setScrollLeft(carouselRef.current.scrollLeft);
+        }
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        if (carouselRef.current) {
+            const x = e.touches[0].pageX;
+            const walk = (x - startX) * 2; // Adjust sensitivity
+            carouselRef.current.scrollLeft = scrollLeft - walk;
+        }
+    };
+
+    const handleTouchEnd = () => {
+        setIsDragging(false);
+        if (carouselRef.current) {
+            // Determine if we should snap to next/prev based on scroll position
+            const threshold = CARD_WIDTH / 2;
+            const delta = scrollLeft - carouselRef.current.scrollLeft;
+            
+            if (delta > threshold) {
+                handleNext();
+            } else if (delta < -threshold) {
+                handlePrev();
+            } else {
+                // Return to original position
+                setCurrentStart(currentStart);
+            }
+        }
+    };
+
+    // Mouse event handlers for desktop drag
+    const handleMouseDown = (e: React.MouseEvent) => {
+        setIsDragging(true);
+        setStartX(e.pageX);
+        if (carouselRef.current) {
+            setScrollLeft(carouselRef.current.scrollLeft);
+        }
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+        if (!isDragging) return;
+        e.preventDefault();
+        if (carouselRef.current) {
+            const x = e.pageX;
+            const walk = (x - startX) * 2;
+            carouselRef.current.scrollLeft = scrollLeft - walk;
+        }
+    };
+
+    const handleMouseUp = () => {
+        setIsDragging(false);
+    };
+
+    const handleMouseLeave = () => {
+        setIsDragging(false);
+    };
+
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentStart((prev) =>
-                prev + SLIDES_TO_SHOW >= products.length
-                    ? 0
-                    : prev + SLIDE_STEP
-            );
+            if (!isDragging) { // Don't auto-advance while user is interacting
+                setCurrentStart((prev) =>
+                    prev + SLIDES_TO_SHOW >= featuredProducts.length
+                        ? 0
+                        : prev + SLIDE_STEP
+                );
+            }
         }, 7000);
 
         return () => clearInterval(interval);
-    }, []);
+    }, [featuredProducts.length, isDragging]);
 
     const translateX = -currentStart * CARD_WIDTH;
 
@@ -236,11 +120,11 @@ export default function CategoryFeaturedProducts() {
             {/* Header */}
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-2xl font-bold text-[#102B6B]">
-                    Electronics - Featured Products
+                    Featured Products
                 </h2>
                 <div className="flex items-center gap-2">
                     <button className="px-4 py-2 hover:underline transition cursor-pointer">
-                        All Categories
+                        View All
                     </button>
                     <button
                         onClick={handlePrev}
@@ -259,14 +143,41 @@ export default function CategoryFeaturedProducts() {
             </div>
 
             {/* Carousel */}
-            <div className="overflow-hidden">
+            <div 
+                className="overflow-hidden"
+                ref={carouselRef}
+            >
                 <div
-                    className="flex gap-4 transition-transform duration-500 ease-in-out"
+                    className="flex gap-2 transition-transform duration-500 ease-in-out"
                     style={{ transform: `translateX(${translateX}px)` }}
+                    onTouchStart={handleTouchStart}
+                    onTouchMove={handleTouchMove}
+                    onTouchEnd={handleTouchEnd}
+                    onMouseDown={handleMouseDown}
+                    onMouseMove={handleMouseMove}
+                    onMouseUp={handleMouseUp}
+                    onMouseLeave={handleMouseLeave}
                 >
-                    {products.map((product) => (
+                    {featuredProducts.map((product) => (
                         <div key={product.id} className="w-[267px] shrink-0">
-                            <ProductCard2 product={product} />
+                            <ProductCard2 product={{
+                                id: product.id,
+                                title: product.name,
+                                price: product.price,
+                                description: product.description,
+                                category: { 
+                                    id: 1, 
+                                    name: 'Organic', 
+                                    slug: 'organic' 
+                                },
+                                images: [product.image],
+                                slug: product.slug,
+                                creationAt: '',
+                                updatedAt: '',
+                                rating: product.rating,
+                                reviews: product.reviews,
+                                quantity: product.quantity
+                            }} />
                         </div>
                     ))}
                 </div>

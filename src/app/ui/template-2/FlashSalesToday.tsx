@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState, useRef } from 'react';
 import Image from 'next/image';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const salesItems = [
   {
@@ -22,7 +23,7 @@ const salesItems = [
     image: '/images/sale1.png',
     additionalImage: '/images/banner-img1.png',
     link: '#',
-    title: '',
+    title: 'Sale 3',
   },
   {
     id: 4,
@@ -30,34 +31,6 @@ const salesItems = [
     additionalImage: '/images/banner-img1.png',
     link: '#',
     title: 'Sale 4',
-  },
-  {
-    id: 5,
-    image: '/images/sale1.png',
-    additionalImage: '/images/banner-img1.png',
-    link: '#',
-    title: 'Sale 5',
-  },
-  {
-    id: 6,
-    image: '/images/sale3.png',
-    additionalImage: '/images/banner-img1.png',
-    link: '#',
-    title: 'Sale 6',
-  },
-  {
-    id: 7,
-    image: '/images/sale1.png',
-    additionalImage: '/images/banner-img1.png',
-    link: '#',
-    title: 'Sale 7',
-  },
-  {
-    id: 8,
-    image: '/images/sale3.png',
-    additionalImage: '/images/banner-img1.png',
-    link: '#',
-    title: 'Sale 8',
   },
 ];
 
@@ -80,16 +53,20 @@ export default function FlashSalesToday() {
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState(0);
   const [currentTranslate, setCurrentTranslate] = useState(0);
-  const [windowWidth, setWindowWidth] = useState<number>(0);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isHovered, setIsHovered] = useState(false);
 
-  const extendedItems = [...salesItems, ...salesItems]; // Avoid over-extending
+  const sliderRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const updateWidth = () => setWindowWidth(window.innerWidth);
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
   }, []);
+
+  const isMobile = windowWidth < 640;
+  const visibleSlides = isMobile ? 1 : 2;
 
   useEffect(() => {
     const timer = setInterval(() => setTimeLeft(getTimeLeft()), 1000);
@@ -97,19 +74,23 @@ export default function FlashSalesToday() {
   }, []);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      goToNext();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [currentIndex]);
+    if (!isDragging && !isHovered) {
+      const interval = setInterval(() => {
+        goToNext();
+      }, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [currentIndex, isDragging, isHovered]);
+
+  const maxIndex = salesItems.length - visibleSlides;
 
   const goToNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % salesItems.length);
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
     setCurrentTranslate(0);
   };
 
   const goToPrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + salesItems.length) % salesItems.length);
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
     setCurrentTranslate(0);
   };
 
@@ -122,10 +103,7 @@ export default function FlashSalesToday() {
   const endDrag = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging) return;
     setIsDragging(false);
-    const clientX =
-      'touches' in e
-        ? (e as React.TouchEvent).changedTouches[0].clientX
-        : (e as React.MouseEvent).clientX;
+    const clientX = 'touches' in e ? e.changedTouches[0].clientX : (e as React.MouseEvent).clientX;
     const diff = clientX - startPos;
     if (diff < -50) goToNext();
     else if (diff > 50) goToPrev();
@@ -134,90 +112,105 @@ export default function FlashSalesToday() {
 
   const onDrag = (e: React.MouseEvent | React.TouchEvent) => {
     if (!isDragging) return;
+    e.preventDefault();
     const clientX = 'touches' in e ? e.touches[0].clientX : (e as React.MouseEvent).clientX;
     setCurrentTranslate(clientX - startPos);
   };
 
-  const isMobile = windowWidth < 640;
+  const renderItem = (item: typeof salesItems[number]) => (
+    <div className="relative w-full h-[200px] sm:h-[255px] rounded-3xl overflow-hidden">
+      <Image
+        src={item.image}
+        alt={item.title || `Item ${item.id}`}
+        fill
+        className="object-cover"
+        priority
+      />
+      <div className="absolute top-6 sm:top-10 left-4 w-[200px] sm:w-[291px] h-[100px] sm:h-[147px]">
+        <Image
+          src={item.additionalImage}
+          alt={`Product ${item.id}`}
+          width={291}
+          height={147}
+          className="object-contain"
+        />
+      </div>
+      <div className="absolute inset-0 flex flex-col justify-center items-end text-right px-4 gap-2 sm:gap-4">
+        {item.title && (
+          <div className="text-black text-base sm:text-xl font-semibold bg-white/80 px-3 py-1 sm:px-4 sm:py-2 rounded-md">
+            {item.title}
+          </div>
+        )}
+        <div className="flex gap-1 sm:gap-2 text-black text-sm sm:text-lg font-bold bg-white/80 px-3 py-1 sm:px-4 sm:py-2 rounded-md">
+          {['days', 'hours', 'minutes', 'seconds'].map((unit) => (
+            <div key={unit} className="bg-white rounded-md px-2 sm:px-3 py-1 min-w-[40px] text-center">
+              {timeLeft[unit as keyof typeof timeLeft]}{unit.charAt(0)}
+            </div>
+          ))}
+        </div>
+        <a
+          href={item.link}
+          className="bg-white text-black px-4 sm:px-6 py-2 sm:py-3 text-sm sm:text-base font-semibold rounded-full hover:bg-[#359FC1] hover:text-white transition-colors duration-300 inline-flex items-center gap-2 w-fit"
+        >
+          Shop Now <span className="text-xl">→</span>
+        </a>
+      </div>
+    </div>
+  );
 
   return (
-    <div className="w-full relative">
+    <div className="w-full relative px-4 sm:px-0">
       <h2 className="text-2xl font-bold mb-6">Flash Sales Today</h2>
 
       <div
-        className="relative w-full rounded-xl overflow-hidden cursor-grab"
+        ref={sliderRef}
+        className="relative w-full rounded-xl overflow-hidden"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
         onMouseDown={startDrag}
         onTouchStart={startDrag}
         onMouseMove={onDrag}
         onTouchMove={onDrag}
         onMouseUp={endDrag}
-        onMouseLeave={endDrag}
         onTouchEnd={endDrag}
       >
         <div
-          className="flex flex-col sm:flex-row transition-transform duration-300 ease-out"
+          className="flex transition-transform duration-300 ease-out"
           style={{
-            transform: isMobile
-              ? `translateY(calc(-${currentIndex * 100}% + ${currentTranslate}px))`
-              : `translateX(calc(-${currentIndex * 50}% + ${currentTranslate}px))`,
+            transform: `translateX(calc(-${(100 / visibleSlides) * currentIndex}% + ${currentTranslate}px))`,
           }}
         >
-          {extendedItems.map((item, index) => (
+          {salesItems.map((item) => (
             <div
-              key={`${item.id}-${index}`}
-              className="w-full sm:w-1/2 flex-shrink-0 px-2 py-4 sm:py-0"
+              key={item.id}
+              className={`px-2 flex-shrink-0 ${
+                isMobile ? 'w-full' : 'w-1/2'
+              }`}
             >
-              <div className="relative w-full h-[500px] sm:h-[255px] rounded-3xl overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.title || `Item ${item.id}`}
-                  fill
-                  className="object-cover"
-                />
-
-                <div className="absolute top-10 left-4 w-[291px] h-[147px]">
-                  <Image
-                    src={item.additionalImage}
-                    alt={`Product ${item.id}`}
-                    width={291}
-                    height={147}
-                    className="object-contain"
-                  />
-                </div>
-
-                <div className="absolute inset-0 flex flex-col justify-center items-end text-right px-6 gap-4">
-                  {item.title && (
-                    <div className="text-black text-xl sm:text-2xl font-semibold bg-white/80 px-4 py-2 rounded-md">
-                      {item.title}
-                    </div>
-                  )}
-
-                  <div className="flex gap-2 text-black text-lg sm:text-xl font-bold bg-white/80 px-4 py-2 rounded-md">
-                    <div className="bg-white rounded-md px-3 py-1 min-w-[50px] text-center">
-                      {timeLeft.days}d
-                    </div>
-                    <div className="bg-white rounded-md px-3 py-1 min-w-[50px] text-center">
-                      {timeLeft.hours}h
-                    </div>
-                    <div className="bg-white rounded-md px-3 py-1 min-w-[50px] text-center">
-                      {timeLeft.minutes}m
-                    </div>
-                    <div className="bg-white rounded-md px-3 py-1 min-w-[50px] text-center">
-                      {timeLeft.seconds}s
-                    </div>
-                  </div>
-
-                  <a
-                    href={item.link}
-                    className="bg-white text-black px-6 py-3 text-base font-semibold rounded-full hover:bg-[#359FC1] hover:text-white transition-colors duration-300 inline-flex items-center gap-2 w-fit"
-                  >
-                    Shop Now <span className="text-xl">→</span>
-                  </a>
-                </div>
-              </div>
+              {renderItem(item)}
             </div>
           ))}
         </div>
+
+        {/* Show arrows only on desktop */}
+        {!isMobile && (
+          <>
+            <button
+              onClick={goToPrev}
+              className="absolute top-1/2 -translate-y-1/2 left-2 z-10 bg-white p-3 rounded-full shadow hover:bg-gray-200 transition"
+              aria-label="Previous Slide"
+            >
+              <ChevronLeft className="w-6 h-6" />
+            </button>
+            <button
+              onClick={goToNext}
+              className="absolute top-1/2 -translate-y-1/2 right-2 z-10 bg-white p-3 rounded-full shadow hover:bg-gray-200 transition"
+              aria-label="Next Slide"
+            >
+              <ChevronRight className="w-6 h-6" />
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
