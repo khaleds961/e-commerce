@@ -26,8 +26,8 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
             {/* Desktop Header */}
-            <div style={{ backgroundColor: textColor }} className="hidden md:flex items-center py-2 px-4 lg:px-[130px]">
-                {/* Logo */}
+            <div style={{ backgroundColor: textColor }} className="hidden md:flex items-center justify-between py-2 px-4 lg:px-[130px]">
+                {/* Left - Logo */}
                 <div className="flex-shrink-0">
                     <Link href={`/${locale}`}>
                         <Image
@@ -40,7 +40,7 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                     </Link>
                 </div>
 
-                {/* Search Bar - Centered */}
+                {/* Center - Search Bar */}
                 <div className="flex-1 flex justify-center">
                     <div className="w-full max-w-2xl xl:max-w-3xl flex items-center">
                         <div className="relative flex w-full">
@@ -58,7 +58,7 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                                     placeholder={`${t("searchbarPlaceholder")}`}
                                     className="bg-[#F3FAF2] text-gray-900 text-sm h-full w-full px-4 pr-10 rounded-r-full outline-none placeholder:text-sm"
                                 />
-                                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#299e60] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
+                                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#359FC1] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
                                     <FaSearch size={14} />
                                 </button>
                             </div>
@@ -66,9 +66,11 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                     </div>
                 </div>
 
-                {/* Optional Right Section (e.g., user icons) */}
-                <div className="flex-shrink-0 hidden">
-                    {/* Add icons here if needed */}
+                {/* Right - Cart Icon */}
+                <div className="flex-shrink-0 flex items-center space-x-4 text-[#359FC1]">
+                    <button className="hover:text-gray-300">
+                        <FaShoppingCart size={25} />
+                    </button>
                 </div>
             </div>
 

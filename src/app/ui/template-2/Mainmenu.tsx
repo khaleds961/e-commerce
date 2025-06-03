@@ -61,7 +61,7 @@ export default function MainMenu({ siteProperties }: MainMenuProps) {
       title: 'Pages',
       items: [
         { name: 'About', path: `/${locale}/about` },
-        { name: 'Contact', path: `/${locale}/contact` },
+        { name: 'Contact', path: `/${locale}/contact-us` },
         { name: 'FAQ', path: `/${locale}/faq` },
       ],
     },
@@ -96,9 +96,9 @@ export default function MainMenu({ siteProperties }: MainMenuProps) {
       ))}
 
       <Link
-        href={`/${locale}/template-2/contactus`}
+        href={`/${locale}/template-2/contact-us`}
         className="flex items-center gap-1 text-[#999] hover:text-black px-4 h-15"
-        aria-current={pathname === `/${locale}/contact` ? 'page' : undefined}
+        aria-current={pathname === `/${locale}/contact-us` ? 'page' : undefined}
       >
         Contact Us
       </Link>

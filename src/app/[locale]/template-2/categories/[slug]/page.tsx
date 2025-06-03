@@ -111,7 +111,7 @@ export default function CategoryPage() {
           ) : (
             <div className="text-center py-12">
               <p className="text-lg text-gray-500">No products found in this category.</p>
-              <p className="text-sm text-gray-400 mt-2">Category Slug: {category.slug}</p>
+              <p className="text-sm text-gray-400 mt-2">Category: {category.name}</p>
             </div>
           )}
         </main>
