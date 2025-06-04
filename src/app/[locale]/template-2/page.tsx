@@ -15,7 +15,7 @@ import CategoryFeaturedProducts from "@/app/ui/template-2/CategoryFeaturedProduc
 import FourPartCarousels from "@/app/ui/template-2/FourPartCarousels";
 import ShopByBrand from "@/app/ui/template-2/ShopByBrand";
 import NewArrivals from "@/app/ui/template-2/NewArrivals";
-import InfoCards from "@/app/ui/template-2/InfoCards";
+
 import Subscribe from "@/app/ui/template-2/Subscribe";
 
 
@@ -80,7 +80,7 @@ const siteProperties = {
         <FourPartCarousels />
         <ShopByBrand />
         <NewArrivals />
-        <InfoCards />
+        
 
       </div>
       <div className="w-full bg-[url('/images/body-bottom-bg.png')] bg-cover bg-center bg-no-repeat">

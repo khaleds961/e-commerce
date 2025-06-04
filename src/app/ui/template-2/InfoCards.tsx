@@ -34,7 +34,7 @@ const cards = [
 
 export default function InfoCards() {
   return (
-    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-8 px-4">
+    <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-8  px-20">
   {cards.map(card => (
     <div
       key={card.id}
