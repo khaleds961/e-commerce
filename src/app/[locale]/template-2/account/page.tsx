@@ -2,16 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Topmenu from '@/app/ui/template-2/Topmenu';
-import Searchbar from '@/app/ui/template-2/Searchbar';
-import MainMenu from '@/app/ui/template-2/Mainmenu';
-const siteProperties = {
-  color: '#BE1C26',
-  fontFamily: 'Poppins',
-  backgroundColor: '#F7F8F7',
-  logo: '/images/logo.png',
-  textColor: '#000000',
-};
+
 export default function AccountPage() {
   const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({
@@ -37,10 +28,7 @@ export default function AccountPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-          <Topmenu siteProperties={siteProperties} />
-          <Searchbar siteProperties={siteProperties} />
-          <MainMenu siteProperties={siteProperties} />
+    
     <div className="min-h-screen bg-gray-50 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full bg-white p-8 rounded-lg shadow-md">
         <h2 className="text-2xl font-bold text-center mb-8">
@@ -193,7 +181,6 @@ export default function AccountPage() {
           </button>
         </div>
       </div>
-    </div>
     </div>
   );
 }

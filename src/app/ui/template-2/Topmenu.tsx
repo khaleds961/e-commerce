@@ -27,7 +27,6 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
     const desktopDropdownRef = useRef<HTMLDivElement>(null);
     const mobileDropdownRef = useRef<HTMLDivElement>(null);
 
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
             if (desktopDropdownRef.current && !desktopDropdownRef.current.contains(event.target as Node)) {
@@ -59,7 +58,7 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
 
     const mainLinks = [
         { label: "Become A Seller", onClick: () => console.log("Become A Seller clicked") },
-        { label: "About us", onClick: () => console.log("About us clicked") },
+        { label: "About us", href: "/template-2/about-us" },
         { label: "Free Delivery", onClick: () => console.log("Free Delivery clicked") },
         { label: "Returns Policy", onClick: () => console.log("Returns Policy clicked") }
     ];
@@ -72,18 +71,27 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
 
     return (
         <div style={{ backgroundColor: backgroundColor, color: textColor }}>
-            {/* Desktop Version */}
+            {/* Desktop */}
             <div className="hidden md:block">
                 <div className="text-white text-sm flex justify-between h-9 w-full max-w-[1800px] mx-auto items-center px-4 lg:px-[130px]">
                     <div className="flex space-x-2">
                         {mainLinks.map((link, index) => (
                             <div key={index} className="flex items-center">
-                                <button 
-                                    className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
-                                    onClick={link.onClick}
-                                >
-                                    <h4>{link.label}</h4>
-                                </button>
+                                {link.href ? (
+                                    <Link
+                                        href={`/${locale}${link.href}`}
+                                        className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
+                                    >
+                                        <h4>{link.label}</h4>
+                                    </Link>
+                                ) : (
+                                    <button
+                                        className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
+                                        onClick={link.onClick}
+                                    >
+                                        <h4>{link.label}</h4>
+                                    </button>
+                                )}
                                 {index < mainLinks.length - 1 && (
                                     <div className="border-l h-4 border-gray-300 mx-2"></div>
                                 )}
@@ -92,38 +100,27 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
                     </div>
 
                     <div className="flex space-x-4 items-center">
-                        <div
-                            className="relative group"
-                            ref={desktopDropdownRef}
-                        >
+                        {/* Help Center Dropdown */}
+                        <div className="relative group" ref={desktopDropdownRef}>
                             <button
                                 className="cursor-pointer hover:underline flex items-center gap-1 whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
                                 type="button"
                                 onClick={() => setShowHelpDropdownDesktop(!showHelpDropdownDesktop)}
-                                aria-expanded={showHelpDropdownDesktop}
-                                aria-haspopup="true"
                             >
                                 <h4>Help Center</h4>
                                 <FaChevronDown
-                                    className={`text-white transition-transform duration-300 ease-in-out ${
-                                        showHelpDropdownDesktop ? 'rotate-180' : ''
-                                    }`}
+                                    className={`text-white transition-transform duration-300 ${showHelpDropdownDesktop ? 'rotate-180' : ''}`}
                                     size={12}
                                 />
                             </button>
-
                             {showHelpDropdownDesktop && (
-                                <div
-                                    className="absolute right-0 mt-1 bg-white border border-gray-200 rounded shadow-md z-10 w-[150px]"
-                                    role="menu"
-                                >
+                                <div className="absolute right-0 mt-1 bg-white border border-gray-200 rounded shadow-md z-10 w-[150px]">
                                     <ul className="text-sm text-gray-500">
                                         {helpOptions.map((item, index) => (
                                             <li key={index}>
                                                 <button
                                                     className="w-full text-left px-4 py-2 hover:bg-gray-100 cursor-pointer flex items-center gap-2"
                                                     onClick={item.onClick}
-                                                    role="menuitem"
                                                 >
                                                     {item.icon}
                                                     <span>{item.label}</span>
@@ -134,33 +131,33 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
                                 </div>
                             )}
                         </div>
-                        
+
                         <div className="border-r h-4 border-gray-300"></div>
-                        
-                        {rightLinks.map((link, index) => (
-    link.href ? (
-        <Link 
-            key={index}
-            href={`/${locale}${link.href}`}
-            className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
-        >
-            <h4>{link.label}</h4>
-        </Link>
-    ) : (
-        <button 
-            key={index} 
-            className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
-            onClick={link.onClick}
-        >
-            <h4>{link.label}</h4>
-        </button>
-    )
-))}
+
+                        {rightLinks.map((link, index) =>
+                            link.href ? (
+                                <Link
+                                    key={index}
+                                    href={`/${locale}${link.href}`}
+                                    className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
+                                >
+                                    <h4>{link.label}</h4>
+                                </Link>
+                            ) : (
+                                <button
+                                    key={index}
+                                    className="cursor-pointer hover:underline whitespace-nowrap px-2 py-1 rounded hover:bg-white/10 transition-colors"
+                                    onClick={link.onClick}
+                                >
+                                    <h4>{link.label}</h4>
+                                </button>
+                            )
+                        )}
                     </div>
                 </div>
             </div>
 
-            {/* Mobile Version */}
+            {/* Mobile */}
             <div className="md:hidden">
                 <div className="flex justify-between items-center h-12 px-4">
                     <button
@@ -178,15 +175,25 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
                 {showMobileMenu && (
                     <div className="bg-gray-800 text-white px-4 py-2" ref={mobileDropdownRef}>
                         <div className="flex flex-col space-y-3">
-                            {mainLinks.map((link, index) => (
-                                <button 
-                                    key={index} 
-                                    className="cursor-pointer hover:underline text-left py-2 px-2 rounded hover:bg-white/10"
-                                    onClick={link.onClick}
-                                >
-                                    <h4>{link.label}</h4>
-                                </button>
-                            ))}
+                            {mainLinks.map((link, index) =>
+                                link.href ? (
+                                    <Link
+                                        key={index}
+                                        href={`/${locale}${link.href}`}
+                                        className="cursor-pointer hover:underline py-2 px-2 rounded hover:bg-white/10"
+                                    >
+                                        <h4>{link.label}</h4>
+                                    </Link>
+                                ) : (
+                                    <button
+                                        key={index}
+                                        className="cursor-pointer hover:underline text-left py-2 px-2 rounded hover:bg-white/10"
+                                        onClick={link.onClick}
+                                    >
+                                        <h4>{link.label}</h4>
+                                    </button>
+                                )
+                            )}
 
                             <div className="pt-2 border-t border-gray-700">
                                 <button
@@ -197,9 +204,7 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
                                 >
                                     <h4>Help Center</h4>
                                     <FaChevronDown
-                                        className={`transition-transform duration-300 ease-in-out ${
-                                            showHelpDropdownMobile ? 'rotate-180' : ''
-                                        }`}
+                                        className={`transition-transform duration-300 ${showHelpDropdownMobile ? 'rotate-180' : ''}`}
                                         size={12}
                                     />
                                 </button>
@@ -220,15 +225,25 @@ export default function Topmenu({ siteProperties }: TopmenuProps) {
                             </div>
 
                             <div className="pt-2 border-t border-gray-700 space-y-2">
-                                {rightLinks.map((link, index) => (
-                                    <button 
-                                        key={index} 
-                                        className="cursor-pointer hover:underline w-full text-left py-2 px-2 rounded hover:bg-white/10"
-                                        onClick={link.onClick}
-                                    >
-                                        <h4>{link.label}</h4>
-                                    </button>
-                                ))}
+                                {rightLinks.map((link, index) =>
+                                    link.href ? (
+                                        <Link
+                                            key={index}
+                                            href={`/${locale}${link.href}`}
+                                            className="cursor-pointer hover:underline w-full py-2 px-2 rounded hover:bg-white/10"
+                                        >
+                                            <h4>{link.label}</h4>
+                                        </Link>
+                                    ) : (
+                                        <button
+                                            key={index}
+                                            className="cursor-pointer hover:underline w-full text-left py-2 px-2 rounded hover:bg-white/10"
+                                            onClick={link.onClick}
+                                        >
+                                            <h4>{link.label}</h4>
+                                        </button>
+                                    )
+                                )}
                             </div>
                         </div>
                     </div>

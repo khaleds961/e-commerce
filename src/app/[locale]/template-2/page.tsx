@@ -1,10 +1,7 @@
 import Products from "@/app/template-2-components/Products";
 import Categories from "@/app/ui/template-2/Categories";
-import Topmenu from "@/app/ui/template-2/Topmenu";
 import { GET_CATEGORIES } from "@/app/lib/api/categories";
 import { GET_PRODUCTS } from "@/app/lib/api/products";
-import MainMenu from "@/app/ui/template-2/Mainmenu";
-import Searchbar from "@/app/ui/template-2/Searchbar";
 import Mainslider from "@/app/ui/template-2/MainSlider";
 import FeaturedCategories from "@/app/ui/template-2/FeaturedCategories";
 import FlashSalesToday from "@/app/ui/template-2/FlashSalesToday";
@@ -29,13 +26,7 @@ export default async function Home() {
   const products = await GET_PRODUCTS();
   const limitedProducts = products.slice(0, 20);
 
-  const siteProperties = {
-    color: '#BE1C26',
-    fontFamily: 'Poppins',
-    backgroundColor: '#F7F8F7',
-    logo: '/images/logo.png',
-    textColor: '#000000',
-  };
+  
   const slides = [
     {
       id: 1,
@@ -59,12 +50,16 @@ export default async function Home() {
       rightImageAlt: "Special Offer",
     },
   ]
-
+const siteProperties = {
+    color: '#BE1C26',
+    fontFamily: 'Poppins',
+    backgroundColor: '#F7F8F7',
+    logo: '/images/logo.png',
+    textColor: '#000000',
+  };
   return (
     <div>
-      <Topmenu siteProperties={siteProperties} />
-      <Searchbar siteProperties={siteProperties} />
-      <MainMenu siteProperties={siteProperties} />
+      
       <div className="mx-2 md:mx-10 px-0 md:px-10 mt-5 md:mt-20">
         <div className="mb-5">
           <Mainslider

@@ -3,9 +3,7 @@
 import { notFound } from 'next/navigation';
 import { Star, Check, Truck, Shield } from 'lucide-react';
 import { productData, Product } from '@/data/product';
-import Topmenu from "@/app/ui/template-2/Topmenu";
-import Searchbar from "@/app/ui/template-2/Searchbar";
-import MainMenu from "@/app/ui/template-2/Mainmenu";
+
 import { useState } from 'react';
 import Link from 'next/link';
 
@@ -15,14 +13,6 @@ interface ProductPageProps {
     locale: string;
   };
 }
-
-const siteProperties = {
-  color: '#BE1C26',
-  fontFamily: 'Poppins',
-  backgroundColor: '#F7F8F7',
-  logo: '/images/logo.png',
-  textColor: '#000000',
-};
 
 export default function ProductPage({ params }: ProductPageProps) {
   const product = productData.find((p) => p.slug === params.slug);
@@ -35,10 +25,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <Topmenu siteProperties={siteProperties} />
-      <Searchbar siteProperties={siteProperties} />
-      <MainMenu siteProperties={siteProperties} />
+    
 
       <div className="mx-2 md:mx-10 px-0 md:px-10 mt-5 md:mt-20">
         {/* Breadcrumbs */}
@@ -383,6 +370,6 @@ export default function ProductPage({ params }: ProductPageProps) {
           </div>
         </div>
       </div>
-    </div>
+    
   );
 }

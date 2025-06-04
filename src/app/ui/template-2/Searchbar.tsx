@@ -58,7 +58,7 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                                     placeholder={`${t("searchbarPlaceholder")}`}
                                     className="bg-[#F3FAF2] text-gray-900 text-sm h-full w-full px-4 pr-10 rounded-r-full outline-none placeholder:text-sm"
                                 />
-                                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#359FC1] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
+                                <button className="absolute right-2 top-1/2 -translate-y-1/2 text-white bg-[#155dfc] hover:bg-[#359FC1] rounded-full w-8 h-8 flex items-center justify-center cursor-pointer">
                                     <FaSearch size={14} />
                                 </button>
                             </div>
@@ -67,10 +67,15 @@ export default function Searchbar({ siteProperties }: SearchbarProps) {
                 </div>
 
                 {/* Right - Cart Icon */}
-                <div className="flex-shrink-0 flex items-center space-x-4 text-[#359FC1]">
-                    <button className="hover:text-gray-300">
+                <div className="flex-shrink-0 flex items-center space-x-4 text-[#155dfc] hover:text-[#359FC1] cursor-pointer">
+                    <Link href="/template-2/wishlist" className="hover:text-gray-300 flex items-center space-x-1">
+                        <FaRegHeart size={22} />
+                        <span>Wishlist</span>
+                    </Link>
+                    <Link href="/template-2/cart" className="hover:text-gray-300 flex items-center space-x-1">
                         <FaShoppingCart size={25} />
-                    </button>
+                        <span>Cart</span>
+                    </Link>
                 </div>
             </div>
 

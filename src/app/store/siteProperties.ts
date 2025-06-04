@@ -11,7 +11,7 @@ interface SiteProperties {
 export const useSiteProperties = create<SiteProperties>((set) => ({
   // Initial values
   fontFamily: 'Poppins',
-  backgroundColor: '#359FC1',
+  backgroundColor: '#155dfc',
   textColor: '#fff',
   logo: '/logo/logo.jpg',
   
